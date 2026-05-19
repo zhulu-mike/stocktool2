@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>可转债列表</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="page-container">
+    <h1>可转债列表</h1>
+    <form id="filter-form" class="filter-form">
+      <label for="data-source">数据来源：</label>
+      <select id="data-source">
+        <option value="all">全部转债</option>
+        <option value="self">我的关注</option>
+      </select>
+      
+      <label for="search-input">关键字搜索：</label>
+      <input id="search-input" name="q" type="search" placeholder="请输入转债名称/代码/正股名称/代码" />
+      <button type="submit">查询</button>
+      <button type="button" id="reset-button">重置</button>
+      <button type="button" id="refresh-button">刷新</button>
+
+      <label for="refresh-interval">自动刷新：</label>
+      <select id="refresh-interval">
+        <option value="0">关闭</option>
+        <option value="5">5秒</option>
+        <option value="10">10秒</option>
+        <option value="20">20秒</option>
+        <option value="30">30秒</option>
+        <option value="60">60秒</option>
+      </select>
+
+      <div class="year-filter-group">
+        <label>剩余年限筛选：</label>
+        <input id="year-left-min" name="year_left_min" type="number" step="0.1" placeholder="最小年限" />
+        <input id="year-left-max" name="year_left_max" type="number" step="0.1" placeholder="最大年限" />
+      </div>
+
+      <div class="price-filter-group">
+        <label>转债价格筛选：</label>
+        <input id="bond-price-min" name="bond_price_min" type="number" step="1" placeholder="最小价格" />
+        <input id="bond-price-max" name="bond_price_max" type="number" step="1" placeholder="最大价格" />
+      </div>
+
+      <div class="status-filter-group">
+        <label for="status-filter-toggle">强赎状态筛选：</label>
+        <div class="multi-select-dropdown" id="status-filter-dropdown">
+          <button type="button" class="dropdown-toggle" id="status-filter-toggle" aria-expanded="false">
+            <span class="dropdown-text">请选择状态</span>
+            <span class="caret">▾</span>
+          </button>
+          <div class="dropdown-menu" id="status-filter-menu" aria-hidden="true">
+            <div class="dropdown-options">
+              <label><input type="checkbox" value="计数中" /> 计数中</label>
+              <label><input type="checkbox" value="未满足" /> 未满足</label>
+              <label><input type="checkbox" value="暂不强赎" /> 暂不强赎</label>
+              <label><input type="checkbox" value="强赎中" /> 强赎中</label>
+              <label><input type="checkbox" value="存续期内不强赎" /> 存续期内不强赎</label>
+              <label><input type="checkbox" value="公告强赎" /> 公告强赎</label>
+            </div>
+            <div class="dropdown-footer-simple">
+              <button type="button" id="status-clear-all">全部清除</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="column-filter-group">
+        <label for="column-filter-toggle">列显示设置：</label>
+        <div class="multi-select-dropdown" id="column-filter-dropdown">
+          <button type="button" class="dropdown-toggle" id="column-filter-toggle" aria-expanded="false">
+            <span class="dropdown-text">选择显示列</span>
+            <span class="caret">▾</span>
+          </button>
+          <div class="dropdown-menu" id="column-filter-menu" aria-hidden="true">
+            <div class="dropdown-options" id="column-filter-options"></div>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <div class="status-row">
+      <span id="record-count">加载中...</span>
+      <span id="refresh-status"></span>
+      <span class="hint">点击表头可排序，数字按大小排序。</span>
+    </div>
+
+    <div class="table-wrapper">
+      <table id="bond-table">
+        <thead></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <div class="footer">
+      <p>数据来源：<code>kzz/all.json</code></p>
+      <p>若页面无法加载，请从项目根目录启动静态服务器并访问该 HTML。</p>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

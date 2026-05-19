@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>EastMoney Proxy</title>
+</head>
+<body>
+<script>
+(function() {
+  const params = new URLSearchParams(window.location.search);
+  const url = params.get('url');
+  if (!url) {
+    parent.postMessage({ error: 'No URL provided' }, '*');
+    return;
+  }
+
+  fetch(url, {
+    credentials: 'include'
+  })
+    .then(res => {
+      parent.postMessage({ success: true, status: res.status, headers: Array.from(res.headers.entries()) }, '*');
+      return res.json();
+    })
+    .then(data => {
+      parent.postMessage({ success: true, data: data }, '*');
+    })
+    .catch(err => {
+      parent.postMessage({ success: false, error: err.message }, '*');
+    });
+})();
+</script>
+</body>
+</html>

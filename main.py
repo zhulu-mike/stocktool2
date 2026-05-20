@@ -38,14 +38,9 @@ all_a_stocks = []
 stock_info_url = "https://xinsanban.eastmoney.com/F10/CompanyInfo/Introduction/$CODE$.html"
 #获取股票的财务数据
 stock_finance_url = "https://datacenter.eastmoney.com/securities/api/data/get?type=RPT_F10_FINANCE_MAINFINADATA&sty=APP_F10_MAINFINADATA&quoteColumns=&filter=(SECUCODE%3D%22$STOCK_CODE$%22)&p=1&ps=200&sr=-1&st=REPORT_DATE&source=HSF10&client=PC&v=022747256953180262"
-#获取股票的公告
-stock_announce_url = "https://np-anotice-stock.eastmoney.com/api/security/ann?cb=&sr=-1&page_size=100&page_index=$PAGE_INDEX$&ann_type=A&client_source=web&stock_list=000951&f_node=0&s_node=0"
-#获取股票某个公告的具体内容
-stock_announce_detail_url = "https://pdf.dfcfw.com/pdf/H2_$ART_CODE$_1.pdf"
 #获取某个基金的历史净值
 fund_net_value_url = "https://api.fund.eastmoney.com/f10/lsjz?callback=&fundCode=$FUND$&pageIndex=$PAGE$&pageSize=20&startDate=$START$&endDate=&_=1760357946011"
-#存储股票公告信息
-all_stocks_announce = {}
+
 
 if sys.argv[1:] and sys.argv[1:][0].find("--")<0:
     arg_flag = int(sys.argv[1:][0]) if len(sys.argv) > 1 else -1
@@ -63,16 +58,17 @@ def init(context):
     #fund_p = fund_data_processor.FundDataProcessor(fund_net_value_url)
     #fund_p.process()
     loadAllA()
-    #load_all_announcements()
+    context.stock_announce_processor = stock_announce_processor.StockAnnounceProcessor(root_dir, announce_dir)
+    context.stock_announce_processor.load_all_announcements()
     update_ann=0
     if update_ann == 1:
-        UpdateAllStockAnnounce(True)
+        context.stock_announce_processor.UpdateAllStockAnnounce(all_a_stocks, True)
         return
     #searchHaveChangeMainFolder()
     #searchChongZheng("2024-01-01", "2024-12-31")
     #return
     context.stock_price_processor = stock_price_processor.StockPirceProcessor()
-    flag = 9 if arg_flag == -1 else arg_flag
+    flag = 0 if arg_flag == -1 else arg_flag
     print("flag=", flag)
     need_cz = True
     need_daily = False
@@ -84,26 +80,26 @@ def init(context):
         timer(timer_func=ontimer_3, period=5000, start_delay=10000)
     elif flag==1:
         for i in range(count):
-            searcReallyTuiShiProxy(start_year+i, need_cz=need_cz, 
+            searcReallyTuiShiProxy(context, start_year+i, need_cz=need_cz, 
                                    need_daily=need_daily,
                                    need_tuishi=need_tuishi,
                                    price_end=str(start_year+i+next_year)+"-04-30",
                                    price_start=str(start_year+i+next_year)+"-01-01")
     elif flag==2:
         for i in range(count):
-            searcReallyTuiShiProxy(start_year+i, need_cz=need_cz, 
+            searcReallyTuiShiProxy(context, start_year+i, need_cz=need_cz, 
                                    need_daily=need_daily,
                                    need_tuishi=need_tuishi,
                                    price_end=str(start_year+i+next_year)+"-12-31",
                                    price_start=None)
     elif flag==3:
-        searcTuiShiProxy(2024)
+        searcTuiShiProxy(context,2024)
     elif flag==4:
         for i in range(count):
-            searcCZProxy(start_year+i, need_daily=need_daily)
+            searcCZProxy(context, start_year+i, need_daily=need_daily)
     elif flag==5:
         for i in range(count):
-            searcOther2Proxy(start_year+i)
+            searcOther2Proxy(context, start_year+i)
     elif flag==6:
         searchWPG()
     elif flag==7:
@@ -276,8 +272,7 @@ def init(context):
         end_date = "2026-03-23"
         plot_etf_cumulative_profit(start_date, end_date)
     elif flag==23:
-        processor = stock_price_processor.StockPirceProcessor()
-        processor.update_kzz_with_market_data()
+        fetch_all_convert_bonds()
     elif flag==100:
         output = fetch_all_convert_bonds()
         print(output)
@@ -859,14 +854,14 @@ def calculate_price_profit(start_date, end_date):
         end_date_list[code] = end_date
     avg_profit = processor.calculate_price_profit(stock_list, start_date_list, end_date_list, stock_names=stock_names)
 
-def searchAnnounce():
+def searchAnnounce(context):
     processor = stock_announce_processor.StockAnnounceProcessor(all_stocks_announce)
     processor.process()
     processor.print_intervals_over(700)
     processor.find_max_interval_and_print()
 
-def searchChongZheng(start_date, end_date, need_daily=False):
-    processor = stock_announce_processor.StockAnnounceProcessor(all_stocks_announce)
+def searchChongZheng(context,start_date, end_date, need_daily=False):
+    processor = context.stock_announce_processor
     processor.searchChongZheng(start_date, end_date)
     processor2 = stock_price_processor.StockPirceProcessor()
     end_dates = {}
@@ -877,27 +872,27 @@ def searchChongZheng(start_date, end_date, need_daily=False):
         end_dates[code] = end_date
         start_dates[code] = start_date.split("-")[0]+"-05-01"
     processor2.calculate_price_profit(set(processor.chongzheng), start_dates, end_dates, need_daily=need_daily)
-def searcOther2Proxy(year):
+def searcOther2Proxy(context, year):
     year2 =  year + 2
     year1 = year + 1
     year = str(year)
     year2 = str(year2)
     year1 = str(year1)
-    searcOtherByTitle(year+"-01-01", year+"-12-31",
+    searcOtherByTitle(context, year+"-01-01", year+"-12-31",
                     year+"-01-01", year1+"-12-31")
-def searcCZProxy(year, need_daily=False):
+def searcCZProxy(context, year, need_daily=False):
     year = str(year)
-    searchChongZheng(year+"-01-01", year+"-12-31", need_daily=need_daily)
-def searcTuiShiProxy(year):
+    searchChongZheng(context, year+"-01-01", year+"-12-31", need_daily=need_daily)
+def searcTuiShiProxy(context, year):
     year2 =  year + 2
     year3 = year + 1
     year = str(year)
     year2 = str(year2)
     year3 = str(year3)
-    searchTuiShi(year+"-01-01", year+"-12-20",
+    searchTuiShi(context, year+"-01-01", year+"-12-20",
                     year+"-12-31", year+"-11-19")
-def searchTuiShi(start, end,  price_end, price_start=None):
-    processor = stock_announce_processor.StockAnnounceProcessor(all_stocks_announce)
+def searchTuiShi(context, start, end,  price_end, price_start=None):
+    processor = context.stock_announce_processor
     processor2 = stock_price_processor.StockPirceProcessor()
     processor.searchTuiShi(start, end)
     s1 = set(processor.tuishi)
@@ -910,31 +905,31 @@ def searchTuiShi(start, end,  price_end, price_start=None):
     
     processor2.calculate_price_profit(s1, processor.tuishi_date, end_date)
 
-def searchHaveTuiShi():
-    processor = stock_announce_processor.StockAnnounceProcessor(all_stocks_announce)
+def searchHaveTuiShi(context):
+    processor = context.stock_announce_processor
     processor.searchHaveTuiShi()
-def searchHaveChangeMainFolder():
-    processor = stock_announce_processor.StockAnnounceProcessor(all_stocks_announce)
+def searchHaveChangeMainFolder(context):
+    processor = context.stock_announce_processor
     processor.searchHaveChangeMainFolder()
 
-def searcReallyTuiShiProxy(year, need_cz=False, need_daily=False,
+def searcReallyTuiShiProxy(context, year, need_cz=False, need_daily=False,
                            need_tuishi=False, price_end=None, 
                             price_start=None, ):
     year2 =  year + 2
     year3 = year + 1
     year = str(year)
     year2 = str(year2)
-    searcReallyTuiShi(year+"-01-01", year+"-12-20",
+    searcReallyTuiShi(context, year+"-01-01", year+"-12-20",
                     year+"-01-01", year2+"-01-01",
                     price_end, need_cz=need_cz, 
                     price_start=price_start, need_daily=need_daily,
                     need_tuishi=need_tuishi)
 
-def searcReallyTuiShi(start, end, start_have, end_have, price_end, 
+def searcReallyTuiShi(context, start, end, start_have, end_have, price_end, 
                       price_start=None, need_cz=False, need_daily=False,
                       need_tuishi=False):
     processor2 = stock_price_processor.StockPirceProcessor()
-    processor = stock_announce_processor.StockAnnounceProcessor(all_stocks_announce)
+    processor = context.stock_announce_processor
     if not need_tuishi:
         processor.searchHaveTuiShi(start_have, end_have)
     processor.searchTuiShi(start, end)
@@ -960,8 +955,8 @@ def searcReallyTuiShi(start, end, start_have, end_have, price_end,
     processor2.calculate_price_profit(s5, processor.tuishi_date, end_date, need_daily=need_daily)
     
 
-def searcOther(start, end, start_have, end_have, price_end):
-    processor = stock_announce_processor.StockAnnounceProcessor(all_stocks_announce)
+def searcOther(context, start, end, start_have, end_have, price_end):
+    processor = context.stock_announce_processor
     processor.searchHaveTuiShi(start_have, end_have)
     processor.searchOther(start, end)
     s1 = set(processor.other)
@@ -973,8 +968,8 @@ def searcOther(start, end, start_have, end_have, price_end):
         end_date[code] = price_end
     processor2 = stock_price_processor.StockPirceProcessor()
     processor2.calculate_price_profit(s5, processor.other_date, end_date)
-def searcOtherByTitle(start, end, start_have, end_have):
-    processor = stock_announce_processor.StockAnnounceProcessor(all_stocks_announce)
+def searcOtherByTitle(context, start, end, start_have, end_have):
+    processor = context.stock_announce_processor
     processor.searchHaveTuiShi(start_have, end_have)
     processor.searchOtherByTitle(start, end)
     s1 = set(processor.other2)
@@ -993,29 +988,8 @@ def loadAllA():
             all_a_stocks.append(datas[i])
         print("local_a_stock_num=", stock_num)
 
-def load_all_announcements():
-    """
-    加载本地所有股票公告数据。
-    """
-    directory = root_dir + announce_dir
-    dir_path = os.path.abspath(directory)
-    for filename in os.listdir(dir_path):
-        if filename.endswith(".json"):
-            file_path = os.path.join(dir_path, filename)
-            with open(file_path, "r", encoding="utf-8") as f:
-                try:
-                    data = json.load(f)
-                    all_stocks_announce[filename[:-5]] = data  # 去掉 .json 后缀作为股票代码
-                except Exception as e:
-                    print(f"读取 {filename} 时出错: {e}")
-    
-# 更新所有股票的公告
-def UpdateAllStockAnnounce(f=False):
-    for i in range(len(all_a_stocks)):
-        code = all_a_stocks[i]
-        print("process ", i, " code=", code)
-        getStockAnnounceInfo(code,f)
-        
+
+
 
 def load_local_all():
     f = root_dir + all_file
@@ -1068,53 +1042,6 @@ def UpdateBaseInfo():
 def getStockFinance(code):
  
  pass
-
-def getStockAnnounceInfo(code, f=False):
-    stock_announce = all_stocks_announce.get(code, [])
-    stock_announce_len = len(stock_announce)
-    if stock_announce_len == 0:
-        all_stocks_announce[code] = stock_announce
-    elif not f:
-        return
-    print(" code=", code)
-    url2 = stock_announce_url.replace("000951", code)
-    need_update = False
-    is_end = False
-    i = 1
-    temp_arr = []
-    while True:
-        url3 = url2.replace("$PAGE_INDEX$", str(i))
-        ret = get_message(code, url3)
-        ret = json.loads(ret)
-        if ret["data"] != None and ret["success"] == 1:
-            anns = ret["data"]["list"]
-            anns_len = len(anns)
-            if anns_len == 0:
-                break
-            for j in range(anns_len):
-                detail = anns[j]
-                if stock_announce_len==0 or detail["art_code"] != stock_announce[0]["art_code"]:
-                    notice_date = detail["notice_date"]
-                    title = detail["title"]
-                    art_code = detail["art_code"]
-                    info = stock_announce_info.StockAnnounceInfo(notice_date, title, art_code)
-                    temp_arr.append(info.__dict__)
-                    need_update = True
-                else:
-                    is_end = True
-                    break
-            if is_end:
-                break
-        else:
-            break
-        i = i + 1
-    if need_update:
-        print("  update announce num=", len(temp_arr))
-        stock_announce = temp_arr + stock_announce
-        all_stocks_announce[code] = stock_announce
-        f = root_dir + announce_dir + code + ".json"
-        with open(f, 'w', encoding='utf-8') as file:
-            json.dump(stock_announce, file, indent=4, ensure_ascii=False)
 
 def getStockInfo(code):
     url2 = stock_info_url.replace("$CODE$", code)

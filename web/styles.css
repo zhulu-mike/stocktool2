@@ -256,6 +256,15 @@ tbody tr:nth-child(even) {
   background: #fbfbfb;
 }
 
+tbody tr:hover {
+  background: #eef3ff;
+}
+
+tbody tr.selected {
+  background: #dbeafe !important;
+  box-shadow: inset 0 0 0 2px #3b82f6;
+}
+
 td {
   padding: 10px 10px;
   border-bottom: 1px solid #ebedee;

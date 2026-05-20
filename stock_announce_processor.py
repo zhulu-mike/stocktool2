@@ -1,7 +1,20 @@
 # coding=utf-8
 from datetime import datetime, timedelta
+import json
+import os
+
+import requests
+
+import stock_announce_info
 
 class StockAnnounceProcessor:
+    #获取股票的公告
+    stock_announce_url = "https://np-anotice-stock.eastmoney.com/api/security/ann?cb=&sr=-1&page_size=100&page_index=$PAGE_INDEX$&ann_type=A&client_source=web&stock_list=000951&f_node=0&s_node=0"
+    #获取股票某个公告的具体内容
+    stock_announce_detail_url = "https://pdf.dfcfw.com/pdf/H2_$ART_CODE$_1.pdf"
+    #存储股票公告信息
+    all_stocks_announce = {}
+
     def print_intervals_over(self, days_threshold):
         """
         打印结果中间隔时间超过 days_threshold 的数据。
@@ -36,15 +49,15 @@ class StockAnnounceProcessor:
     """
     公告处理类：遍历所有股票公告，筛选并计算日期间隔。
     用法：
-        processor = StockAnnounceProcessor(all_stocks_announce)
+        processor = StockAnnounceProcessor(root_dir, announce_dir)
         processor.process()
         result = processor.result
     """
-    def __init__(self, all_announcements):
+    def __init__(self, root_dir, announce_dir):
         """
         all_announcements: dict, {stock_code: [公告列表]}
         """
-        self.all_announcements = all_announcements
+        self.all_announcements = {}
         self.result = {}  # {stock_code: {li_an_date, xing_zheng_date, days_interval}}
         self.tuishi = []
         self.tuishi_date = {}
@@ -57,6 +70,8 @@ class StockAnnounceProcessor:
         self.chongzheng = []
         self.pre_chongzheng = []
         self.have_change_main_folder = []
+        self.root_dir = root_dir
+        self.announce_dir = announce_dir
 
     def searchOther(self, start, end):
         """
@@ -271,4 +286,80 @@ class StockAnnounceProcessor:
                     break
         print("total=", c)
 
+    def load_all_announcements(self):
+        """
+        加载本地所有股票公告数据。
+        """
+        directory = self.root_dir + self.announce_dir
+        dir_path = os.path.abspath(directory)
+        for filename in os.listdir(dir_path):
+            if filename.endswith(".json"):
+                file_path = os.path.join(dir_path, filename)
+                with open(file_path, "r", encoding="utf-8") as f:
+                    try:
+                        data = json.load(f)
+                        self.all_stocks_announce[filename[:-5]] = data  # 去掉 .json 后缀作为股票代码
+                    except Exception as e:
+                        print(f"读取 {filename} 时出错: {e}")
+        
+    # 更新所有股票的公告
+    def UpdateAllStockAnnounce(self, all_a_stocks, f=False, start=0):
+        for i in range(start, len(all_a_stocks)):
+            code = all_a_stocks[i]
+            print("process ", i, " code=", code)
+            self.getStockAnnounceInfo(code,f)
+            
+    def getStockAnnounceInfo(self, code, f=False):
+        stock_announce = self.all_stocks_announce.get(code, [])
+        stock_announce_len = len(stock_announce)
+        if stock_announce_len == 0:
+            self.all_stocks_announce[code] = stock_announce
+        elif not f:
+            return
+        print(" code=", code)
+        url2 = self.stock_announce_url.replace("000951", code)
+        need_update = False
+        is_end = False
+        i = 1
+        temp_arr = []
+        while True:
+            url3 = url2.replace("$PAGE_INDEX$", str(i))
+            ret = self.get_message(code, url3)
+            ret = json.loads(ret)
+            if ret["data"] != None and ret["success"] == 1:
+                anns = ret["data"]["list"]
+                anns_len = len(anns)
+                if anns_len == 0:
+                    break
+                for j in range(anns_len):
+                    detail = anns[j]
+                    if stock_announce_len==0 or detail["art_code"] != stock_announce[0]["art_code"]:
+                        notice_date = detail["notice_date"]
+                        title = detail["title"]
+                        art_code = detail["art_code"]
+                        info = stock_announce_info.StockAnnounceInfo(notice_date, title, art_code)
+                        temp_arr.append(info.__dict__)
+                        need_update = True
+                    else:
+                        is_end = True
+                        break
+                if is_end:
+                    break
+            else:
+                break
+            i = i + 1
+        if need_update:
+            print("  update announce num=", len(temp_arr))
+            stock_announce = temp_arr + stock_announce
+            self.all_stocks_announce[code] = stock_announce
+            f = self.root_dir + self.announce_dir + code + ".json"
+            with open(f, 'w', encoding='utf-8') as file:
+                json.dump(stock_announce, file, indent=4, ensure_ascii=False)
 
+    def get_message(self, code, webhook_url, headers=None):
+        response = requests.get(webhook_url, headers=headers)
+        if response.status_code == 200:
+            return response.text
+        else:
+            print("消息发送失败", code)
+            return ""

@@ -43,6 +43,7 @@ let currentSort = { key: 'seq', order: 'asc' };
 let refreshInterval = null;
 let visibleColumns = [...COLUMN_FILTER_KEYS];
 let currentDataSource = 'all';
+let selectedRowIndex = null; // 选中行的索引
 
 function calculateForceRedeemSpace(row) {
   const forceRedeemPrice = row.force_redeem_price != null ? Number(row.force_redeem_price) : null;
@@ -190,7 +191,7 @@ function renderTable() {
   tbody.innerHTML = filteredData.map((row, index) => {
     row.seq = index + 1;
     return `
-      <tr>
+      <tr data-index="${index}" class="${selectedRowIndex === index ? 'selected' : ''}" onclick="handleRowClick(${index})">
         ${visibleColumns.map(key => {
           const value = formatDisplayValue(key, row[key], row);
           let className = '';
@@ -210,6 +211,15 @@ function renderTable() {
   }).join('');
 
   document.getElementById('record-count').textContent = `共 ${filteredData.length} 条记录`;
+}
+
+function handleRowClick(index) {
+  if (selectedRowIndex === index) {
+    selectedRowIndex = null;
+  } else {
+    selectedRowIndex = index;
+  }
+  renderTable();
 }
 
 function applyFilters() {

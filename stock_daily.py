@@ -291,7 +291,7 @@ dengquan_status = "赢" if actual_profit >= dengquan_profit else "输"
 final_report = f"""{target_date}操作：
 操作不说了，避险
 ==================================================================
-转债轮动策略均价{strategy_avg_price}，平均溢价率{strategy_avg_premium}46{stock_avg_increase}%，转债平均涨幅{bond_avg_increase}%，实际收益{actual_profit}%。跑{dengquan_status}等权指数。本月收益{monthly_profit}%
+转债轮动策略均价{strategy_avg_price}，平均溢价率{strategy_avg_premium}，仓位46，正股平均涨幅{stock_avg_increase}%，转债平均涨幅{bond_avg_increase}%，实际收益{actual_profit}%。跑{dengquan_status}等权指数。本月收益{monthly_profit}%
 转债等权：价格中位数 {cb_price_median} 转股价值中位数 {cb_value_median} 转股溢价率中位数 {cb_premium_median}。本月收益{monthly_index}%
 ==================================================================
 各种杂毛超市仓位80。

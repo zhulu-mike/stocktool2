@@ -290,6 +290,11 @@ tbody td.down, thead th span.down {
   font-size: 13px;
 }
 
+.red-name {
+  color: #e83123 !important;
+  font-weight: bold;
+}
+
 @media (max-width: 860px) {
   .filter-form {
     flex-direction: column;

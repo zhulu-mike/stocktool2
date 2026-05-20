@@ -68,7 +68,7 @@ def init(context):
     #searchChongZheng("2024-01-01", "2024-12-31")
     #return
     context.stock_price_processor = stock_price_processor.StockPirceProcessor()
-    flag = 0 if arg_flag == -1 else arg_flag
+    flag = 9 if arg_flag == -1 else arg_flag
     print("flag=", flag)
     need_cz = True
     need_daily = False

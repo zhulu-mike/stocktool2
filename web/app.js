@@ -203,6 +203,13 @@ function renderTable() {
             className = stockChange > 0 ? 'up' : (stockChange < 0 ? 'down' : '');
           } else if (key === 'premium_rate' || key === 'force_redeem_space') {
             className = parseFloat(value) > 0 ? 'up' : (parseFloat(value) < 0 ? 'down' : '');
+          } else if (key === 'bond_name') {
+            const premiumRate = parseFloat(row['premium_rate']) || 0;
+            const forceRedeemSpaceStr = calculateForceRedeemSpace(row);
+            const forceRedeemSpace = forceRedeemSpaceStr ? parseFloat(forceRedeemSpaceStr.replace('%', '')) : 0;
+            if (premiumRate - forceRedeemSpace < 7) {
+              className = 'red-name';
+            }
           }
           return `<td class="${className}">${value}</td>`;
         }).join('')}

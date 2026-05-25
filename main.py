@@ -23,6 +23,7 @@ import numpy as np
 import sys
 import getopt
 from kzz_processor import fetch_all_convert_bonds
+from fetch_stock_base_info import FetchStockBaseInfo
 
 
 #获取新三板股票列表
@@ -34,6 +35,7 @@ announce_dir = "announce/"
 all_a_file = "all_a.json"
 all_stocks = {}
 all_a_stocks = []
+a_stock_base = {}
 #获取股票的基本信息
 stock_info_url = "https://xinsanban.eastmoney.com/F10/CompanyInfo/Introduction/$CODE$.html"
 #获取股票的财务数据
@@ -58,8 +60,10 @@ def init(context):
     #fund_p = fund_data_processor.FundDataProcessor(fund_net_value_url)
     #fund_p.process()
     loadAllA()
+    global a_stock_base
+    a_stock_base = load_stock_A_base()
     context.stock_announce_processor = stock_announce_processor.StockAnnounceProcessor(root_dir, announce_dir)
-    context.stock_announce_processor.load_all_announcements()
+    #context.stock_announce_processor.load_all_announcements()
     update_ann=0
     if update_ann == 1:
         context.stock_announce_processor.UpdateAllStockAnnounce(all_a_stocks, True)
@@ -68,7 +72,7 @@ def init(context):
     #searchChongZheng("2024-01-01", "2024-12-31")
     #return
     context.stock_price_processor = stock_price_processor.StockPirceProcessor()
-    flag = 9 if arg_flag == -1 else arg_flag
+    flag = 0 if arg_flag == -1 else arg_flag
     print("flag=", flag)
     need_cz = True
     need_daily = False
@@ -152,10 +156,10 @@ def init(context):
             ],
             [
                 ["2026-03-11", "2026-03-23", "牛中调整"],
-                ["2026-03-23", "2026-04-22", "反弹"],
+                ["2026-03-23", "2026-05-21", "反弹"],
             ],
         ]
-        group_range = [-50, -40, -30, -20, 0, 20, 50, 100, 200, 100000]
+        group_range = [-50, -40, -30, -25, -20, 0, 20, 50, 100, 200, 100000]
         calculate_market_profit(time_orders, group_range, flag)
     elif flag==11:
         time_orders = [
@@ -279,11 +283,17 @@ def init(context):
     elif flag==2025:
         time_orders = [
             [
+                ["2024-09-23", "2026-05-22", "牛市全段"]
+            ],
+            [
+                ["2026-01-01", "2026-05-22", "牛市全段"]
+            ],
+            [
                 ["2024-09-23", "2025-11-11", "牛市前半段"],
                 ["2025-11-11", "2025-12-16", "牛市中期调整"],
                 ["2025-12-16", "2026-03-02", "调整后反弹"],
                 ["2026-03-02", "2026-03-23", "新高后调整"],
-                ["2026-03-23", "2026-04-22", "反弹"],
+                ["2026-03-23", "2026-05-21", "反弹"],
                 ["2025-11-11", "2026-05-19", "牛市后期"],
             ],
             [
@@ -316,6 +326,33 @@ def init(context):
     elif flag==2021:
         time_orders = [
             [
+                ["2019-01-03", "2021-02-18", "牛市前半段"],
+                ["2021-02-18", "2021-12-10", "牛市后半段"],
+            ],
+            [
+                ["2021-02-18", "2021-12-10", "牛市后半段"],
+            ],
+            [
+                ["2019-01-03", "2021-12-10", "牛市全段"],
+            ],
+            [
+                ["2019-01-03", "2021-02-18", "牛市前半段"],
+                ["2021-02-19", "2021-02-22", "大杀"],
+                ["2021-03-05", "2021-03-08", "大杀"],
+                ["2021-02-18", "2021-03-09", "牛市顶部下杀"],
+                ["2021-03-09", "2021-12-10", "牛市后半段横盘"],
+                ["2021-12-10", "2022-03-15", "牛转熊杀跌"],
+                ["2022-03-15", "2022-04-26", "牛转熊再杀跌"],
+                ["2021-02-18", "2022-04-26", "分化结束到杀跌结束"],
+                ["2022-04-26", "2022-07-04", "反弹"],
+                ["2022-07-04", "2022-10-31", "反弹后的下杀"],
+                ["2022-10-31", "2022-12-30", "再次反弹"],
+                ["2022-12-30", "2023-12-29", "熊市横盘"],
+                ["2023-12-29", "2024-02-05", "熊市后期加速杀跌"],
+                ["2024-02-05", "2024-03-19", "熊市反弹"],
+                ["2021-12-10", "2024-02-02", "牛市结束后全"],
+            ],
+            [
                 ["2019-01-03", "2021-12-10", "牛市前半段"],
                 ["2021-12-10", "2022-03-15", "牛转熊杀跌"],
                 ["2022-03-15", "2022-04-26", "牛转熊再杀跌"],
@@ -326,7 +363,7 @@ def init(context):
                 ["2023-12-29", "2024-02-05", "熊市后期加速杀跌"],
                 ["2024-02-05", "2024-03-19", "熊市反弹"],
                 ["2021-12-10", "2024-02-02", "牛市结束后全"],
-                ["2024-02-02", "2026-04-22", "下轮牛市"],
+                ["2024-02-02", "2026-05-22", "下轮牛市"],
             ]
         ]
         calculate_market_profit(time_orders, flag=flag)
@@ -377,11 +414,128 @@ def init(context):
         ]
         group_range = [-50, -20, 0, 20, 50, 100, 200, 300, 500, 100000]
         calculate_market_profit(time_orders, group_range, flag=flag)
+    elif flag==200:
+        processor = context.stock_price_processor
+        stock_list = []
+        #直接从2020xiadie.txt里读取股票列表，每行一个股票代码
+        with open('2020xiadie.txt', 'r') as file:
+            for line in file:
+                stock_list.append(line.strip())
+        # 打印股票列表
+        print(f"读取到{len(stock_list)}只股票")
+        processor.get_stocks_by_listed_year(stock_list)
+        #现在继续读取all_base.json，统计这些股票所属的一级行业和二级行业。
+        with open('stocks/all_base.json', 'r', encoding='utf-8') as file:
+            base = json.load(file)
+        #先重组base，建立stock_code为key，{industry_level1: industry_level2: industryvalue}的字典
+        base_dict = {item['stock_code']: {'industry_level1': item['industry_level1'], 'industry_level2': item['industry_level2'],'listed_date':item['listed_date']} for item in base}
+        stock_list2 = []
+        for stock_code in stock_list:
+            if stock_code in base_dict and base_dict[stock_code]['listed_date'][:4] < '2019':
+                stock_list2.append(stock_code)
+                
+               # 统计一级行业和二级行业
+        level1_count = {}
+        level2_count = {}
+        
+        for stock_code in stock_list2:
+            # 确保股票代码是6位字符串
+            stock_code = str(stock_code).zfill(6)
+            
+            if stock_code in base_dict:
+                industry_info = base_dict[stock_code]
+                level1 = industry_info['industry_level1']
+                level2 = industry_info['industry_level2']
+                
+                # 统计一级行业
+                if level1:
+                    level1_count[level1] = level1_count.get(level1, 0) + 1
+                
+                # 统计二级行业
+                if level2:
+                    level2_count[level2] = level2_count.get(level2, 0) + 1
+        
+        # 按股票个数从大到小排序
+        sorted_level1 = sorted(level1_count.items(), key=lambda x: x[1], reverse=True)
+        sorted_level2 = sorted(level2_count.items(), key=lambda x: x[1], reverse=True)
+        
+        # 输出结果
+        print("\n=== 一级行业分布 ===")
+        for industry, count in sorted_level1:
+            print(f"{industry}: {count}只")
+        
+        print("\n=== 二级行业分布 ===")
+        for industry, count in sorted_level2:
+            print(f"{industry}: {count}只")
+    elif flag==201:
+        processor = context.stock_price_processor
+        stock_list = []
+        #直接从2020xiadie.txt里读取股票列表，每行一个股票代码
+        with open('2020xiadie.txt', 'r') as file:
+            for line in file:
+                stock_list.append(line.strip())
+        processor.get_stocks_by_listed_year(stock_list)
+        #现在继续读取all_base.json，统计这些股票所属的一级行业和二级行业。
+        with open('stocks/all_base.json', 'r', encoding='utf-8') as file:
+            base = json.load(file)
+        #先重组base，建立stock_code为key，{industry_level1: industry_level2: industryvalue}的字典
+        base_dict = {item['stock_code']: {'industry_level1': item['industry_level1'], 'industry_level2': item['industry_level2'],'listed_date':item['listed_date']} for item in base}
+        stock_list2 = []
+        for stock_code in stock_list:
+            if stock_code in base_dict and base_dict[stock_code]['listed_date'][:4] < '2019':
+                stock_list2.append(stock_code)
+        time_orders = [
+            [
+                ["2021-12-11", "2022-04-26", "牛市全段"]
+            ],
+            [
+                ["2021-12-11", "2022-12-31", "牛市全段"]
+            ],
+            [
+                ["2021-12-11", "2023-12-31", "牛市全段"]
+            ],
+        ]
+        group_range = [-50, -20, 0, 20, 50, 100, 200, 300, 500, 100000]
+        calculate_market_profit(time_orders, group_range, flag=flag, stock_list=stock_list2)
+    elif flag==202:
+        processor = FetchStockBaseInfo()
+        processor.process_all_stocks(force_update=False)
+
+
+
+
+
 
 
 def ontimer_3(context):
-    #超过15点10分后后不再更新
-    if datetime.datetime.now().hour >= 15 and datetime.datetime.now().minute >= 10:
+    now = datetime.datetime.now().time()
+    #超过15点10分后执行每日数据填充逻辑
+    
+    if now >= datetime.time(15, 10):
+        daily_lock_file = 'daily_lock.txt'
+        today_str = datetime.date.today().strftime('%Y%m%d')
+        need_execute = False
+        
+        # 读取 daily_lock.txt
+        if os.path.exists(daily_lock_file):
+            with open(daily_lock_file, 'r', encoding='utf-8') as f:
+                lock_content = f.read().strip()
+                # 如果文件为空或日期小于今天，则需要执行
+                if not lock_content or lock_content < today_str:
+                    need_execute = True
+        else:
+            # 文件不存在，需要执行
+            need_execute = True
+        
+        if need_execute:
+            print(f"[{now}] 超过15:10，执行 etfFill()...")
+            etfFill()
+            # 写入今日日期
+            with open(daily_lock_file, 'w', encoding='utf-8') as f:
+                f.write(today_str)
+            print(f"[{now}] 已写入日期 {today_str} 到 {daily_lock_file}")
+        else:
+            print(f"[{now}] 今日数据已处理过，跳过")
         return
     processor = context.stock_price_processor
     processor.update_kzz_with_market_data()
@@ -534,6 +688,80 @@ def etfFill():
         ]
         sheet.append(row_data)
     
+    # ========== 新增：读取 daily_data.json 并写入收益日记 sheet ==========
+    daily_data_file = 'daily_data.json'
+    if os.path.exists(daily_data_file):
+        with open(daily_data_file, 'r', encoding='utf-8') as f:
+            daily_data = json.load(f)
+        
+        # 获取当前日期（格式：YYYYMMDD）
+        today_date = datetime.date.today().strftime('%Y%m%d')
+        
+        # 切换到收益日记 sheet
+        if '收益日记' in wb.sheetnames:
+            sheet = wb['收益日记']
+            
+            # 先找到"日期"列的列号
+            date_col_num = None
+            for col in sheet.iter_cols(min_row=1, max_row=1):
+                header_value = col[0].value
+                if header_value == '日期':
+                    date_col_num = col[0].column
+                    break
+            
+            if date_col_num is None:
+                print("未找到 '日期' 列")
+            else:
+                # 从日期列查找当前日期对应的行
+                row_num = None
+                for row in sheet.iter_rows(min_row=1, max_col=date_col_num):
+                    cell_value = row[date_col_num - 1].value  # iter_rows 返回的是从0开始的tuple
+                    if cell_value:
+                        # 处理日期格式
+                        if isinstance(cell_value, datetime.datetime):
+                            cell_date = cell_value.strftime('%Y%m%d')
+                        elif isinstance(cell_value, datetime.date):
+                            cell_date = cell_value.strftime('%Y%m%d')
+                        else:
+                            cell_date = str(cell_value)
+                        if cell_date == today_date:
+                            row_num = row[0].row
+                            break
+            
+            if row_num is not None:
+                # 定义列名到数据的映射
+                column_mapping = {
+                    '波动率': format_value(round(daily_data.get('ETF波动率', 0), 2)),
+                    '可转债轮动组合': format_value(f"{daily_data.get('可转债平均涨幅', 0):.02%}"),
+                    '对应正股涨幅': format_value(f"{daily_data.get('正股平均涨幅', 0):.02%}"),
+                    'ST星等权': format_value(f"{daily_data.get('STstar', 0):.02%}"),
+                    'ST等权': format_value(f"{daily_data.get('ST', 0):.02%}"),
+                    'ST重整': format_value(f"{daily_data.get('chongzheng', 0):.02%}"),
+                    '上涨板块': daily_data.get('etf', '')
+                }
+                
+                # 找到各列的列号
+                col_num_map = {}
+                for col in sheet.iter_cols(min_row=1, max_row=1):
+                    header_value = col[0].value
+                    if header_value in column_mapping:
+                        col_num_map[header_value] = col[0].column
+                
+                # 写入数据
+                for col_name, value in column_mapping.items():
+                    if col_name in col_num_map:
+                        col_num = col_num_map[col_name]
+                        sheet.cell(row=row_num, column=col_num, value=value)
+                        print(f"写入 {col_name} = {value} 到 收益日记 sheet 的第 {row_num} 行")
+                    else:
+                        print(f"未找到列名: {col_name}")
+            else:
+                print(f"未找到日期 {today_date} 对应的行")
+        else:
+            print("未找到 '收益日记' sheet")
+    else:
+        print(f"未找到 {daily_data_file} 文件")
+    
     # 保存并关闭
     wb.save(file_path)
     wb.close()
@@ -541,24 +769,24 @@ def etfFill():
 
 
 #统计全市场股票在牛市之后的表现
-def calculate_market_profit(time_orders, group_range=None, flag=None):
+def calculate_market_profit(time_orders, group_range=None, flag=None, stock_list=all_a_stocks):
     processor = stock_price_processor.StockPirceProcessor()
     for to, time_order in enumerate(time_orders):
         outs = {}
         rets = []
-        zhishu = {"SHSE.000905": "中证500", "SHSE.000852": "中证1000"}
+        zhishu = {"SHSE.000300": "沪深300","SHSE.000905": "中证500", "SHSE.000852": "中证1000"}
         zhishu_rets = []
         for i in range(len(time_order)):
             #顺便获取一些指数的同期涨幅，作为对比，中证500和中证1000
             ret = processor.get_stocks_during_delta(list(zhishu.keys()), time_order[i][0], time_order[i][1])
             zhishu_rets.append(ret)
 
-            ret = processor.get_stocks_during_delta(all_a_stocks, time_order[i][0], time_order[i][1])
+            ret = processor.get_stocks_during_delta(stock_list, time_order[i][0], time_order[i][1])
             rets.append(ret)
         #先对第一个阶段的涨幅进行排序，分成10组，统计每组在后续阶段的表现
         group_range = [-50, -20, 0, 20, 50, 100, 200, 100000] if group_range is None else group_range
         groups = [[] for _ in range(len(group_range))]
-        for code in all_a_stocks:
+        for code in stock_list:
             if code not in rets[0]:
                 continue
             delta = rets[0].get(code, 0)
@@ -584,7 +812,7 @@ def calculate_market_profit(time_orders, group_range=None, flag=None):
         final_rets = []
         for i in range(0, len(rets)):
 
-            zhishu_str = "同期中证500涨幅{:.2f}%, 中证1000涨幅{:.2f}%".format(zhishu_rets[i]["SHSE.000905"], zhishu_rets[i]["SHSE.000852"])
+            zhishu_str = "同期沪深300涨幅{:.2f}%, 中证500涨幅{:.2f}%, 中证1000涨幅{:.2f}%".format(zhishu_rets[i]["SHSE.000300"], zhishu_rets[i]["SHSE.000905"], zhishu_rets[i]["SHSE.000852"])
             time_str = time_order[i][0]+"~"+time_order[i][1]+"=="+time_order[i][2]
             print("\n\n")
             if i == 0:
@@ -627,7 +855,22 @@ def calculate_market_profit(time_orders, group_range=None, flag=None):
                     total_backward_profit = sum(backward_ret.values())
                     avg_backward_profit = total_backward_profit / len(backward_ret) if len(backward_ret.items()) > 0 else 0
                     backward_str = f"前期下跌阶段涨幅={avg_backward_profit:.2f}%"
-                print(f"{time_order[i][0]}~{time_order[i][1]}阶段，分组涨跌幅【{group_range_str}】的{count}只股票平均涨幅{avg_profit:.2f}%，胜率={win_rate:.2%}, 超过平均涨幅的股票占比={beyond_count_rate:.2%}, {fenbu_str}, {backward_str}")
+                
+                # 统计该组股票的一级行业分布
+                industry_str = ""
+                if a_stock_base:
+                    industry_count = {}
+                    for stock_code in groups[group]:
+                        stock_code = str(stock_code).zfill(6)
+                        if stock_code in a_stock_base and a_stock_base[stock_code].get('industry_level2'):
+                            level2 = a_stock_base[stock_code]['industry_level2']
+                            industry_count[level2] = industry_count.get(level2, 0) + 1
+                    
+                    sorted_industry = sorted(industry_count.items(), key=lambda x: x[1], reverse=True)[:5]
+                    if sorted_industry:
+                        industry_str = "行业分布: " + ", ".join([f"{name}({count}只)" for name, count in sorted_industry])
+                
+                print(f"{time_order[i][0]}~{time_order[i][1]}阶段，分组涨跌幅【{group_range_str}】的{count}只股票平均涨幅{avg_profit:.2f}%，胜率={win_rate:.2%}, 超过平均涨幅的股票占比={beyond_count_rate:.2%}, {fenbu_str}, {backward_str}, {industry_str}")
                 print("==============================================")
             if time_order[i][3] if len(time_order[i])>3 else False:
                 processor.backtrace_fantan(groups[-1], time_order[i][0], time_order[i][1])
@@ -988,7 +1231,14 @@ def loadAllA():
             all_a_stocks.append(datas[i])
         print("local_a_stock_num=", stock_num)
 
-
+def load_stock_A_base():
+    with open('stocks/all_base.json', 'r', encoding='utf-8') as file:
+            base = json.load(file)
+    a_stock_base = {}
+    for item in base:
+        a_stock_base[item['stock_code']] = item
+    return a_stock_base    
+    
 
 
 def load_local_all():

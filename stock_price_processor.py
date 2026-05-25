@@ -32,6 +32,42 @@ class StockPirceProcessor:
         else:
             ssymbol = f'SZSE.{stock}'
         return ssymbol
+    
+    def get_stocks_by_listed_year(self, stock_list):
+        """
+        获取给定股票列表的上市日期，按年份分组统计。
+        stock_list: list of stock codes
+        返回一个字典，键为上市年份，值为该年份上市的股票数量。
+        """
+        symbols = []
+        for stock_code in stock_list:
+            symbol = self.get_stock_symbol(stock_code)
+            symbols.append(symbol)
+        
+        # 获取股票基本信息（包括上市日期）
+        stock_info = get_symbol_infos(sec_type1=1010, sec_type2=101001, symbols=symbols, df=False)
+        
+        # 按年份分组统计
+        year_count = {}
+        for info in stock_info:
+            listed_date = info.get('listed_date')
+            if listed_date:
+                # listed_date 可能是 datetime 对象或字符串
+                if hasattr(listed_date, 'strftime'):
+                    year = listed_date.strftime('%Y')
+                else:
+                    year = str(listed_date)[:4]
+                if year not in year_count:
+                    year_count[year] = 0
+                year_count[year] += 1
+        
+        # 按年份排序输出
+        sorted_years = sorted(year_count.items(), key=lambda x: x[0])
+        print(f"总数={len(stock_list)}只股票，各年份上市股票数量：")
+        for year, count in sorted_years:
+            print(f"  {year}年: {count}只")
+        
+        return year_count
     #取莫一日涨幅最好的一批股票，回测它后面一段时间的表现
     def backtrace_fantan(self, stock_list, start_date, end_date):
         """

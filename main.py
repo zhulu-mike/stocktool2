@@ -592,102 +592,102 @@ def etfFill():
     # 打开 Excel 文件
     file_path = r'D:\\my\\投资\\仓位结构.xlsx'
     wb = load_workbook(file_path)
-    
-    # ========== 原有的 ETF 涨幅写入逻辑 ==========
-    with open('etf.json', 'r', encoding='utf-8') as f:
-        etfs = json.load(f)
-    processor = stock_price_processor.StockPirceProcessor()
-    ret = processor.get_stocks_today_delta(etfs)
-    
-    # 获取当前日期
-    today = datetime.date.today().strftime('%Y%m%d')
-    
-    # 写入 ETF 涨幅（原逻辑）
-    sheet = wb['etf']
-    for name in wb.defined_names:
-        print(name, wb.defined_names[name].attr_text)
-    
-    # 找到当前日期对应的行（假设第一列是日期）
-    row_num = None
-    for row in sheet.iter_rows(min_row=1, max_col=1):
-        print(row[0].value)
-        if str(row[0].value) == today:
-            row_num = row[0].row
-            break
-    
-    if row_num is not None:
-        # 从第二列开始依次写入涨幅
-        for i, code in enumerate(etfs):
-            symbol = processor.get_stock_symbol(code)
-            delta = ret.get(symbol, 0)*0.01
-            print(f"写入 {symbol} 的涨幅 {delta:.2%} 到 Excel {i+2}列")
-            sheet.cell(row=row_num, column=i+2, value=delta)
-        #attr = f"'D:\my\投资\可转债\[{today}.xls]{today}'!$C:$L"
-        #name = DefinedName(
-        #    name="dd",
-        #    attr_text=attr  # 引用地址
-        #)
-        #wb.defined_names.add(name)
-        print("ETF 涨幅已写入 Excel")
-    else:
-        print(f"未找到日期 {today} 对应的行")
-    bonds = fetch_all_convert_bonds()
-    # ========== 新增的可转债数据写入逻辑 ==========
-    sheet_name = '全部可转债'
-    # 如果sheet已存在，先删除
-    if sheet_name in wb.sheetnames:
-        del wb[sheet_name]
-    
-    # 重新创建sheet
-    sheet = wb.create_sheet(sheet_name)
-    
-    # 写入表头
-    headers = ['债券名称','债券代码', '股票代码', '股票名称', '转股价', '强赎价', '到期价', '下修价', 
-               '转股溢价率', '剩余年限', '强赎状态', '最后交易日', '最后转股日', '剩余规模(亿)', '到期日',
-               '转债最新价', '转债涨跌幅', '正股最新价', '正股涨跌幅']
-    sheet.append(headers)
-    
-    # 辅助函数：处理价格和涨跌幅的格式化
-    def format_value(value, divisor=1):
-        """格式化值，返回数字类型"""
-        if value is None or value == '':
-            return ''
-        try:
-            # 如果是带百分号的字符串，先去掉百分号
-            if isinstance(value, str):
-                value = value.replace('%', '')
-            num = float(value)
-            if divisor != 1:
-                num = num / divisor
-            return num
-        except (ValueError, TypeError):
-            return value
-    
-    # 写入数据
-    for bond in bonds:
-        row_data = [
-            bond.get('bond_name', ''),
-            bond.get('bond_id', ''),
-            bond.get('stock_id', ''),
-            bond.get('stock_name', ''),
-            format_value(bond.get('convert_price'), 1),
-            format_value(bond.get('force_redeem_price'), 1),
-            format_value(bond.get('maturity_price'), 1),
-            format_value(bond.get('lowering_trigger_price'), 1),
-            format_value(bond.get('premium_rate'), 1),
-            format_value(bond.get('year_left'), 1),
-            bond.get('force_redeem_status', ''),
-            bond.get('last_trade_date', ''),
-            bond.get('last_convert_date', ''),
-            format_value(bond.get('left_market_value', ''), 1),
-            format_value(bond.get('maturity_dt', '').replace('-', ''), 1),
-            format_value(bond.get('bond_price'), 1),
-            format_value(bond.get('bond_change'), 1),
-            format_value(bond.get('stock_price'), 1),
-            format_value(bond.get('stock_change'), 1),
-        ]
-        sheet.append(row_data)
-    
+    if False:
+        # ========== 原有的 ETF 涨幅写入逻辑 ==========
+        with open('etf.json', 'r', encoding='utf-8') as f:
+            etfs = json.load(f)
+        processor = stock_price_processor.StockPirceProcessor()
+        ret = processor.get_stocks_today_delta(etfs)
+        
+        # 获取当前日期
+        today = datetime.date.today().strftime('%Y%m%d')
+        
+        # 写入 ETF 涨幅（原逻辑）
+        sheet = wb['etf']
+        for name in wb.defined_names:
+            print(name, wb.defined_names[name].attr_text)
+        
+        # 找到当前日期对应的行（假设第一列是日期）
+        row_num = None
+        for row in sheet.iter_rows(min_row=1, max_col=1):
+            print(row[0].value)
+            if str(row[0].value) == today:
+                row_num = row[0].row
+                break
+        
+        if row_num is not None:
+            # 从第二列开始依次写入涨幅
+            for i, code in enumerate(etfs):
+                symbol = processor.get_stock_symbol(code)
+                delta = ret.get(symbol, 0)*0.01
+                print(f"写入 {symbol} 的涨幅 {delta:.2%} 到 Excel {i+2}列")
+                sheet.cell(row=row_num, column=i+2, value=delta)
+            #attr = f"'D:\my\投资\可转债\[{today}.xls]{today}'!$C:$L"
+            #name = DefinedName(
+            #    name="dd",
+            #    attr_text=attr  # 引用地址
+            #)
+            #wb.defined_names.add(name)
+            print("ETF 涨幅已写入 Excel")
+        else:
+            print(f"未找到日期 {today} 对应的行")
+        bonds = fetch_all_convert_bonds()
+        # ========== 新增的可转债数据写入逻辑 ==========
+        sheet_name = '全部可转债'
+        # 如果sheet已存在，先删除
+        if sheet_name in wb.sheetnames:
+            del wb[sheet_name]
+        
+        # 重新创建sheet
+        sheet = wb.create_sheet(sheet_name)
+        
+        # 写入表头
+        headers = ['债券名称','债券代码', '股票代码', '股票名称', '转股价', '强赎价', '到期价', '下修价', 
+                '转股溢价率', '剩余年限', '强赎状态', '最后交易日', '最后转股日', '剩余规模(亿)', '到期日',
+                '转债最新价', '转债涨跌幅', '正股最新价', '正股涨跌幅']
+        sheet.append(headers)
+        
+        # 辅助函数：处理价格和涨跌幅的格式化
+        def format_value(value, divisor=1):
+            """格式化值，返回数字类型"""
+            if value is None or value == '':
+                return ''
+            try:
+                # 如果是带百分号的字符串，先去掉百分号
+                if isinstance(value, str):
+                    value = value.replace('%', '')
+                num = float(value)
+                if divisor != 1:
+                    num = num / divisor
+                return num
+            except (ValueError, TypeError):
+                return value
+        
+        # 写入数据
+        for bond in bonds:
+            row_data = [
+                bond.get('bond_name', ''),
+                bond.get('bond_id', ''),
+                bond.get('stock_id', ''),
+                bond.get('stock_name', ''),
+                format_value(bond.get('convert_price'), 1),
+                format_value(bond.get('force_redeem_price'), 1),
+                format_value(bond.get('maturity_price'), 1),
+                format_value(bond.get('lowering_trigger_price'), 1),
+                format_value(bond.get('premium_rate'), 1),
+                format_value(bond.get('year_left'), 1),
+                bond.get('force_redeem_status', ''),
+                bond.get('last_trade_date', ''),
+                bond.get('last_convert_date', ''),
+                format_value(bond.get('left_market_value', ''), 1),
+                format_value(bond.get('maturity_dt', '').replace('-', ''), 1),
+                format_value(bond.get('bond_price'), 1),
+                format_value(bond.get('bond_change'), 1),
+                format_value(bond.get('stock_price'), 1),
+                format_value(bond.get('stock_change'), 1),
+            ]
+            sheet.append(row_data)
+        print(f"可转债数据已写入 Excel，共 {len(bonds)} 条记录")
     # ========== 新增：读取 daily_data.json 并写入收益日记 sheet ==========
     daily_data_file = 'daily_data.json'
     if os.path.exists(daily_data_file):
@@ -731,12 +731,12 @@ def etfFill():
             if row_num is not None:
                 # 定义列名到数据的映射
                 column_mapping = {
-                    '波动率': format_value(round(daily_data.get('ETF波动率', 0), 2)),
-                    '可转债轮动组合': format_value(f"{daily_data.get('可转债平均涨幅', 0):.02%}"),
-                    '对应正股涨幅': format_value(f"{daily_data.get('正股平均涨幅', 0):.02%}"),
-                    'ST星等权': format_value(f"{daily_data.get('STstar', 0):.02%}"),
-                    'ST等权': format_value(f"{daily_data.get('ST', 0):.02%}"),
-                    'ST重整': format_value(f"{daily_data.get('chongzheng', 0):.02%}"),
+                    '波动率': round(daily_data.get('ETF波动率', 0), 2),
+                    '可转债轮动组合': daily_data.get('可转债平均涨幅', 0),
+                    '对应正股涨幅': daily_data.get('正股平均涨幅', 0),
+                    'ST星等权': daily_data.get('STstar', 0),
+                    'ST等权': daily_data.get('ST', 0),
+                    'ST重整': daily_data.get('chongzheng', 0),
                     '上涨板块': daily_data.get('etf', '')
                 }
                 
@@ -751,7 +751,13 @@ def etfFill():
                 for col_name, value in column_mapping.items():
                     if col_name in col_num_map:
                         col_num = col_num_map[col_name]
-                        sheet.cell(row=row_num, column=col_num, value=value)
+                        cell = sheet.cell(row=row_num, column=col_num)
+                        cell.value = value
+                        # 设置单元格格式为百分比，保留2位小数
+                        if col_name in ['可转债轮动组合', '对应正股涨幅','ST星等权','ST等权','ST重整']:
+                            cell.number_format = '0.00%'
+                        elif col_name in ['波动率']:
+                            cell.number_format = '0.00'
                         print(f"写入 {col_name} = {value} 到 收益日记 sheet 的第 {row_num} 行")
                     else:
                         print(f"未找到列名: {col_name}")
@@ -765,7 +771,7 @@ def etfFill():
     # 保存并关闭
     wb.save(file_path)
     wb.close()
-    print(f"可转债数据已写入 Excel，共 {len(bonds)} 条记录")
+    
 
 
 #统计全市场股票在牛市之后的表现

@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>公告搜索</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 24px 32px;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            margin-bottom: 24px;
+        }
+        
+        .header h1 {
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .search-box {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .search-box input {
+            padding: 14px 20px;
+            font-size: 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        
+        .search-box input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .search-box input[type="text"] {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .search-box input[type="date"] {
+            min-width: 140px;
+        }
+        
+        .search-box button {
+            padding: 14px 32px;
+            font-size: 16px;
+            font-weight: 600;
+            color: white;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .date-label {
+            color: #666;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+        
+        .search-box button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .search-box button:active {
+            transform: translateY(0);
+        }
+        
+        .result-stats {
+            margin-top: 16px;
+            padding: 12px 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .result-stats span {
+            font-weight: 600;
+            color: #667eea;
+        }
+        
+        .table-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 16px 20px;
+            text-align: left;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        th:first-child {
+            border-radius: 16px 0 0 0;
+        }
+        
+        th:last-child {
+            border-radius: 0 16px 0 0;
+        }
+        
+        tbody tr:hover {
+            background: #f8f9fa;
+        }
+        
+        tbody tr:last-child td:first-child {
+            border-radius: 0 0 0 16px;
+        }
+        
+        tbody tr:last-child td:last-child {
+            border-radius: 0 0 16px 0;
+        }
+        
+        .stock-code {
+            font-family: 'Courier New', monospace;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .title {
+            color: #333;
+            line-height: 1.5;
+            max-width: 600px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .title a {
+            color: #667eea;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .title a:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+        
+        .date {
+            color: #888;
+            font-size: 14px;
+        }
+        
+        .no-results {
+            padding: 60px 20px;
+            text-align: center;
+            color: #999;
+        }
+        
+        .no-results svg {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+        
+        .loading {
+            padding: 40px 20px;
+            text-align: center;
+            color: #667eea;
+            font-size: 16px;
+        }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 16px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📋 公告搜索</h1>
+            <div class="search-box">
+                <input type="text" id="keywordInput" placeholder="输入关键字搜索公告，多个关键字用空格分隔...">
+                <span class="date-label">日期范围:</span>
+                <input type="date" id="startDate" placeholder="开始日期">
+                <span class="date-label">至</span>
+                <input type="date" id="endDate" placeholder="结束日期">
+                <button onclick="searchAnnounce()">搜索</button>
+            </div>
+            <div class="result-stats" id="resultStats" style="display: none;">
+                共找到 <span id="resultCount">0</span> 条匹配的公告
+            </div>
+        </div>
+        
+        <div class="table-container">
+            <table id="resultTable">
+                <thead>
+                    <tr>
+                        <th>股票代码</th>
+                        <th>公告标题</th>
+                        <th>公告日期</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <tr>
+                        <td colspan="3" class="no-results">
+                            <div>请输入关键字进行搜索</div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        async function searchAnnounce() {
+            const keywords = document.getElementById('keywordInput').value.trim();
+            const startDate = document.getElementById('startDate').value;
+            const endDate = document.getElementById('endDate').value;
+            
+            if (!keywords) {
+                alert('请输入搜索关键字');
+                return;
+            }
+            
+            // 显示加载状态
+            const tableBody = document.getElementById('tableBody');
+            tableBody.innerHTML = `
+                <tr>
+                    <td colspan="3" class="loading">
+                        <div class="spinner"></div>
+                        正在搜索中...
+                    </td>
+                </tr>
+            `;
+            
+            try {
+                // 构建 URL 参数
+                let url = `/search-announce?keywords=${encodeURIComponent(keywords)}`;
+                if (startDate) {
+                    url += `&start_date=${encodeURIComponent(startDate)}`;
+                }
+                if (endDate) {
+                    url += `&end_date=${encodeURIComponent(endDate)}`;
+                }
+                
+                const response = await fetch(url);
+                const results = await response.json();
+                
+                displayResults(results);
+            } catch (error) {
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="3" class="no-results">
+                            搜索失败: ${error.message}
+                        </td>
+                    </tr>
+                `;
+            }
+        }
+        
+        function displayResults(results) {
+            const tableBody = document.getElementById('tableBody');
+            const resultStats = document.getElementById('resultStats');
+            const resultCount = document.getElementById('resultCount');
+            
+            if (!results || results.length === 0) {
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="3" class="no-results">
+                            未找到匹配的公告
+                        </td>
+                    </tr>
+                `;
+                resultStats.style.display = 'none';
+                return;
+            }
+            
+            resultCount.textContent = results.length;
+            resultStats.style.display = 'block';
+            
+            const rows = results.map(item => {
+                // 构建东方财富公告详情链接
+                const artCode = item.art_code || '';
+                const announceUrl = artCode ? `https://pdf.dfcfw.com/pdf/H2_${artCode}_1.pdf` : '#';
+                const target = artCode ? '_blank' : '_self';
+                
+                return `
+                    <tr>
+                        <td><span class="stock-code">${item.stock_code}</span></td>
+                        <td class="title">
+                            <a href="${announceUrl}" target="${target}" title="${item.title}">${item.title}</a>
+                        </td>
+                        <td><span class="date">${formatDateTime(item.notice_date)}</span></td>
+                    </tr>
+                `;
+            }).join('');
+            
+            tableBody.innerHTML = rows;
+        }
+        
+        function formatDateTime(dateStr) {
+            if (!dateStr) return '';
+            // 保持原有的日期时间格式
+            return dateStr;
+        }
+        
+        // 回车键触发搜索
+        document.getElementById('keywordInput').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                searchAnnounce();
+            }
+        });
+    </script>
+</body>
+</html>

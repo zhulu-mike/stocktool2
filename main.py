@@ -391,26 +391,14 @@ def init(context):
     elif flag==2016:
         time_orders = [
             [
-                ["2012-12-03", "2015-02-09", "牛市前半段"],
-                ["2015-02-09", "2015-05-30", "最后主升浪"],
+                ["2013-01-11", "2014-07-11", "牛市早半段"],
             ],
             [
-                ["2012-12-03", "2015-05-30", "牛市前半段"],
-                ["2015-05-30", "2015-08-26", "熊市阴跌"],
+                ["2014-07-11", "2014-11-27", "牛市早半段"],
             ],
             [
-                ["2012-12-03", "2014-11-27", "牛市前半段"],
+                ["2014-11-27", "2015-05-30", "牛市后半段"],
             ],
-            [
-                ["2014-11-27", "2015-05-30", "牛市前半段"],
-            ],
-            [
-                ["2014-06-25", "2015-05-30", "牛市前半段"],
-            ],
-            [
-                ["2016-01-06", "2018-01-25", "牛市前半段"],
-                ["2018-01-25", "2019-01-02", "熊市阴跌"],
-            ]
         ]
         group_range = [-50, -20, 0, 20, 50, 100, 200, 300, 500, 100000]
         calculate_market_profit(time_orders, group_range, flag=flag)
@@ -509,34 +497,66 @@ def init(context):
 
 def ontimer_3(context):
     now = datetime.datetime.now().time()
-    #超过15点10分后执行每日数据填充逻辑
+    today_str = datetime.date.today().strftime('%Y%m%d')
+    daily_lock_file = 'daily_lock.json'
     
+    # 读取 daily_lock.json（JSON格式）
+    lock_data = {}
+    if os.path.exists(daily_lock_file):
+        with open(daily_lock_file, 'r', encoding='utf-8') as f:
+            content = f.read().strip()
+            if content:
+                try:
+                    lock_data = json.loads(content)
+                except json.JSONDecodeError:
+                    # 如果不是有效JSON，视为空数据
+                    lock_data = {}
+    
+    # 超过15点10分后执行每日数据填充逻辑
     if now >= datetime.time(15, 10):
-        daily_lock_file = 'daily_lock.txt'
-        today_str = datetime.date.today().strftime('%Y%m%d')
         need_execute = False
         
-        # 读取 daily_lock.txt
-        if os.path.exists(daily_lock_file):
-            with open(daily_lock_file, 'r', encoding='utf-8') as f:
-                lock_content = f.read().strip()
-                # 如果文件为空或日期小于今天，则需要执行
-                if not lock_content or lock_content < today_str:
-                    need_execute = True
-        else:
-            # 文件不存在，需要执行
+        # 检查 etffill 模块的日期
+        etffill_date = lock_data.get('etffill', '')
+        if not etffill_date or etffill_date < today_str:
             need_execute = True
         
         if need_execute:
             print(f"[{now}] 超过15:10，执行 etfFill()...")
             etfFill()
-            # 写入今日日期
+            # 更新 etffill 的日期
+            lock_data['etffill'] = today_str
+            # 写入 JSON 格式
             with open(daily_lock_file, 'w', encoding='utf-8') as f:
-                f.write(today_str)
+                json.dump(lock_data, f)
             print(f"[{now}] 已写入日期 {today_str} 到 {daily_lock_file}")
         else:
             print(f"[{now}] 今日数据已处理过，跳过")
+    
+    # 超过22:00后执行公告更新逻辑
+    if now >= datetime.time(20, 0):
+        need_announce = False
+        
+        # 检查 announce 模块的日期
+        announce_date = lock_data.get('announce', '')
+        if not announce_date or announce_date < today_str:
+            need_announce = True
+        
+        if need_announce:
+            print(f"[{now}] 超过22:00，执行 UpdateAllStockAnnounce()...")
+            global all_a_stocks
+            context.stock_announce_processor.try_load_all_announcements()
+            context.stock_announce_processor.UpdateAllStockAnnounce(all_a_stocks, True)
+            # 更新 announce 的日期
+            lock_data['announce'] = today_str
+            # 写入 JSON 格式
+            with open(daily_lock_file, 'w', encoding='utf-8') as f:
+                json.dump(lock_data, f)
+            print(f"[{now}] 已写入日期 {today_str} 到 {daily_lock_file}")
+        else:
+            print(f"[{now}] 今日公告已更新过，跳过")
         return
+    
     processor = context.stock_price_processor
     processor.update_kzz_with_market_data()
 def kzzzg():
@@ -818,7 +838,7 @@ def calculate_market_profit(time_orders, group_range=None, flag=None, stock_list
         final_rets = []
         for i in range(0, len(rets)):
 
-            zhishu_str = "同期沪深300涨幅{:.2f}%, 中证500涨幅{:.2f}%, 中证1000涨幅{:.2f}%".format(zhishu_rets[i]["SHSE.000300"], zhishu_rets[i]["SHSE.000905"], zhishu_rets[i]["SHSE.000852"])
+            zhishu_str = "同期沪深300涨幅{:.2f}%, 中证500涨幅{:.2f}%, 中证1000涨幅{:.2f}%".format(zhishu_rets[i]["SHSE.000300"], zhishu_rets[i]["SHSE.000905"], zhishu_rets[i].get("SHSE.000852",0))
             time_str = time_order[i][0]+"~"+time_order[i][1]+"=="+time_order[i][2]
             print("\n\n")
             if i == 0:

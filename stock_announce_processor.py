@@ -286,6 +286,9 @@ class StockAnnounceProcessor:
                     break
         print("total=", c)
 
+    def try_load_all_announcements(self):
+        if len(self.all_stocks_announce) == 0:
+            self.load_all_announcements()
     def load_all_announcements(self):
         """
         加载本地所有股票公告数据。
@@ -363,3 +366,49 @@ class StockAnnounceProcessor:
         else:
             print("消息发送失败", code)
             return ""
+    
+    def search_announcements_by_keyword(self, keywords, start_date=None, end_date=None):
+        """
+        根据关键字搜索公告，支持日期范围筛选。
+        
+        :param keywords: 关键字列表或单个关键字字符串
+        :param start_date: 开始日期（格式：YYYY-MM-DD）
+        :param end_date: 结束日期（格式：YYYY-MM-DD）
+        :return: 搜索结果列表，每个元素包含股票代码、公告日期、公告标题、art_code
+        """
+        # 确保关键字是列表
+        if isinstance(keywords, str):
+            keywords = [keywords]
+        
+        # 先确保加载了所有公告
+        self.try_load_all_announcements()
+        
+        results = []
+        for stock_code, announces in self.all_stocks_announce.items():
+            for ann in announces:
+                title = ann.get("title", "")
+                notice_date = ann.get("notice_date", "")
+                art_code = ann.get("art_code", "")
+                
+                # 提取日期部分用于比较
+                notice_date_only = notice_date.split(" ")[0] if notice_date else ""
+                
+                # 检查日期范围
+                is_in_date_range = True
+                if start_date and notice_date_only < start_date:
+                    is_in_date_range = False
+                if end_date and notice_date_only > end_date:
+                    is_in_date_range = False
+                
+                # 检查是否包含任何一个关键字
+                if is_in_date_range and any(keyword in title for keyword in keywords):
+                    results.append({
+                        "stock_code": stock_code,
+                        "title": title,
+                        "notice_date": notice_date,
+                        "art_code": art_code
+                    })
+        
+        # 按日期排序（最新的在前）
+        results.sort(key=lambda x: x["notice_date"], reverse=True)
+        return results

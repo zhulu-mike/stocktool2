@@ -6,6 +6,18 @@ import http.client
 import socket
 import time
 import traceback
+import json
+
+# 公告处理器（延迟导入）
+stock_announce_processor = None
+
+def init_announce_processor():
+    global stock_announce_processor
+    if stock_announce_processor is None:
+        import stock_announce_processor as sap
+        stock_announce_processor = sap.StockAnnounceProcessor("", "stocks/announce/")
+        stock_announce_processor.load_all_announcements()
+        print("公告处理器初始化完成")
 
 REMOTE_BASE = "https://push2.eastmoney.com/api/qt/clist/get"
 FIELD_LIST = "f12,f13,f14,f1,f2,f4,f3,f152,f232,f233,f234,f229,f230,f231,f235,f236,f154,f237,f238,f239,f240,f241,f227,f242,f26,f243"
@@ -37,8 +49,51 @@ class RealtimeProxyHandler(SimpleHTTPRequestHandler):
         parsed = urlparse(self.path)
         if parsed.path == "/realtime-proxy":
             self.handle_realtime_proxy(parsed.query)
+        elif parsed.path == "/search-announce":
+            self.handle_search_announce(parsed.query)
         else:
             super().do_GET()
+    
+    def handle_search_announce(self, query_string):
+        params = parse_qs(query_string)
+        keywords = params.get("keywords", [])
+        
+        if not keywords:
+            self.send_response(400)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(json.dumps({"error": "缺少关键字参数"}).encode("utf-8"))
+            return
+        
+        # 获取日期范围参数
+        start_date = params.get("start_date", [None])[0]
+        end_date = params.get("end_date", [None])[0]
+        
+        try:
+            # 初始化公告处理器
+            init_announce_processor()
+            
+            # 搜索公告（支持日期范围）
+            results = stock_announce_processor.search_announcements_by_keyword(
+                keywords, 
+                start_date=start_date, 
+                end_date=end_date
+            )
+            
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(json.dumps(results, ensure_ascii=False).encode("utf-8"))
+        except Exception as exc:
+            print(f"搜索公告时发生错误: {exc}", flush=True)
+            traceback.print_exc()
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(json.dumps({"error": str(exc)}).encode("utf-8"))
 
     def handle_realtime_proxy(self, query_string):
         params = parse_qs(query_string)
@@ -160,6 +215,11 @@ class RealtimeProxyHandler(SimpleHTTPRequestHandler):
 
 
 if __name__ == "__main__":
+    # 启动时预加载所有公告
+    print("正在预加载公告数据...")
+    init_announce_processor()
+    print("公告数据加载完成")
+    
     port = 8000
     server = HTTPServer(("0.0.0.0", port), RealtimeProxyHandler)
     print(f"Serving at http://localhost:{port}")

@@ -227,6 +227,75 @@
             padding: 2px 4px;
             border-radius: 3px;
         }
+        
+        .search-history {
+            margin-top: 16px;
+            padding: 12px 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            display: none;
+        }
+        
+        .search-history.active {
+            display: block;
+        }
+        
+        .history-title {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .history-title span {
+            font-weight: 600;
+        }
+        
+        .history-title button {
+            font-size: 12px;
+            color: #999;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+        
+        .history-title button:hover {
+            background: #e9ecef;
+            color: #666;
+        }
+        
+        .history-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .history-tag {
+            padding: 4px 12px;
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 16px;
+            font-size: 13px;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .history-tag:hover {
+            background: #667eea;
+            border-color: #667eea;
+            color: white;
+        }
+        
+        .empty-history {
+            font-size: 13px;
+            color: #999;
+        }
     </style>
 </head>
 <body>
@@ -234,6 +303,7 @@
         <div class="header">
             <h1>📋 公告搜索</h1>
             <div class="search-box">
+                <input type="text" id="stockCodeInput" placeholder="股票代码（可选）">
                 <input type="text" id="keywordInput" placeholder="输入关键字搜索公告，多个关键字用空格分隔...">
                 <span class="date-label">日期范围:</span>
                 <input type="date" id="startDate" placeholder="开始日期">
@@ -243,6 +313,15 @@
             </div>
             <div class="result-stats" id="resultStats" style="display: none;">
                 共找到 <span id="resultCount">0</span> 条匹配的公告
+            </div>
+            <div class="search-history" id="searchHistory">
+                <div class="history-title">
+                    <span>搜索历史</span>
+                    <button onclick="clearSearchHistory()">清空历史</button>
+                </div>
+                <div class="history-tags" id="historyTags">
+                    <div class="empty-history">暂无搜索记录</div>
+                </div>
             </div>
         </div>
         
@@ -267,8 +346,57 @@
     </div>
 
     <script>
+        // 保存搜索历史到 localStorage
+        function saveSearchHistory(keyword) {
+            let history = JSON.parse(localStorage.getItem('searchHistory') || '[]');
+            // 移除重复项
+            history = history.filter(k => k !== keyword);
+            // 添加到开头
+            history.unshift(keyword);
+            // 只保留最近10条
+            history = history.slice(0, 10);
+            localStorage.setItem('searchHistory', JSON.stringify(history));
+            // 更新显示
+            renderSearchHistory();
+        }
+        
+        // 加载搜索历史
+        function loadSearchHistory() {
+            return JSON.parse(localStorage.getItem('searchHistory') || '[]');
+        }
+        
+        // 渲染搜索历史
+        function renderSearchHistory() {
+            const history = loadSearchHistory();
+            const historyTags = document.getElementById('historyTags');
+            const searchHistoryDiv = document.getElementById('searchHistory');
+            
+            if (history.length === 0) {
+                historyTags.innerHTML = '<div class="empty-history">暂无搜索记录</div>';
+                searchHistoryDiv.classList.remove('active');
+            } else {
+                const tags = history.map(keyword => `
+                    <span class="history-tag" onclick="fillKeyword('${keyword}')">${keyword}</span>
+                `).join('');
+                historyTags.innerHTML = tags;
+                searchHistoryDiv.classList.add('active');
+            }
+        }
+        
+        // 填充关键字到搜索框
+        function fillKeyword(keyword) {
+            document.getElementById('keywordInput').value = keyword;
+        }
+        
+        // 清空搜索历史
+        function clearSearchHistory() {
+            localStorage.removeItem('searchHistory');
+            renderSearchHistory();
+        }
+        
         async function searchAnnounce() {
             const keywords = document.getElementById('keywordInput').value.trim();
+            const stockCode = document.getElementById('stockCodeInput').value.trim();
             const startDate = document.getElementById('startDate').value;
             const endDate = document.getElementById('endDate').value;
             
@@ -276,6 +404,9 @@
                 alert('请输入搜索关键字');
                 return;
             }
+            
+            // 保存搜索历史
+            saveSearchHistory(keywords);
             
             // 显示加载状态
             const tableBody = document.getElementById('tableBody');
@@ -291,6 +422,9 @@
             try {
                 // 构建 URL 参数
                 let url = `/search-announce?keywords=${encodeURIComponent(keywords)}`;
+                if (stockCode) {
+                    url += `&stock_code=${encodeURIComponent(stockCode)}`;
+                }
                 if (startDate) {
                     url += `&start_date=${encodeURIComponent(startDate)}`;
                 }
@@ -364,6 +498,20 @@
             if (e.key === 'Enter') {
                 searchAnnounce();
             }
+        });
+        
+        // 设置默认日期
+        function setDefaultDates() {
+            const now = new Date();
+            const currentYear = now.getFullYear();
+            // 设置开始日期为当年1月1日
+            document.getElementById('startDate').value = `${currentYear}-01-01`;
+        }
+        
+        // 页面加载时渲染搜索历史和设置默认日期
+        document.addEventListener('DOMContentLoaded', function() {
+            renderSearchHistory();
+            setDefaultDates();
         });
     </script>
 </body>

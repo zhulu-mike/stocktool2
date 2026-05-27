@@ -367,13 +367,14 @@ class StockAnnounceProcessor:
             print("消息发送失败", code)
             return ""
     
-    def search_announcements_by_keyword(self, keywords, start_date=None, end_date=None):
+    def search_announcements_by_keyword(self, keywords, start_date=None, end_date=None, stock_code=None):
         """
-        根据关键字搜索公告，支持日期范围筛选。
+        根据关键字搜索公告，支持日期范围和股票代码筛选。
         
         :param keywords: 关键字列表或单个关键字字符串
         :param start_date: 开始日期（格式：YYYY-MM-DD）
         :param end_date: 结束日期（格式：YYYY-MM-DD）
+        :param stock_code: 股票代码（可选，精确匹配）
         :return: 搜索结果列表，每个元素包含股票代码、公告日期、公告标题、art_code
         """
         # 确保关键字是列表
@@ -384,7 +385,11 @@ class StockAnnounceProcessor:
         self.try_load_all_announcements()
         
         results = []
-        for stock_code, announces in self.all_stocks_announce.items():
+        
+        # 如果指定了股票代码，只搜索该股票
+        search_stocks = {stock_code: self.all_stocks_announce.get(stock_code, [])} if stock_code else self.all_stocks_announce
+        
+        for code, announces in search_stocks.items():
             for ann in announces:
                 title = ann.get("title", "")
                 notice_date = ann.get("notice_date", "")
@@ -403,7 +408,7 @@ class StockAnnounceProcessor:
                 # 检查是否包含任何一个关键字
                 if is_in_date_range and any(keyword in title for keyword in keywords):
                     results.append({
-                        "stock_code": stock_code,
+                        "stock_code": code,
                         "title": title,
                         "notice_date": notice_date,
                         "art_code": art_code

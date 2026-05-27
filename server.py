@@ -66,19 +66,21 @@ class RealtimeProxyHandler(SimpleHTTPRequestHandler):
             self.wfile.write(json.dumps({"error": "缺少关键字参数"}).encode("utf-8"))
             return
         
-        # 获取日期范围参数
+        # 获取日期范围参数和股票代码参数
         start_date = params.get("start_date", [None])[0]
         end_date = params.get("end_date", [None])[0]
+        stock_code = params.get("stock_code", [None])[0]
         
         try:
             # 初始化公告处理器
             init_announce_processor()
             
-            # 搜索公告（支持日期范围）
+            # 搜索公告（支持日期范围和股票代码）
             results = stock_announce_processor.search_announcements_by_keyword(
                 keywords, 
                 start_date=start_date, 
-                end_date=end_date
+                end_date=end_date,
+                stock_code=stock_code
             )
             
             self.send_response(200)

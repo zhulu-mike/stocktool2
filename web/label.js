@@ -108,12 +108,44 @@ function renderTable(data) {
   
   tbody.innerHTML = data.map(item => `
     <tr>
-      <td class="code">${item.code}</td>
+      <td class="code clickable" onclick="toggleExpand('${item.code}', this)">${item.code} ▼</td>
       <td>${item.name}</td>
       <td><span class="tag">${item.label}</span></td>
       <td><button class="delete-btn" onclick="removeTag('${item.code}', '${item.label}')">删除</button></td>
     </tr>
   `).join('');
+}
+
+function toggleExpand(stockCode, element) {
+  const row = element.parentElement;
+  const nextRow = row.nextElementSibling;
+  
+  if (nextRow && nextRow.classList.contains('expand-row')) {
+    nextRow.remove();
+    element.textContent = stockCode + ' ▼';
+  } else {
+    const stock = stockLabels[stockCode];
+    if (stock && stock.label.length > 0) {
+      const expandRow = document.createElement('tr');
+      expandRow.className = 'expand-row';
+      expandRow.innerHTML = `
+        <td colspan="4">
+          <div class="expand-content">
+            <table class="sub-table">
+              <thead>
+                <tr><th>标签列表</th></tr>
+              </thead>
+              <tbody>
+                ${stock.label.map(tag => `<tr><td><span class="tag">${tag}</span></td></tr>`).join('')}
+              </tbody>
+            </table>
+          </div>
+        </td>
+      `;
+      row.parentNode.insertBefore(expandRow, nextRow);
+      element.textContent = stockCode + ' ▲';
+    }
+  }
 }
 
 function addTag() {

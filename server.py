@@ -7,9 +7,66 @@ import socket
 import time
 import traceback
 import json
+import os
 
 # 公告处理器（延迟导入）
 stock_announce_processor = None
+
+# 全局变量，用于缓存股票标签数据和股票基础数据
+stock_labels_cache = {}
+stock_base_cache = {}
+DATA_FILE = "stocks/stock_label.json"
+BASE_FILE = "stocks/all_base.json"
+
+def load_stock_labels():
+    """加载股票标签数据到内存"""
+    global stock_labels_cache
+    if os.path.exists(DATA_FILE):
+        try:
+            with open(DATA_FILE, "r", encoding="utf-8") as f:
+                stock_labels_cache = json.load(f)
+            print(f"已加载股票标签数据，共 {len(stock_labels_cache)} 只股票")
+        except Exception as e:
+            print(f"加载股票标签数据失败: {e}")
+            stock_labels_cache = {}
+    else:
+        stock_labels_cache = {}
+        print("股票标签文件不存在，创建空缓存")
+
+def load_stock_base():
+    """加载股票基础数据到内存"""
+    global stock_base_cache
+    if os.path.exists(BASE_FILE):
+        try:
+            # 尝试使用UTF-8编码读取
+            with open(BASE_FILE, "r", encoding="utf-8") as f:
+                base_data = json.load(f)
+            stock_base_cache = {item["stock_code"]: item["stock_name"] for item in base_data}
+            print(f"已加载股票基础数据，共 {len(stock_base_cache)} 只股票")
+        except UnicodeDecodeError:
+            # 如果UTF-8失败，尝试GBK编码（中文Windows常见编码）
+            try:
+                with open(BASE_FILE, "r", encoding="gbk") as f:
+                    base_data = json.load(f)
+                stock_base_cache = {item["stock_code"]: item["stock_name"] for item in base_data}
+                print(f"已加载股票基础数据(GBK)，共 {len(stock_base_cache)} 只股票")
+            except Exception as e:
+                print(f"加载股票基础数据失败(GBK): {e}")
+                stock_base_cache = {}
+        except Exception as e:
+            print(f"加载股票基础数据失败: {e}")
+            stock_base_cache = {}
+    else:
+        stock_base_cache = {}
+        print("股票基础数据文件不存在")
+
+def get_stock_name(stock_code):
+    """根据股票代码获取股票名称"""
+    if stock_code in stock_labels_cache and stock_labels_cache[stock_code].get("name"):
+        return stock_labels_cache[stock_code]["name"]
+    if stock_code in stock_base_cache:
+        return stock_base_cache[stock_code]
+    return stock_code
 
 def init_announce_processor():
     global stock_announce_processor
@@ -51,8 +108,77 @@ class RealtimeProxyHandler(SimpleHTTPRequestHandler):
             self.handle_realtime_proxy(parsed.query)
         elif parsed.path == "/search-announce":
             self.handle_search_announce(parsed.query)
+        elif parsed.path == "/stocks/stock_label.json":
+            self.handle_get_stock_labels()
         else:
             super().do_GET()
+    
+    def do_PUT(self):
+        print("PUT request received")
+        parsed = urlparse(self.path)
+        print(f"Request path: {parsed.path}")
+        if parsed.path == "/stocks/stock_label.json":
+            print("Handling save stock labels")
+            self.handle_save_stock_labels()
+        else:
+            print(f"Path not found: {parsed.path}")
+            self.send_response(404)
+            self.end_headers()
+    
+    def handle_get_stock_labels(self):
+        """处理获取股票标签数据请求"""
+        try:
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(json.dumps(stock_labels_cache, ensure_ascii=False).encode("utf-8"))
+            print(f"已返回股票标签数据，共 {len(stock_labels_cache)} 只股票")
+        except Exception as exc:
+            print(f"获取股票标签数据失败: {exc}", flush=True)
+            traceback.print_exc()
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(json.dumps({"error": str(exc)}).encode("utf-8"))
+    
+    def handle_save_stock_labels(self):
+        """处理保存股票标签数据请求"""
+        global stock_labels_cache
+        try:
+            content_length = int(self.headers.get("Content-Length", 0))
+            body = self.rfile.read(content_length).decode("utf-8")
+            data = json.loads(body)
+            print(data)
+            # 更新内存缓存，同时自动补充股票名称
+            for stock_code, stock_data in data.items():
+                print(f"自动补充股票名称前: {stock_code} -> {stock_data['name']}")
+                if not stock_data.get("name") or stock_data["name"] == stock_code:
+                    stock_data["name"] = get_stock_name(stock_code)
+                    print(f"自动补充股票名称: {stock_code} -> {stock_data['name']}")
+            
+            stock_labels_cache = data
+            
+            # 保存到文件
+            with open(DATA_FILE, "w", encoding="utf-8") as f:
+                json.dump(stock_labels_cache, f, ensure_ascii=False, indent=2)
+            
+            print("股票标签数据已保存")
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            # 返回更新后的数据，包含正确的股票名称
+            self.wfile.write(json.dumps({"success": True, "data": stock_labels_cache}, ensure_ascii=False).encode("utf-8"))
+        except Exception as exc:
+            print(f"保存股票标签时发生错误: {exc}", flush=True)
+            traceback.print_exc()
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(json.dumps({"error": str(exc)}).encode("utf-8"))
     
     def handle_search_announce(self, query_string):
         params = parse_qs(query_string)
@@ -217,13 +343,13 @@ class RealtimeProxyHandler(SimpleHTTPRequestHandler):
 
 
 if __name__ == "__main__":
-    # 启动时预加载所有公告
-    print("正在预加载公告数据...")
-    init_announce_processor()
-    print("公告数据加载完成")
+    # 启动时加载股票基础数据和标签数据到内存（公告数据延迟加载）
+    load_stock_base()
+    load_stock_labels()
     
     port = 8000
     server = HTTPServer(("0.0.0.0", port), RealtimeProxyHandler)
     print(f"Serving at http://localhost:{port}")
     print("Use http://localhost:8000/web/index.html to open the UI")
+    print("Use http://localhost:8000/web/label.html to open the Label UI")
     server.serve_forever()

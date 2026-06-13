@@ -24,6 +24,7 @@ import sys
 import getopt
 from kzz_processor import fetch_all_convert_bonds
 from fetch_stock_base_info import FetchStockBaseInfo
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 
 #获取新三板股票列表
@@ -119,6 +120,11 @@ def init(context):
                 ["2021-02-08", "2021-02-22", "牛中反弹"],
             ],
             [
+                ["2021-02-22", "2021-03-10", "牛中杀跌2"],
+                ["2021-03-10", "2021-04-08", "牛中反弹" ],
+                ["2021-03-10", "2021-07-13", "牛中反弹" ],
+            ],
+            [
                 ["2021-09-15", "2021-10-12", "牛尾杀跌"],
                 ["2021-10-12", "2021-11-30", "牛尾反弹"],
             ],
@@ -151,15 +157,35 @@ def init(context):
                 ["2024-02-05", "2024-02-22", "熊尾二杀反弹"],
             ],
             [
-                ["2024-12-30", "2025-01-13", "牛中调整"],
+                ["2024-12-30", "2025-01-13", "牛中调整1"],
                 ["2025-01-13", "2025-02-27", "反弹"],
             ],
             [
-                ["2026-03-11", "2026-03-23", "牛中调整"],
-                ["2026-03-23", "2026-05-21", "反弹"],
+                ["2025-11-13", "2025-11-24", "牛中调整1-2"],
+                ["2025-11-24", "2025-12-08", "反弹"],
             ],
+            [
+                ["2026-01-28", "2026-02-02", "牛中调整2"],
+                ["2026-02-02", "2026-03-02", "反弹"],
+            ],
+            [
+                ["2026-03-02", "2026-03-23", "牛中调整3"],
+                ["2026-03-23", "2026-04-22", "反弹"],
+            ],
+            [
+                ["2026-03-11", "2026-03-23", "牛中调整3"],
+                ["2026-03-23", "2026-04-22", "反弹"],
+            ],
+            [
+                ["2026-05-13", "2026-06-11", "牛中调整4"],
+                ["2026-06-11", "2026-06-12", "牛中调整4"],
+            ],
+            [
+                ["2024-09-23", "2026-06-11", "牛中调整4"],
+                ["2026-06-11", "2026-06-12", "牛中调整4"],
+            ]
         ]
-        group_range = [-50, -40, -30, -25, -20, 0, 20, 50, 100, 200, 100000]
+        group_range = [-50, -40, -30, -25, -20, -10, 0, 20, 50, 100, 200, 100000]
         calculate_market_profit(time_orders, group_range, flag)
     elif flag==11:
         time_orders = [
@@ -216,7 +242,7 @@ def init(context):
                 ["2025-01-13", "2025-02-27", "反弹"],
             ],
             [
-                ["2024-09-24", "2026-03-23", "牛中调整"],
+                ["2026-03-02", "2026-03-23", "牛中调整"],
                 ["2026-03-23", "2026-04-22", "反弹"],
             ],
         ]
@@ -283,28 +309,32 @@ def init(context):
     elif flag==2025:
         time_orders = [
             [
-                ["2024-09-23", "2026-05-22", "牛市全段"]
+                ["2024-09-23", "2026-05-13", "牛市全段"],
+                ["2026-05-13", "2026-06-05", "科技见顶调整"]
             ],
             [
-                ["2026-01-01", "2026-05-22", "牛市全段"]
+                ["2026-01-05", "2026-06-10", "牛市后段"]
+            ],
+            [
+                ["2026-03-23", "2026-06-10", "牛市后段"]
             ],
             [
                 ["2024-09-23", "2025-11-11", "牛市前半段"],
                 ["2025-11-11", "2025-12-16", "牛市中期调整"],
                 ["2025-12-16", "2026-03-02", "调整后反弹"],
                 ["2026-03-02", "2026-03-23", "新高后调整"],
-                ["2026-03-23", "2026-05-21", "反弹"],
-                ["2025-11-11", "2026-05-19", "牛市后期"],
+                ["2026-03-23", "2026-06-05", "反弹"],
+                ["2025-11-11", "2026-06-05", "牛市后期"],
             ],
             [
                 ["2024-09-23", "2025-08-25", "牛市前半段"],
-                ["2025-08-25", "2026-04-22", "牛市后期"],
+                ["2025-08-25", "2026-06-05", "牛市后期"],
             ],
             [
                 ["2024-09-23", "2025-09-01", "牛市前期"],
             ],
             [
-                ["2025-09-01", "2026-04-22", "牛市后期"],
+                ["2025-09-01", "2026-06-05", "牛市后期"],
             ],
             [
                 ["2025-09-01", "2025-12-17", "牛市中期横盘"],
@@ -338,7 +368,9 @@ def init(context):
             [
                 ["2019-01-03", "2021-02-18", "牛市前半段"],
                 ["2021-02-19", "2021-02-22", "大杀"],
-                ["2021-03-05", "2021-03-08", "大杀"],
+                ["2021-02-22", "2021-02-26", "大杀2"],
+                ["2021-02-26", "2021-03-05", "大杀3"],
+                ["2021-03-05", "2021-03-08", "大杀4"],
                 ["2021-02-18", "2021-03-09", "牛市顶部下杀"],
                 ["2021-03-09", "2021-12-10", "牛市后半段横盘"],
                 ["2021-12-10", "2022-03-15", "牛转熊杀跌"],
@@ -353,7 +385,7 @@ def init(context):
                 ["2021-12-10", "2024-02-02", "牛市结束后全"],
             ],
             [
-                ["2019-01-03", "2021-12-10", "牛市前半段"],
+                ["2019-01-03", "2021-12-10", "牛市全段"],
                 ["2021-12-10", "2022-03-15", "牛转熊杀跌"],
                 ["2022-03-15", "2022-04-26", "牛转熊再杀跌"],
                 ["2022-04-26", "2022-07-04", "反弹"],
@@ -362,6 +394,7 @@ def init(context):
                 ["2022-12-30", "2023-12-29", "熊市横盘"],
                 ["2023-12-29", "2024-02-05", "熊市后期加速杀跌"],
                 ["2024-02-05", "2024-03-19", "熊市反弹"],
+                ["2021-12-10", "2023-12-31", "牛市结束后全1"],
                 ["2021-12-10", "2024-02-02", "牛市结束后全"],
                 ["2024-02-02", "2026-05-22", "下轮牛市"],
             ]
@@ -488,7 +521,38 @@ def init(context):
     elif flag==202:
         processor = FetchStockBaseInfo()
         processor.process_all_stocks(force_update=False)
-
+    elif flag==203:
+        processor = context.stock_price_processor
+        stock_list = []
+        #直接从2020xiadie.txt里读取股票列表，每行一个股票代码
+        #文件内容格式是:"11111","22222","2222"
+        with open('out/2019listed.txt', 'r') as file:
+            for line in file:
+                # 解析文件内容，提取股票代码（格式："11111","22222","2222"）
+                line = line.strip()
+                # 去除引号并按逗号分割
+                codes = line.replace('"', '').split(',')
+                for code in codes:
+                    code = code.strip()
+                    if code:
+                        stock_list.append(code)
+        time_orders = [
+            [
+                ["2023-01-01", "2023-12-31", "全段"]
+            ],
+            [
+                ["2022-01-01", "2022-12-31", "全段"]
+            ],
+            [
+                ["2024-01-01", "2024-12-31", "全段"]
+            ],
+            [
+                ["2025-01-01", "2025-12-31", "全段"]
+            ]
+        ]
+        group_range = [-50, -20, 0, 20, 50, 100, 200, 300, 500, 100000]
+        calculate_market_profit(time_orders, group_range, flag=flag, stock_list=stock_list)
+    
 
 
 
@@ -524,6 +588,9 @@ def ontimer_3(context):
         if need_execute:
             print(f"[{now}] 超过15:10，执行 etfFill()...")
             etfFill()
+            get_all_a(context)
+            p = FetchStockBaseInfo()
+            p.process_all_stocks(force_update=False)
             # 更新 etffill 的日期
             lock_data['etffill'] = today_str
             # 写入 JSON 格式
@@ -556,7 +623,7 @@ def ontimer_3(context):
         else:
             print(f"[{now}] 今日公告已更新过，跳过")
         return
-    if now < datetime.time(15, 10):
+    if now >= datetime.time(9, 15) and now < datetime.time(15, 10):
         processor = context.stock_price_processor
         processor.update_kzz_with_market_data()
 def kzzzg():
@@ -797,20 +864,39 @@ def etfFill():
 #统计全市场股票在牛市之后的表现
 def calculate_market_profit(time_orders, group_range=None, flag=None, stock_list=all_a_stocks):
     processor = stock_price_processor.StockPirceProcessor()
-    for to, time_order in enumerate(time_orders):
-        outs = {}
-        rets = []
-        zhishu = {"SHSE.000300": "沪深300","SHSE.000905": "中证500", "SHSE.000852": "中证1000"}
-        zhishu_rets = []
-        for i in range(len(time_order)):
-            #顺便获取一些指数的同期涨幅，作为对比，中证500和中证1000
-            ret = processor.get_stocks_during_delta(list(zhishu.keys()), time_order[i][0], time_order[i][1])
-            zhishu_rets.append(ret)
+    outs = {}
+    retss = []
+    zhishu_retss = []
+    zhishu = {"SHSE.000300": "沪深300","SHSE.000905": "中证500", "SHSE.000852": "中证1000"}
+    zhishu_keys = list(zhishu.keys())
 
-            ret = processor.get_stocks_during_delta(stock_list, time_order[i][0], time_order[i][1])
-            rets.append(ret)
+    def fetch_data(time_order, i, to):
+        """并行获取单个时间段的数据"""
+        zhishu_ret = processor.get_stocks_during_delta(zhishu_keys, time_order[i][0], time_order[i][1])
+        ret = processor.get_stocks_during_delta(stock_list, time_order[i][0], time_order[i][1])
+        return to, i, zhishu_ret, ret
+    #这里改用多线程获取数据还更慢了，不知道为什么，难道是流控了？
+    with ThreadPoolExecutor(max_workers=1) as executor:
+        futures = []
+        for to, time_order in enumerate(time_orders):
+            rets = [None] * len(time_order)
+            zhishu_rets = [None] * len(time_order)
+            # 使用多线程并行获取数据
+            futures.extend([executor.submit(fetch_data, time_order, i, to) for i in range(len(time_order))])
+            retss.append(rets)
+            zhishu_retss.append(zhishu_rets)
+        for future in as_completed(futures):
+            to, i, zhishu_ret, ret = future.result()
+            print(f"to={to}, i={i}")
+            retss[to][i] = ret
+            zhishu_retss[to][i] = zhishu_ret
+
+    for to, time_order in enumerate(time_orders):
+        rets = retss[to]
+        zhishu_rets = zhishu_retss[to]
+        outs = {}
         #先对第一个阶段的涨幅进行排序，分成10组，统计每组在后续阶段的表现
-        group_range = [-50, -20, 0, 20, 50, 100, 200, 100000] if group_range is None else group_range
+        group_range = [-50, -20, 0, 20, 50, 100, 200, 500, 1000, 100000] if group_range is None else group_range
         groups = [[] for _ in range(len(group_range))]
         for code in stock_list:
             if code not in rets[0]:
@@ -840,6 +926,7 @@ def calculate_market_profit(time_orders, group_range=None, flag=None, stock_list
 
             zhishu_str = "同期沪深300涨幅{:.2f}%, 中证500涨幅{:.2f}%, 中证1000涨幅{:.2f}%".format(zhishu_rets[i]["SHSE.000300"], zhishu_rets[i]["SHSE.000905"], zhishu_rets[i].get("SHSE.000852",0))
             time_str = time_order[i][0]+"~"+time_order[i][1]+"=="+time_order[i][2]
+            time_str2 = time_str+"_list"
             print("\n\n")
             if i == 0:
                  print(f"首先按{time_order[i][0]}~{time_order[i][1]}======{time_order[i][2]}阶段的涨幅表现进行分组, {zhishu_str}")
@@ -847,12 +934,15 @@ def calculate_market_profit(time_orders, group_range=None, flag=None, stock_list
                 print(f"对分组股票统计{time_order[i][0]}~{time_order[i][1]}======{time_order[i][2]}阶段的表现, {zhishu_str}")
             print("▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼")
             outs[time_str] = []
+            outs[time_str2] = {}
             for group in range(len(groups)):
                 total_profit = 0
                 count = 0
                 win_count = 0
                 group_stock_data = []
                 group_range_str = f"{group_range[group-1]}%~{group_range[group]}%" if group > 0 else f"<{group_range[group]}%"
+                #groups[group]的列表拼成"222","222"这样的字符串
+                outs[time_str2][group_range_str] = ",".join(groups[group])
                 for code in groups[group]:
                     if code in rets[i]:
                         total_profit = total_profit + rets[i][code]
@@ -1379,7 +1469,32 @@ def get_message(code, webhook_url, headers=None):
     else:
         print("消息发送失败", code)
         return ""
-    
+def get_all_a(context):
+    all = []
+    old_all_stocks = []
+    f = "stocks/all_a.json"
+    with open(f, 'r', encoding='utf-8') as file:
+        datas = json.load(file)
+        stock_num = len(datas)
+        for i in range(stock_num):
+            old_all_stocks.append(datas[i])
+    today = datetime.date.today().strftime("%Y-%m-%d")
+    find('SHSE.000001', all ,today)
+    find('SZSE.399106', all ,today)
+    s1 = set(old_all_stocks)
+    s2 = set(all)
+    s3 = s1 | s2
+    all_new = list(s3)
+    print(len(all_new))
+    with open(f, 'w', encoding='utf-8') as file:
+        json.dump(all_new, file, indent=4, ensure_ascii=False)
+
+def find(idx, all, date):
+    ret = stk_get_index_constituents(index=idx, trade_date=date)
+    ret = ret["symbol"].tolist()
+    l = len(ret)
+    for i in range(l):
+        all.append(ret[i].split('.')[1])    
 
 if __name__ == '__main__':
     run(strategy_id='d01f07c0-a3d0-11ee-b878-14755b767e75',

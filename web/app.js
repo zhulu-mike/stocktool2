@@ -284,6 +284,70 @@ function loadData() {
         console.error('加载数据失败:', error);
         document.getElementById('record-count').textContent = '加载失败，请刷新重试';
       });
+  } else if (currentDataSource === 'small') {
+    fetch('../kzz/all.json')
+      .then(response => {
+        console.log('all.json response status:', response.status);
+        return response.json();
+      })
+      .then(jsonData => {
+        console.log('all.json data length:', jsonData.length);
+        data = jsonData.filter(row => {
+          const leftMarketValue = parseFloat(row.left_market_value);
+          return !isNaN(leftMarketValue) && leftMarketValue < 5;
+        });
+        console.log('filtered small data length:', data.length);
+        applyFilters();
+        document.getElementById('refresh-status').textContent = '更新时间: ' + new Date().toLocaleString();
+      })
+      .catch(error => {
+        console.error('加载数据失败:', error);
+        document.getElementById('record-count').textContent = '加载失败，请刷新重试';
+      });
+  } else if (currentDataSource === 'low_premium') {
+    fetch('../kzz/all.json')
+      .then(response => {
+        console.log('all.json response status:', response.status);
+        return response.json();
+      })
+      .then(jsonData => {
+        console.log('all.json data length:', jsonData.length);
+        data = jsonData.filter(row => {
+          const premiumRate = parseFloat(row.premium_rate);
+          return !isNaN(premiumRate) && premiumRate < 60;
+        });
+        console.log('filtered low_premium data length:', data.length);
+        applyFilters();
+        document.getElementById('refresh-status').textContent = '更新时间: ' + new Date().toLocaleString();
+      })
+      .catch(error => {
+        console.error('加载数据失败:', error);
+        document.getElementById('record-count').textContent = '加载失败，请刷新重试';
+      });
+  } else if (currentDataSource === 'three_low') {
+    fetch('../kzz/all.json')
+      .then(response => {
+        console.log('all.json response status:', response.status);
+        return response.json();
+      })
+      .then(jsonData => {
+        console.log('all.json data length:', jsonData.length);
+        data = jsonData.filter(row => {
+          const premiumRate = parseFloat(row.premium_rate);
+          const leftMarketValue = parseFloat(row.left_market_value);
+          const bondPrice = parseFloat(row.bond_price);
+          return !isNaN(premiumRate) && premiumRate < 60 &&
+                 !isNaN(leftMarketValue) && leftMarketValue < 5 &&
+                 !isNaN(bondPrice) && bondPrice < 170;
+        });
+        console.log('filtered three_low data length:', data.length);
+        applyFilters();
+        document.getElementById('refresh-status').textContent = '更新时间: ' + new Date().toLocaleString();
+      })
+      .catch(error => {
+        console.error('加载数据失败:', error);
+        document.getElementById('record-count').textContent = '加载失败，请刷新重试';
+      });
   } else {
     Promise.all([
       fetch('../kzz/all.json').then(r => r.json()),

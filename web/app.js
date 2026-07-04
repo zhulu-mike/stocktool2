@@ -314,7 +314,8 @@ function loadData() {
         console.log('all.json data length:', jsonData.length);
         data = jsonData.filter(row => {
           const premiumRate = parseFloat(row.premium_rate);
-          return !isNaN(premiumRate) && premiumRate < 60;
+          const bondPrice = parseFloat(row.bond_price);
+          return !isNaN(premiumRate) && premiumRate < 50 && !isNaN(bondPrice) && bondPrice < 170;
         });
         console.log('filtered low_premium data length:', data.length);
         applyFilters();

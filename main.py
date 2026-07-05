@@ -352,6 +352,10 @@ def init(context):
             ]
         ]
         calculate_market_profit(time_orders, flag=flag)
+    elif flag==1002025:
+        calculate_market_profit_by_day(start_date="2024-09-23")
+    elif flag==1002026:
+        calculate_market_profit_by_day(start_date="2026-01-05")
     elif flag==2021:
         time_orders = [
             [
@@ -949,13 +953,47 @@ def calculate_market_profit(time_orders, group_range=None, flag=None, stock_list
     zhishu = {"SHSE.000300": "沪深300","SHSE.000905": "中证500", "SHSE.000852": "中证1000"}
     zhishu_keys = list(zhishu.keys())
 
-    results = []
+    # def fetch_data(time_order, i, to):
+    #     """并行获取单个时间段的数据"""
+    #     zhishu_ret = processor.get_stocks_during_delta(zhishu_keys, time_order[i][0], time_order[i][1])
+    #     #先按照上市日期和退市日期过滤下，如果股票在上市日期之前，或者在退市日期之后，就不计算
+    #     stock_list2 = []
+    #     for code in stock_list:
+    #         if code not in a_stock_base:
+    #             continue
+    #         info = a_stock_base[code]
+    #         if info['listed_date'] > time_order[i][1] or info['delisted_date'] < time_order[i][0]:
+    #             continue
+    #         if info['delisted_date'] < time_order[i][0]:
+    #             continue
+    #         stock_list2.append(code)
+    #     ret = processor.get_stocks_during_delta(stock_list2, time_order[i][0], time_order[i][1])
+    #     return to, i, zhishu_ret, ret
+    # #这里改用多线程获取数据还更慢了，不知道为什么，难道是流控了？
+    # with ThreadPoolExecutor(max_workers=1) as executor:
+    #     futures = []
+    #     for to, time_order in enumerate(time_orders):
+    #         rets = [None] * len(time_order)
+    #         zhishu_rets = [None] * len(time_order)
+    #         # 使用多线程并行获取数据
+    #         futures.extend([executor.submit(fetch_data, time_order, i, to) for i in range(len(time_order))])
+    #         retss.append(rets)
+    #         zhishu_retss.append(zhishu_rets)
+    #     for future in as_completed(futures):
+    #         to, i, zhishu_ret, ret = future.result()
+    #         print(f"to={to}, i={i}")
+    #         retss[to][i] = ret
+    #         zhishu_retss[to][i] = zhishu_ret
 
+    group_agg_result = []
     for to, time_order in enumerate(time_orders):
+        # rets = retss[to]
+        # zhishu_rets = zhishu_retss[to]
         rets = []
         zhishu_rets = []
         for i in range(len(time_order)):
             zhishu_ret = processor.get_stocks_during_delta(zhishu_keys, time_order[i][0], time_order[i][1])
+            #先按照上市日期和退市日期过滤下，如果股票在上市日期之前，或者在退市日期之后，就不计算
             stock_list2 = []
             for code in stock_list:
                 if code not in a_stock_base:
@@ -970,6 +1008,7 @@ def calculate_market_profit(time_orders, group_range=None, flag=None, stock_list
             rets.append(ret)
             zhishu_rets.append(zhishu_ret)
         outs = {}
+        #先对第一个阶段的涨幅进行排序，分成10组，统计每组在后续阶段的表现
         group_range = [-50, -40, -30, -20, 0, 20, 50, 100, 200, 500, 1000, 100000] if group_range is None else group_range
         groups = [[] for _ in range(len(group_range))]
         for code in stock_list:
@@ -982,10 +1021,13 @@ def calculate_market_profit(time_orders, group_range=None, flag=None, stock_list
                     group = i
                     break
             groups[group].append(code)
+        group_agg = [len(g) for g in groups]
+        group_agg_result.append({"st": time_order[0][0], "et": time_order[0][1], "group_agg": group_agg})
         group_by_str = time_order[0][0]+"-"+time_order[0][1]
         out_path = "out/"
         log_dir = os.path.join(out_path, f"flag{flag}") if flag is not None else out_path
         os.makedirs(log_dir, exist_ok=True)
+        #把涨幅最小的股票列表写到文件里方便后面分析
         with open(os.path.join(log_dir, f'final_stocks_min{to}.txt'), 'w', encoding='utf-8') as f:
             f.write(f"涨幅小于{group_range[0]}%的股票列表:\n")
             for code in groups[0]:
@@ -995,17 +1037,8 @@ def calculate_market_profit(time_orders, group_range=None, flag=None, stock_list
             for code in groups[-1]:
                 f.write(f"{code}\n")
         final_rets = []
-
-        result_item = {
-            "st": time_order[0][0],
-            "et": time_order[0][1],
-        }
-
-        for group in range(len(groups)):
-            group_range_str = f"{group_range[group-1]}%~{group_range[group]}%" if group > 0 else f"<{group_range[group]}%"
-            result_item[f"group_{group_range_str}_count"] = len(groups[group])
-
         for i in range(0, len(rets)):
+
             zhishu_str = "同期沪深300涨幅{:.2f}%, 中证500涨幅{:.2f}%, 中证1000涨幅{:.2f}%".format(zhishu_rets[i]["SHSE.000300"], zhishu_rets[i]["SHSE.000905"], zhishu_rets[i].get("SHSE.000852",0))
             time_str = time_order[i][0]+"~"+time_order[i][1]+"=="+time_order[i][2]
             time_str2 = time_str+"_list"
@@ -1017,15 +1050,13 @@ def calculate_market_profit(time_orders, group_range=None, flag=None, stock_list
             print("▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼")
             outs[time_str] = []
             outs[time_str2] = {}
-
-            period_win = []
-
             for group in range(len(groups)):
                 total_profit = 0
                 count = 0
                 win_count = 0
                 group_stock_data = []
                 group_range_str = f"{group_range[group-1]}%~{group_range[group]}%" if group > 0 else f"<{group_range[group]}%"
+                #groups[group]的列表拼成"222","222"这样的字符串
                 outs[time_str2][group_range_str] = ",".join(groups[group])
                 for code in groups[group]:
                     if code in rets[i]:
@@ -1037,6 +1068,7 @@ def calculate_market_profit(time_orders, group_range=None, flag=None, stock_list
                         outs[time_str].append(f"{time_str}, 组【{group_range_str}】, {code}, {rets[i][code]:.2f}%")
                 avg_profit = total_profit / count if count > 0 else 0
                 win_rate = win_count / count if count > 0 else 0
+                #再反向求一遍跌幅超过平均值的有多少
                 beyond_count = 0
                 for zdf in group_stock_data:
                     if zdf > avg_profit:
@@ -1047,6 +1079,7 @@ def calculate_market_profit(time_orders, group_range=None, flag=None, stock_list
                     fenbu_str = f"10%分位={np.percentile(df, 10):.2f}, 25%分位={np.percentile(df, 25):.2f}, 40%分位={np.percentile(df, 40):.2f}, 50%分位={np.percentile(df, 50):.2f}, 60%分位={np.percentile(df, 60):.2f}, 75%分位={np.percentile(df, 75):.2f}, 90%分位={np.percentile(df, 90):.2f}"
                 else:
                     fenbu_str = ""
+                #反向求该组股票在前面下跌阶段的涨幅
                 backward_str = ""
                 if len(time_order[i]) > 4:
                     backward_ret = processor.get_stocks_during_delta(groups[group], time_order[i][3], time_order[i][4])
@@ -1054,6 +1087,7 @@ def calculate_market_profit(time_orders, group_range=None, flag=None, stock_list
                     avg_backward_profit = total_backward_profit / len(backward_ret) if len(backward_ret.items()) > 0 else 0
                     backward_str = f"前期下跌阶段涨幅={avg_backward_profit:.2f}%"
                 
+                # 统计该组股票的一级行业分布
                 industry_str = ""
                 if a_stock_base:
                     industry_count = {}
@@ -1069,21 +1103,98 @@ def calculate_market_profit(time_orders, group_range=None, flag=None, stock_list
                 
                 print(f"{time_order[i][0]}~{time_order[i][1]}阶段，分组涨跌幅【{group_range_str}】的{count}只股票平均涨幅{avg_profit:.2f}%，胜率={win_rate:.2%}, 超过平均涨幅的股票占比={beyond_count_rate:.2%}, {fenbu_str}, {backward_str}, {industry_str}")
                 print("==============================================")
-
-                if win_rate > 0.5 and count > 0:
-                    period_win.append(group_range_str)
-
-            if period_win:
-                result_item[f"win_period_{i}"] = ",".join(period_win)
-
             if time_order[i][3] if len(time_order[i])>3 else False:
                 processor.backtrace_fantan(groups[-1], time_order[i][0], time_order[i][1])
+        #保存outs.json
         with open(os.path.join(log_dir, f'outs{to}.json'), 'w', encoding='utf-8') as f:
             json.dump(outs, f, ensure_ascii=False, indent=4)
+    return group_agg_result
 
-        results.append(result_item)
-
-    return results
+def calculate_market_profit_by_day(start_date="2024-09-23"):
+    end_date = datetime.datetime.now().strftime("%Y-%m-%d")
+    group_range = [-50, -40, -30, -20, 0, 20, 50, 100, 200, 500, 1000, 100000]
+    
+    output_dir = "stocks/agg"
+    os.makedirs(output_dir, exist_ok=True)
+    output_path = os.path.join(output_dir, f"{start_date}_agg.json")
+    
+    all_results = []
+    last_date = None
+    
+    if os.path.exists(output_path):
+        with open(output_path, 'r', encoding='utf-8') as f:
+            all_results = json.load(f)
+        if len(all_results) > 0:
+            last_date = all_results[-1]['date']
+            print(f"已加载 {len(all_results)} 条历史数据，最后日期: {last_date}")
+    
+    datas = history(symbol="SHSE.000300", frequency='1d', start_time=start_date, end_time=end_date, fields='symbol, eob', adjust=ADJUST_POST, df=False)
+    trading_days = []
+    for data in datas:
+        trading_days.append(data['eob'].strftime('%Y-%m-%d'))
+    
+    trading_days.sort()
+    
+    start_idx = 0
+    if last_date:
+        for i, day in enumerate(trading_days):
+            if day > last_date:
+                start_idx = i
+                break
+        else:
+            start_idx = len(trading_days)
+    
+    print(f"从索引 {start_idx} 开始获取新数据")
+    
+    new_count = 0
+    
+    for trade_day in trading_days[start_idx:]:
+        time_orders = [
+            [
+                [start_date, trade_day, "统计时间段"],
+            ],
+        ]
+        result = calculate_market_profit(time_orders, group_range=group_range, flag=1002025)
+        
+        if len(result) == 0:
+            continue
+        
+        group_agg = result[0]['group_agg']
+        total_stocks = sum(group_agg)
+        
+        if total_stocks == 0:
+            continue
+        
+        negative_count = sum(group_agg[:5])
+        negative_20_count = sum(group_agg[:4])
+        
+        negative_ratio = negative_count / total_stocks
+        negative_20_ratio = negative_20_count / total_stocks
+        
+        result_item = {
+            "st": start_date,
+            "date": trade_day,
+            "negative_ratio": negative_ratio,
+            "negative_20_ratio": negative_20_ratio,
+            "total_stocks": total_stocks,
+            "negative_count": negative_count,
+            "negative_20_count": negative_20_count,
+            "group_agg": group_agg
+        }
+        all_results.append(result_item)
+        new_count += 1
+        
+        if new_count % 30 == 0:
+            with open(output_path, 'w', encoding='utf-8') as f:
+                json.dump(all_results, f, ensure_ascii=False, indent=4)
+            print(f"已保存 {new_count} 条新数据到 {output_path}")
+    
+    if new_count > 0:
+        with open(output_path, 'w', encoding='utf-8') as f:
+            json.dump(all_results, f, ensure_ascii=False, indent=4)
+        print(f"数据已保存到 {output_path}，共新增 {new_count} 条")
+    else:
+        print(f"无需更新，数据已是最新")
 
 #计算ETF在指定时间区间的平均涨幅
 def calculate_etf_profit(time_orders):

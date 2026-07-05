@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>市场涨跌幅比例</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+</head>
+<body>
+  <div class="page-container">
+    <div class="nav-links">
+      <a href="index.html" target="_blank">可转债列表</a>
+      <a href="announce.html" target="_blank">公告查询</a>
+      <a href="label.html" target="_blank">标签管理</a>
+    </div>
+    
+    <h1>市场涨跌幅比例趋势</h1>
+    
+    <div class="filter-form" style="margin-bottom: 16px;">
+      <label for="data-source">数据源：</label>
+      <select id="data-source">
+        <option value="">加载中...</option>
+      </select>
+    </div>
+    
+    <div class="chart-container">
+      <div id="ratioChart" style="width:100%;height:100%;"></div>
+    </div>
+    
+    <div class="status-row">
+      <span id="data-status">加载中...</span>
+      <div>
+        <button type="button" id="refresh-button">刷新数据</button>
+        <button type="button" id="reset-zoom-button">重置缩放</button>
+      </div>
+    </div>
+    
+    <div class="footer">
+      <p>数据来源：<code id="current-source">stocks/agg/</code></p>
+    </div>
+  </div>
+
+  <script>
+    const chartContainer = document.getElementById('ratioChart');
+    const dataStatus = document.getElementById('data-status');
+    const refreshButton = document.getElementById('refresh-button');
+    const resetZoomButton = document.getElementById('reset-zoom-button');
+    const dataSourceSelect = document.getElementById('data-source');
+    const currentSource = document.getElementById('current-source');
+    
+    let chartInstance = null;
+    
+    async function loadDataSourceList() {
+      try {
+        const response = await fetch('../stocks/agg/');
+        const html = await response.text();
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const links = doc.querySelectorAll('a');
+        const jsonFiles = [];
+        
+        links.forEach(link => {
+          const href = link.getAttribute('href');
+          if (href && href.endsWith('.json')) {
+            jsonFiles.push(href);
+          }
+        });
+        
+        jsonFiles.sort();
+        
+        dataSourceSelect.innerHTML = '';
+        jsonFiles.forEach(file => {
+          const option = document.createElement('option');
+          option.value = file;
+          option.textContent = file.replace('.json', '');
+          dataSourceSelect.appendChild(option);
+        });
+        
+        if (jsonFiles.length > 0) {
+          loadData(jsonFiles[0]);
+        } else {
+          dataStatus.textContent = '未找到数据源文件';
+        }
+      } catch (error) {
+        console.error('加载数据源列表失败:', error);
+        dataSourceSelect.innerHTML = '<option value="">加载失败</option>';
+      }
+    }
+    
+    async function loadData(fileName) {
+      if (!fileName) return;
+      
+      dataStatus.textContent = '加载中...';
+      
+      try {
+        const response = await fetch('../stocks/agg/' + fileName);
+        const data = await response.json();
+        
+        if (!data || data.length === 0) {
+          dataStatus.textContent = '无数据';
+          return;
+        }
+        
+        const dates = data.map(item => item.date);
+        const negativeRatios = data.map(item => (item.negative_ratio * 100));
+        const negative20Ratios = data.map(item => (item.negative_20_ratio * 100));
+        
+        const maxNegative = Math.max(...negativeRatios);
+        const maxNegative20 = Math.max(...negative20Ratios);
+        const yMax = Math.max(maxNegative, maxNegative20) + 10;
+        
+        if (chartInstance) {
+          chartInstance.dispose();
+        }
+        
+        chartInstance = echarts.init(chartContainer);
+        
+        const option = {
+          tooltip: {
+            trigger: 'axis',
+            formatter: function(params) {
+              let result = params[0].axisValue + '<br/>';
+              params.forEach(param => {
+                result += param.marker + param.seriesName + ': ' + param.value.toFixed(2) + '%<br/>';
+              });
+              return result;
+            }
+          },
+          legend: {
+            data: ['涨幅<0%比例', '涨幅<-20%比例'],
+            top: 0
+          },
+          grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '15%',
+            top: '10%',
+            containLabel: true
+          },
+          dataZoom: [
+            {
+              type: 'inside',
+              xAxisIndex: 0,
+              start: 0,
+              end: 100,
+              zoomLock: false
+            },
+            {
+              type: 'slider',
+              xAxisIndex: 0,
+              start: 0,
+              end: 100,
+              bottom: 10,
+              height: 30,
+              borderColor: '#ccc',
+              fillerColor: 'rgba(47, 108, 229, 0.2)',
+              handleStyle: {
+                color: '#2f6ce5'
+              },
+              textStyle: {
+                color: '#666'
+              }
+            }
+          ],
+          xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: dates,
+            axisLabel: {
+              rotate: 45,
+              fontSize: 11
+            }
+          },
+          yAxis: {
+            type: 'value',
+            min: 0,
+            max: yMax,
+            axisLabel: {
+              formatter: '{value}%'
+            }
+          },
+          series: [
+            {
+              name: '涨幅<0%比例',
+              type: 'line',
+              smooth: true,
+              symbol: 'none',
+              lineStyle: {
+                color: '#ff6384',
+                width: 2
+              },
+              data: negativeRatios
+            },
+            {
+              name: '涨幅<-20%比例',
+              type: 'line',
+              smooth: true,
+              symbol: 'none',
+              lineStyle: {
+                color: '#36a2eb',
+                width: 2
+              },
+              data: negative20Ratios
+            }
+          ]
+        };
+        
+        chartInstance.setOption(option);
+        
+        dataStatus.textContent = `已加载 ${data.length} 条数据，时间范围：${dates[0]} - ${dates[dates.length - 1]}`;
+        currentSource.textContent = 'stocks/' + fileName;
+        
+        window.addEventListener('resize', function() {
+          if (chartInstance) {
+            chartInstance.resize();
+          }
+        });
+        
+      } catch (error) {
+        dataStatus.textContent = '加载失败: ' + error.message;
+        console.error('Error loading data:', error);
+      }
+    }
+    
+    refreshButton.addEventListener('click', function() {
+      loadDataSourceList();
+    });
+    
+    dataSourceSelect.addEventListener('change', function() {
+      const fileName = dataSourceSelect.value;
+      if (fileName) {
+        loadData(fileName);
+      }
+    });
+    
+    resetZoomButton.addEventListener('click', function() {
+      if (chartInstance) {
+        chartInstance.dispatchAction({
+          type: 'dataZoom',
+          start: 0,
+          end: 100
+        });
+      }
+    });
+    
+    loadDataSourceList();
+  </script>
+</body>
+</html>

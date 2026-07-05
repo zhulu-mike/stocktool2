@@ -301,6 +301,13 @@ tbody td.down, thead th span.down {
   color: #00a000 !important;
 }
 
+.chart-container {
+  position: relative;
+  height: 500px;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
 .footer {
   margin-top: 22px;
   color: #6c757d;

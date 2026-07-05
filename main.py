@@ -175,6 +175,9 @@ def init(context):
             [
                 ["2026-03-11", "2026-03-23", "牛中调整3"],
                 ["2026-03-23", "2026-04-22", "反弹"],
+                ["2026-03-23", "2026-05-22", "反弹"],
+                ["2026-03-23", "2026-06-11", "反弹"],
+                ["2026-03-23", "2026-06-26", "反弹"],
             ],
             [
                 ["2026-05-13", "2026-06-11", "牛中调整4"],
@@ -309,8 +312,7 @@ def init(context):
     elif flag==2025:
         time_orders = [
             [
-                ["2024-09-23", "2026-05-13", "牛市全段"],
-                ["2026-05-13", "2026-06-05", "科技见顶调整"]
+                ["2024-09-23", "2026-06-18", "牛市全段"],
             ],
             [
                 ["2026-01-05", "2026-06-10", "牛市后段"]
@@ -328,7 +330,7 @@ def init(context):
             ],
             [
                 ["2024-09-23", "2025-08-25", "牛市前半段"],
-                ["2025-08-25", "2026-06-05", "牛市后期"],
+                ["2025-08-25", "2026-06-29", "牛市后期"],
             ],
             [
                 ["2024-09-23", "2025-09-01", "牛市前期"],
@@ -347,14 +349,32 @@ def init(context):
             ],
             [
                 ["2026-01-12", "2026-02-26", "年末上升后横盘"],
-            ],
-            [
-                ["2022-12-30", "2023-12-29", "2023熊市横盘"],
             ]
         ]
         calculate_market_profit(time_orders, flag=flag)
     elif flag==2021:
         time_orders = [
+            [
+                ["2020-05-06", "2021-02-18", "牛市前半段"],
+                ["2021-02-18", "2021-12-10", "牛市后半段"],
+            ],
+            [
+                ["2020-06-01", "2021-02-18", "牛市前半段"],
+                ["2021-02-18", "2021-12-10", "牛市后半段"],
+            ],
+            [
+                ["2020-07-01", "2021-02-18", "牛市前半段"],
+                ["2021-02-18", "2021-12-10", "牛市后半段"],
+            ],
+            [
+                ["2020-08-03", "2021-02-18", "牛市前半段"],
+                ["2021-02-18", "2021-12-10", "牛市后半段"],
+            ],
+            [
+                ["2019-01-03", "2021-12-10", "牛市全段"],
+                ["2021-12-10", "2022-04-26", "杀跌"],
+                ["2022-04-26", "2022-07-04", "反弹"],
+            ],
             [
                 ["2019-01-03", "2021-02-18", "牛市前半段"],
                 ["2021-02-18", "2021-12-10", "牛市后半段"],
@@ -379,6 +399,7 @@ def init(context):
                 ["2022-04-26", "2022-07-04", "反弹"],
                 ["2022-07-04", "2022-10-31", "反弹后的下杀"],
                 ["2022-10-31", "2022-12-30", "再次反弹"],
+                ["2021-12-31", "2022-12-30", "2022年"],
                 ["2022-12-30", "2023-12-29", "熊市横盘"],
                 ["2023-12-29", "2024-02-05", "熊市后期加速杀跌"],
                 ["2024-02-05", "2024-03-19", "熊市反弹"],
@@ -394,7 +415,7 @@ def init(context):
                 ["2022-12-30", "2023-12-29", "熊市横盘"],
                 ["2023-12-29", "2024-02-05", "熊市后期加速杀跌"],
                 ["2024-02-05", "2024-03-19", "熊市反弹"],
-                ["2021-12-10", "2023-12-31", "牛市结束后全1"],
+                ["2021-12-10", "2023-12-29", "牛市结束后全1"],
                 ["2021-12-10", "2024-02-02", "牛市结束后全"],
                 ["2024-02-02", "2026-05-22", "下轮牛市"],
             ]
@@ -552,8 +573,60 @@ def init(context):
         ]
         group_range = [-50, -20, 0, 20, 50, 100, 200, 300, 500, 100000]
         calculate_market_profit(time_orders, group_range, flag=flag, stock_list=stock_list)
-    
-
+    elif flag==1000:
+        time_orders = [
+            [
+                ["2025-12-31", "2026-07-03", "2026年"],
+            ],
+            [
+                ["2013-12-31", "2014-12-31", "2015年"],
+            ],
+            [
+                ["2014-12-31", "2015-12-30", "2015年"],
+            ],
+            [
+                ["2015-12-31", "2016-12-30", "2016年"],
+            ],
+            [
+                ["2016-12-30", "2017-12-29", "2017年"],
+            ],
+            [
+                ["2017-12-29", "2018-12-28", "2018年"],
+            ],
+            [
+                ["2019-01-03", "2019-12-31", "2019年"],
+            ],
+            [
+                ["2019-12-31", "2020-12-31", "2020年"],
+            ],
+            [
+                ["2020-12-31", "2021-12-31", "2021年"],
+            ],
+            [
+                ["2021-12-31", "2022-12-30", "2022年"],
+            ],
+            [
+                ["2022-12-30", "2023-12-29", "2023年"],
+            ],
+            [
+                ["2023-12-29", "2024-12-31", "2024年"],
+            ],
+            [
+                ["2024-12-31", "2025-12-31", "2025年"],
+            ],
+        ]
+        calculate_market_profit(time_orders, flag=flag)
+    elif flag==1001:
+        time_orders = [
+            [
+                ["2019-01-03", "2021-12-10", "2020牛市全段"],
+            ],
+            [
+                ["2024-09-23", "2026-06-30", "2025牛市全段"],
+            ],
+        ]
+        calculate_market_profit(time_orders, flag=flag)
+        pass
 
 
 
@@ -641,6 +714,12 @@ def kzzzg():
 
 def searchWPG():
     processor = stock_price_processor.StockPirceProcessor()
+    avg1 = processor.calculate_wpg("2013-12-31")
+    avg2 = processor.calculate_wpg("2014-12-31")
+    print("=======2014年微盘股β收益=", f"{avg2/avg1*100-100:.2f}%")
+    avg1 = processor.calculate_wpg("2014-12-31")
+    avg2 = processor.calculate_wpg("2015-12-31")
+    print("=======2015年微盘股β收益=", f"{avg2/avg1*100-100:.2f}%")
     avg1 = processor.calculate_wpg("2016-01-04")
     avg2 = processor.calculate_wpg("2016-12-30")
     print("=======2016年微盘股β收益=", f"{avg2/avg1*100-100:.2f}%")
@@ -672,7 +751,7 @@ def searchWPG():
     avg2 = processor.calculate_wpg("2025-12-31")
     print("=======2025年微盘股β收益=", f"{avg2/avg1*100-100:.2f}%")
     avg1 = processor.calculate_wpg("2025-12-31")
-    avg2 = processor.calculate_wpg("2026-03-20")
+    avg2 = processor.calculate_wpg("2026-07-03")
     print("=======2026年微盘股β收益=", f"{avg2/avg1*100-100:.2f}%")
 
 def etfFill():
@@ -870,33 +949,28 @@ def calculate_market_profit(time_orders, group_range=None, flag=None, stock_list
     zhishu = {"SHSE.000300": "沪深300","SHSE.000905": "中证500", "SHSE.000852": "中证1000"}
     zhishu_keys = list(zhishu.keys())
 
-    def fetch_data(time_order, i, to):
-        """并行获取单个时间段的数据"""
-        zhishu_ret = processor.get_stocks_during_delta(zhishu_keys, time_order[i][0], time_order[i][1])
-        ret = processor.get_stocks_during_delta(stock_list, time_order[i][0], time_order[i][1])
-        return to, i, zhishu_ret, ret
-    #这里改用多线程获取数据还更慢了，不知道为什么，难道是流控了？
-    with ThreadPoolExecutor(max_workers=1) as executor:
-        futures = []
-        for to, time_order in enumerate(time_orders):
-            rets = [None] * len(time_order)
-            zhishu_rets = [None] * len(time_order)
-            # 使用多线程并行获取数据
-            futures.extend([executor.submit(fetch_data, time_order, i, to) for i in range(len(time_order))])
-            retss.append(rets)
-            zhishu_retss.append(zhishu_rets)
-        for future in as_completed(futures):
-            to, i, zhishu_ret, ret = future.result()
-            print(f"to={to}, i={i}")
-            retss[to][i] = ret
-            zhishu_retss[to][i] = zhishu_ret
+    results = []
 
     for to, time_order in enumerate(time_orders):
-        rets = retss[to]
-        zhishu_rets = zhishu_retss[to]
+        rets = []
+        zhishu_rets = []
+        for i in range(len(time_order)):
+            zhishu_ret = processor.get_stocks_during_delta(zhishu_keys, time_order[i][0], time_order[i][1])
+            stock_list2 = []
+            for code in stock_list:
+                if code not in a_stock_base:
+                    continue
+                info = a_stock_base[code]
+                if info['listed_date'] > time_order[i][1] or info['delisted_date'] < time_order[i][0]:
+                    continue
+                if info['delisted_date'] < time_order[i][0]:
+                    continue
+                stock_list2.append(code)
+            ret = processor.get_stocks_during_delta(stock_list2, time_order[i][0], time_order[i][1])
+            rets.append(ret)
+            zhishu_rets.append(zhishu_ret)
         outs = {}
-        #先对第一个阶段的涨幅进行排序，分成10组，统计每组在后续阶段的表现
-        group_range = [-50, -20, 0, 20, 50, 100, 200, 500, 1000, 100000] if group_range is None else group_range
+        group_range = [-50, -40, -30, -20, 0, 20, 50, 100, 200, 500, 1000, 100000] if group_range is None else group_range
         groups = [[] for _ in range(len(group_range))]
         for code in stock_list:
             if code not in rets[0]:
@@ -912,7 +986,6 @@ def calculate_market_profit(time_orders, group_range=None, flag=None, stock_list
         out_path = "out/"
         log_dir = os.path.join(out_path, f"flag{flag}") if flag is not None else out_path
         os.makedirs(log_dir, exist_ok=True)
-        #把涨幅最小的股票列表写到文件里方便后面分析
         with open(os.path.join(log_dir, f'final_stocks_min{to}.txt'), 'w', encoding='utf-8') as f:
             f.write(f"涨幅小于{group_range[0]}%的股票列表:\n")
             for code in groups[0]:
@@ -922,8 +995,17 @@ def calculate_market_profit(time_orders, group_range=None, flag=None, stock_list
             for code in groups[-1]:
                 f.write(f"{code}\n")
         final_rets = []
-        for i in range(0, len(rets)):
 
+        result_item = {
+            "st": time_order[0][0],
+            "et": time_order[0][1],
+        }
+
+        for group in range(len(groups)):
+            group_range_str = f"{group_range[group-1]}%~{group_range[group]}%" if group > 0 else f"<{group_range[group]}%"
+            result_item[f"group_{group_range_str}_count"] = len(groups[group])
+
+        for i in range(0, len(rets)):
             zhishu_str = "同期沪深300涨幅{:.2f}%, 中证500涨幅{:.2f}%, 中证1000涨幅{:.2f}%".format(zhishu_rets[i]["SHSE.000300"], zhishu_rets[i]["SHSE.000905"], zhishu_rets[i].get("SHSE.000852",0))
             time_str = time_order[i][0]+"~"+time_order[i][1]+"=="+time_order[i][2]
             time_str2 = time_str+"_list"
@@ -935,13 +1017,15 @@ def calculate_market_profit(time_orders, group_range=None, flag=None, stock_list
             print("▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼")
             outs[time_str] = []
             outs[time_str2] = {}
+
+            period_win = []
+
             for group in range(len(groups)):
                 total_profit = 0
                 count = 0
                 win_count = 0
                 group_stock_data = []
                 group_range_str = f"{group_range[group-1]}%~{group_range[group]}%" if group > 0 else f"<{group_range[group]}%"
-                #groups[group]的列表拼成"222","222"这样的字符串
                 outs[time_str2][group_range_str] = ",".join(groups[group])
                 for code in groups[group]:
                     if code in rets[i]:
@@ -953,7 +1037,6 @@ def calculate_market_profit(time_orders, group_range=None, flag=None, stock_list
                         outs[time_str].append(f"{time_str}, 组【{group_range_str}】, {code}, {rets[i][code]:.2f}%")
                 avg_profit = total_profit / count if count > 0 else 0
                 win_rate = win_count / count if count > 0 else 0
-                #再反向求一遍跌幅超过平均值的有多少
                 beyond_count = 0
                 for zdf in group_stock_data:
                     if zdf > avg_profit:
@@ -964,7 +1047,6 @@ def calculate_market_profit(time_orders, group_range=None, flag=None, stock_list
                     fenbu_str = f"10%分位={np.percentile(df, 10):.2f}, 25%分位={np.percentile(df, 25):.2f}, 40%分位={np.percentile(df, 40):.2f}, 50%分位={np.percentile(df, 50):.2f}, 60%分位={np.percentile(df, 60):.2f}, 75%分位={np.percentile(df, 75):.2f}, 90%分位={np.percentile(df, 90):.2f}"
                 else:
                     fenbu_str = ""
-                #反向求该组股票在前面下跌阶段的涨幅
                 backward_str = ""
                 if len(time_order[i]) > 4:
                     backward_ret = processor.get_stocks_during_delta(groups[group], time_order[i][3], time_order[i][4])
@@ -972,7 +1054,6 @@ def calculate_market_profit(time_orders, group_range=None, flag=None, stock_list
                     avg_backward_profit = total_backward_profit / len(backward_ret) if len(backward_ret.items()) > 0 else 0
                     backward_str = f"前期下跌阶段涨幅={avg_backward_profit:.2f}%"
                 
-                # 统计该组股票的一级行业分布
                 industry_str = ""
                 if a_stock_base:
                     industry_count = {}
@@ -988,11 +1069,21 @@ def calculate_market_profit(time_orders, group_range=None, flag=None, stock_list
                 
                 print(f"{time_order[i][0]}~{time_order[i][1]}阶段，分组涨跌幅【{group_range_str}】的{count}只股票平均涨幅{avg_profit:.2f}%，胜率={win_rate:.2%}, 超过平均涨幅的股票占比={beyond_count_rate:.2%}, {fenbu_str}, {backward_str}, {industry_str}")
                 print("==============================================")
+
+                if win_rate > 0.5 and count > 0:
+                    period_win.append(group_range_str)
+
+            if period_win:
+                result_item[f"win_period_{i}"] = ",".join(period_win)
+
             if time_order[i][3] if len(time_order[i])>3 else False:
                 processor.backtrace_fantan(groups[-1], time_order[i][0], time_order[i][1])
-        #保存outs.json
         with open(os.path.join(log_dir, f'outs{to}.json'), 'w', encoding='utf-8') as f:
             json.dump(outs, f, ensure_ascii=False, indent=4)
+
+        results.append(result_item)
+
+    return results
 
 #计算ETF在指定时间区间的平均涨幅
 def calculate_etf_profit(time_orders):

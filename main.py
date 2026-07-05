@@ -355,7 +355,10 @@ def init(context):
     elif flag==1002025:
         calculate_market_profit_by_day(start_date="2024-09-23")
     elif flag==1002026:
-        calculate_market_profit_by_day(start_date="2026-01-05")
+        calculate_market_profit_by_day(start_date="2025-12-31")
+    elif flag==1002019:
+        calculate_market_profit_by_day(start_date="2019-01-03", end_date="2021-12-10")
+        calculate_market_profit_by_day("2020-08-03", "2021-12-10")
     elif flag==2021:
         time_orders = [
             [
@@ -691,6 +694,8 @@ def ontimer_3(context):
             global all_a_stocks
             context.stock_announce_processor.try_load_all_announcements()
             context.stock_announce_processor.UpdateAllStockAnnounce(all_a_stocks, True)
+            calculate_market_profit_by_day(start_date="2024-09-23")
+            calculate_market_profit_by_day(start_date="2025-12-31")
             # 更新 announce 的日期
             lock_data['announce'] = today_str
             # 写入 JSON 格式
@@ -1110,8 +1115,9 @@ def calculate_market_profit(time_orders, group_range=None, flag=None, stock_list
             json.dump(outs, f, ensure_ascii=False, indent=4)
     return group_agg_result
 
-def calculate_market_profit_by_day(start_date="2024-09-23"):
-    end_date = datetime.datetime.now().strftime("%Y-%m-%d")
+def calculate_market_profit_by_day(start_date="2024-09-23", end_date=None):
+    if not end_date:
+        end_date = datetime.datetime.now().strftime("%Y-%m-%d")
     group_range = [-50, -40, -30, -20, 0, 20, 50, 100, 200, 500, 1000, 100000]
     
     output_dir = "stocks/agg"

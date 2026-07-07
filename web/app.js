@@ -276,7 +276,7 @@ function loadData() {
       })
       .then(jsonData => {
         console.log('all.json data length:', jsonData.length);
-        data = jsonData;
+        data = jsonData.filter(row => row.bond_price != null);
         applyFilters();
         document.getElementById('refresh-status').textContent = '更新时间: ' + new Date().toLocaleString();
       })

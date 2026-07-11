@@ -657,7 +657,8 @@ def ontimer_3(context):
                     lock_data = {}
     
     # 超过15点10分后执行每日数据填充逻辑
-    if now >= datetime.time(15, 10):
+    #周末不执行
+    if datetime.datetime.now().weekday() < 5 and now >= datetime.time(15, 10):
         need_execute = False
         
         # 检查 etffill 模块的日期
@@ -681,7 +682,7 @@ def ontimer_3(context):
             print(f"[{now}] 今日数据已处理过，跳过")
     
     # 超过22:00后执行公告更新逻辑
-    if now >= datetime.time(20, 0):
+    if datetime.datetime.now().weekday() != 5 and now >= datetime.time(20, 0):
         need_announce = False
         
         # 检查 announce 模块的日期

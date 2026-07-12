@@ -634,7 +634,8 @@ def init(context):
         ]
         calculate_market_profit(time_orders, flag=flag)
         pass
-
+    elif flag==10000:
+        download_all_a_stock_kline(stock_list=all_a_stocks)
 
 
 
@@ -1115,7 +1116,7 @@ def calculate_market_profit(time_orders, group_range=None, flag=None, stock_list
         with open(os.path.join(log_dir, f'outs{to}.json'), 'w', encoding='utf-8') as f:
             json.dump(outs, f, ensure_ascii=False, indent=4)
     return group_agg_result
-
+#统计每个日期段的股票涨跌幅比例
 def calculate_market_profit_by_day(start_date="2024-09-23", end_date=None):
     if not end_date:
         end_date = datetime.datetime.now().strftime("%Y-%m-%d")
@@ -1562,7 +1563,11 @@ def load_stock_A_base():
     a_stock_base = {}
     for item in base:
         a_stock_base[item['stock_code']] = item
-    return a_stock_base    
+    return a_stock_base
+
+def download_all_a_stock_kline(stock_list=all_a_stocks):
+    processor = stock_price_processor.StockPirceProcessor()
+    processor.download_stock_kline_data(stock_list, start_date="2014-01-02")    
     
 
 

@@ -2,6 +2,8 @@
 from datetime import datetime, timedelta
 from gm.api import *
 import json
+import os
+import pandas as pd
 
 class StockPirceProcessor:
    
@@ -137,37 +139,44 @@ class StockPirceProcessor:
         no_end_price_count = 0
         for data in datas:
             end_price[data['symbol']] = data['close']
+        absent_stocks = []
         for stock_code in stock_list:
             symbol = self.get_stock_symbol(stock_code)
-            if symbol not in start_price and symbol not in end_price:
-                #print(f"股票代码: {stock_code} 在 {start_date} 和 {end_date} 都没有数据，跳过计算涨跌幅。")
-                #再跨区间找一次
-                data = history(symbol=symbol, frequency='1d', start_time=start_date,  end_time=end_date, fields='symbol, close', adjust=ADJUST_POST, df= False)
-                if len(data) > 2:
-                    start_price[symbol] = data[0]['close']
-                    end_price[symbol] = data[-1]['close']
-                else:
-                    nodata_count += 1
-                    continue
-            if symbol not in start_price:
-                #没有开始数据有结束数据，说明是新上市的股票，可以从开始日期往后继续寻找数据，用第一个可寻的数据替代
-                data = history(symbol=symbol, frequency='1d', start_time=start_date,  end_time=end_date, fields='symbol, close', adjust=ADJUST_POST, df= False)
-                if len(data) > 0:
-                    start_price[symbol] = data[0]['close']
-                else:
-                    no_start_price_count += 1
-                    continue
-            if symbol not in end_price:
-                #可能是退市或者停牌了，往后延长1个月的数据寻找试试
-                data = history(symbol=symbol, frequency='1d', start_time=end_date,  end_time=(datetime.strptime(end_date, "%Y-%m-%d") + timedelta(days=30)).strftime("%Y-%m-%d"), fields='symbol, close', adjust=ADJUST_POST, df= False)
-                if len(data) > 0:
-                    end_price[symbol] = data[0]['close']
-                else:
-                    no_end_price_count += 1
-                    continue
+            if symbol not in start_price or symbol not in end_price:
+                absent_stocks.append(symbol)
+                continue
             delta = (end_price[symbol] - start_price[symbol]) / start_price[symbol] * 100
             result[stock_code] = delta
-        #print(f"共有 {nodata_count} 只股票在 {start_date}~{end_date} 时间段内没有数据。")
+        try:
+            #计算两个日期之间间隔的天数
+            delta_days = (datetime.strptime(end_date, "%Y-%m-%d") - datetime.strptime(start_date, "%Y-%m-%d")).days
+            if delta_days > 100:
+                #实际交易日打71折
+                delta_days = delta_days * 0.71
+            #再次限制数据量500000，算出每次能获取的股票数量
+            step_count = int(400000/delta_days)
+            if step_count < len(absent_stocks):
+                batch_count = len(absent_stocks)//step_count + 1
+                print(f"数据太大分批获取，单次获取 {step_count}个股票， 批数为 {batch_count}, {start_date}~{end_date}-{len(absent_stocks)}只股票")
+            #然后分批获取数据
+            for ii in range(0, len(absent_stocks), int(step_count)):
+                datas = history(symbol=absent_stocks[ii:ii+int(step_count)], frequency='1d', start_time=start_date,  end_time=end_date, fields='symbol, close', adjust=ADJUST_POST, df= False)
+                for data in datas:
+                    symbol = data['symbol']
+                    if symbol not in start_price:
+                        start_price[symbol] = data['close']
+                    end_price[symbol] = data['close']
+        except Exception as e:
+            print("exception",len(absent_stocks), start_date, end_date,e)
+            return result
+        for symbol in absent_stocks:
+            if symbol not in start_price and symbol not in end_price:
+                nodata_count += 1
+                continue
+            delta = (end_price[symbol] - start_price[symbol]) / start_price[symbol] * 100
+            result[symbol.split('.')[1]] = delta
+        if nodata_count > 50:
+            print(f"共有 {nodata_count} 只股票在 {start_date}~{end_date} 时间段内没有数据。")
         #print(f"共有 {no_start_price_count} 只股票在 {start_date} 没有数据。")
         #print(f"共有 {no_end_price_count} 只股票在 {end_date} 没有数据。")
         return result
@@ -529,7 +538,13 @@ class StockPirceProcessor:
                 kzz['stock_change'] = None
             
             # 计算转股溢价率
-            convert_price = float(kzz.get('convert_price', '0'))
+            try:
+                convert_price = float(kzz.get('convert_price', '0'))
+            except Exception as e:
+                print(f"Error converting convert_price: {e}")
+                print(f"convert_price: {kzz}")
+                raise e
+            
             if convert_price > 0 and kzz_price > 0 and stock_price > 0:
                 conversion_value = 100 / convert_price * stock_price
                 premium_rate = (kzz_price - conversion_value) / conversion_value * 100
@@ -543,3 +558,147 @@ class StockPirceProcessor:
         
         print(f"{datetime.now()} 已更新 {len(kzz_list)} 只可转债数据")
         return kzz_list
+
+    def download_stock_kline_data(self, stock_list, start_date=None, end_date=None):
+        """
+        下载指定股票列表的历史日线数据并保存到本地磁盘。
+        支持增量更新，只下载本地没有的日期数据。
+        
+        stock_list: list of stock codes (如 ["600000", "000001"])
+        start_date: str, "YYYY-MM-DD"，下载起始日期，默认为股票上市日期
+        end_date: str, "YYYY-MM-DD"，下载结束日期，默认为当天
+        
+        存储格式：Parquet
+        存储路径：stocks/kline/{市场}/{股票代码}.parquet
+        字段：date(日期), close(收盘价), high(最高价), tot_mv(市值)
+        """
+        if end_date is None:
+            end_date = datetime.now().strftime('%Y-%m-%d')
+        
+        base_dir = 'stocks/kline'
+        
+        for stock_code in stock_list:
+            symbol = self.get_stock_symbol(stock_code)
+            code = symbol.split('.')[1]
+            code_prefix = code[:2]
+            
+            prefix_dir = os.path.join(base_dir, code_prefix)
+            os.makedirs(prefix_dir, exist_ok=True)
+            
+            file_path = os.path.join(prefix_dir, f"{code}.parquet")
+            
+            last_date = None
+            existing_df = None
+            
+            if os.path.exists(file_path):
+                existing_df = pd.read_parquet(file_path)
+                if not existing_df.empty:
+                    last_date = existing_df['date'].max()
+                    print(f"股票 {stock_code} 已有数据，最后日期: {last_date}")
+            
+            download_start_date = start_date
+            if last_date:
+                last_date_dt = datetime.strptime(last_date, '%Y-%m-%d')
+                next_date = (last_date_dt + timedelta(days=1)).strftime('%Y-%m-%d')
+                if download_start_date:
+                    download_start_date = max(download_start_date, next_date)
+                else:
+                    download_start_date = next_date
+            
+            if download_start_date and download_start_date > end_date:
+                print(f"股票 {stock_code} 数据已是最新，无需下载")
+                continue
+            
+            print(f"开始下载股票 {stock_code} 数据，日期范围: {download_start_date} ~ {end_date}")
+            
+            try:
+                delta_days = (datetime.strptime(end_date, "%Y-%m-%d") - datetime.strptime(download_start_date, "%Y-%m-%d")).days
+                max_days_per_batch = 1000
+                
+                all_price_dfs = []
+                
+                current_start = download_start_date
+                while current_start <= end_date:
+                    current_end_dt = datetime.strptime(current_start, "%Y-%m-%d") + timedelta(days=max_days_per_batch)
+                    current_end = current_end_dt.strftime('%Y-%m-%d')
+                    if current_end > end_date:
+                        current_end = end_date
+                    
+                    if current_start > current_end:
+                        break
+                    
+                    print(f"  分批获取: {current_start} ~ {current_end}")
+                    
+                    price_data = history(
+                        symbol=symbol,
+                        frequency='1d',
+                        start_time=current_start,
+                        end_time=current_end,
+                        fields='symbol, close, high, eob',
+                        adjust=ADJUST_POST,
+                        df=False
+                    )
+                    
+                    if price_data:
+                        batch_df = pd.DataFrame(price_data)
+                        batch_df['date'] = batch_df['eob'].apply(lambda x: x.strftime('%Y-%m-%d') if hasattr(x, 'strftime') else str(x)[:10])
+                        batch_df = batch_df[['date', 'close', 'high']]
+                        all_price_dfs.append(batch_df)
+                    
+                    current_start_dt = datetime.strptime(current_end, "%Y-%m-%d") + timedelta(days=1)
+                    current_start = current_start_dt.strftime('%Y-%m-%d')
+                
+                if not all_price_dfs:
+                    print(f"股票 {stock_code} 在 {download_start_date} ~ {end_date} 期间无价格数据")
+                    continue
+                
+                price_df = pd.concat(all_price_dfs, ignore_index=True)
+                
+                mv_data = stk_get_daily_mktvalue(
+                    symbol=symbol,
+                    fields='tot_mv',
+                    start_date=download_start_date,
+                    end_date=end_date,
+                    df=False
+                )
+                
+                if mv_data:
+                    mv_df = pd.DataFrame(mv_data)
+                    mv_df['date'] = mv_df['trade_date']
+                    mv_df = mv_df[['date', 'tot_mv']]
+                    
+                    merged_df = pd.merge(price_df, mv_df, on='date', how='left')
+                else:
+                    merged_df = price_df
+                    merged_df['tot_mv'] = None
+                
+                val_data = stk_get_daily_valuation(
+                    symbol=symbol,
+                    fields='pe_ttm_cut,dy_lfy',
+                    start_date=download_start_date,
+                    end_date=end_date,
+                    df=False
+                )
+                
+                if val_data:
+                    val_df = pd.DataFrame(val_data)
+                    val_df['date'] = val_df['trade_date']
+                    val_df = val_df[['date', 'pe_ttm_cut', 'dy_lfy']]
+                    
+                    merged_df = pd.merge(merged_df, val_df, on='date', how='left')
+                else:
+                    merged_df['pe_ttm_cut'] = None
+                    merged_df['dy_lfy'] = None
+                
+                if existing_df is not None:
+                    merged_df = pd.concat([existing_df, merged_df], ignore_index=True)
+                    merged_df = merged_df.drop_duplicates(subset=['date'], keep='last')
+                
+                merged_df = merged_df.sort_values('date').reset_index(drop=True)
+                
+                merged_df.to_parquet(file_path, index=False)
+                
+                print(f"股票 {stock_code} 数据已保存，共 {len(merged_df)} 条记录")
+                
+            except Exception as e:
+                print(f"下载股票 {stock_code} 数据失败: {e}")

@@ -35,10 +35,25 @@
         <button type="button" id="reset-zoom-button">重置缩放</button>
       </div>
     </div>
-    
     <div class="footer">
       <p>数据来源：<code id="current-source">stocks/agg/</code></p>
     </div>
+    
+    <h2>微盘股平均市值趋势</h2>
+    
+    <div class="chart-container">
+      <div id="wpgChart" style="width:100%;height:100%;"></div>
+    </div>
+    
+    <div class="status-row">
+      <span id="wpg-status">加载中...</span>
+      <div>
+        <button type="button" id="wpg-refresh-button">刷新数据</button>
+        <button type="button" id="wpg-reset-zoom-button">重置缩放</button>
+      </div>
+    </div>
+    
+    
   </div>
 
   <script>
@@ -244,7 +259,148 @@
       }
     });
     
+    const wpgChartContainer = document.getElementById('wpgChart');
+    const wpgStatus = document.getElementById('wpg-status');
+    const wpgRefreshButton = document.getElementById('wpg-refresh-button');
+    const wpgResetZoomButton = document.getElementById('wpg-reset-zoom-button');
+    
+    let wpgChartInstance = null;
+    
+    async function loadWpgData() {
+      wpgStatus.textContent = '加载中...';
+      
+      try {
+        const response = await fetch('../stocks/wpg_mk.json');
+        const data = await response.json();
+        
+        if (!data || Object.keys(data).length === 0) {
+          wpgStatus.textContent = '无数据';
+          return;
+        }
+        
+        const dates = Object.keys(data).sort();
+        const avgMvValues = dates.map(date => data[date]);
+        
+        const maxMv = Math.max(...avgMvValues);
+        const yMax = maxMv + (maxMv * 0.1);
+        
+        if (wpgChartInstance) {
+          wpgChartInstance.dispose();
+        }
+        
+        wpgChartInstance = echarts.init(wpgChartContainer);
+        
+        const option = {
+          tooltip: {
+            trigger: 'axis',
+            formatter: function(params) {
+              let result = params[0].axisValue + '<br/>';
+              params.forEach(param => {
+                result += param.marker + param.seriesName + ': ' + param.value.toFixed(2) + '<br/>';
+              });
+              return result;
+            }
+          },
+          legend: {
+            data: ['微盘股平均市值'],
+            top: 0
+          },
+          grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '15%',
+            top: '10%',
+            containLabel: true
+          },
+          dataZoom: [
+            {
+              type: 'inside',
+              xAxisIndex: 0,
+              start: 0,
+              end: 100,
+              zoomLock: false
+            },
+            {
+              type: 'slider',
+              xAxisIndex: 0,
+              start: 0,
+              end: 100,
+              bottom: 10,
+              height: 30,
+              borderColor: '#ccc',
+              fillerColor: 'rgba(47, 108, 229, 0.2)',
+              handleStyle: {
+                color: '#2f6ce5'
+              },
+              textStyle: {
+                color: '#666'
+              }
+            }
+          ],
+          xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: dates,
+            axisLabel: {
+              rotate: 45,
+              fontSize: 11
+            }
+          },
+          yAxis: {
+            type: 'value',
+            min: 0,
+            max: yMax,
+            axisLabel: {
+              formatter: '{value}'
+            }
+          },
+          series: [
+            {
+              name: '微盘股平均市值',
+              type: 'line',
+              smooth: true,
+              symbol: 'none',
+              lineStyle: {
+                color: '#4bc0c0',
+                width: 2
+              },
+              data: avgMvValues
+            }
+          ]
+        };
+        
+        wpgChartInstance.setOption(option);
+        
+        wpgStatus.textContent = `已加载 ${dates.length} 条数据，时间范围：${dates[0]} - ${dates[dates.length - 1]}`;
+        
+        window.addEventListener('resize', function() {
+          if (wpgChartInstance) {
+            wpgChartInstance.resize();
+          }
+        });
+        
+      } catch (error) {
+        wpgStatus.textContent = '加载失败: ' + error.message;
+        console.error('Error loading WPG data:', error);
+      }
+    }
+    
+    wpgRefreshButton.addEventListener('click', function() {
+      loadWpgData();
+    });
+    
+    wpgResetZoomButton.addEventListener('click', function() {
+      if (wpgChartInstance) {
+        wpgChartInstance.dispatchAction({
+          type: 'dataZoom',
+          start: 0,
+          end: 100
+        });
+      }
+    });
+    
     loadDataSourceList();
+    loadWpgData();
   </script>
 </body>
 </html>

@@ -116,8 +116,8 @@ def init(context):
     elif flag==10:
         time_orders = [
             [
-                ["2021-01-21", "2021-02-08", "牛中杀跌"],
-                ["2021-02-08", "2021-02-22", "牛中反弹"],
+                ["2021-02-18", "2021-03-09", "牛中杀跌"],
+                ["2021-03-09", "2021-12-10", "牛中反弹"],
             ],
             [
                 ["2021-02-22", "2021-03-10", "牛中杀跌2"],
@@ -312,7 +312,12 @@ def init(context):
     elif flag==2025:
         time_orders = [
             [
-                ["2024-09-23", "2026-06-18", "牛市全段"],
+                ["2024-09-23", "2026-06-30", "牛市全段"],
+                ["2026-07-16", "2026-07-17", "牛市后期"],
+            ],
+            [
+                ["2024-09-23", "2026-06-30", "牛市全段"],
+                ["2026-06-30", "2026-07-17", "牛市后期"],
             ],
             [
                 ["2026-01-05", "2026-06-10", "牛市后段"]
@@ -351,7 +356,8 @@ def init(context):
                 ["2026-01-12", "2026-02-26", "年末上升后横盘"],
             ]
         ]
-        calculate_market_profit(time_orders, flag=flag)
+        group_range = [-50, -40, -30, -20, 0, 20, 50, 100, 200, 500, 1000, 100000]
+        calculate_market_profit(time_orders, group_range, flag=flag)
     elif flag==1002025:
         calculate_market_profit_by_day(start_date="2024-09-23")
     elif flag==1002026:
@@ -361,6 +367,10 @@ def init(context):
         calculate_market_profit_by_day("2020-08-03", "2021-12-10")
     elif flag==2021:
         time_orders = [
+            [
+                ["2019-01-03", "2021-02-18", "牛市全段"],
+                ["2021-02-18", "2021-12-10", "牛市后半段"],
+            ],
             [
                 ["2020-05-06", "2021-02-18", "牛市前半段"],
                 ["2021-02-18", "2021-12-10", "牛市后半段"],
@@ -636,7 +646,9 @@ def init(context):
         pass
     elif flag==10000:
         download_all_a_stock_kline(stock_list=all_a_stocks)
-
+    elif flag==1000006:
+        cal_wpg_mk()
+        pass
 
 
 
@@ -681,8 +693,28 @@ def ontimer_3(context):
             print(f"[{now}] 已写入日期 {today_str} 到 {daily_lock_file}")
         else:
             print(f"[{now}] 今日数据已处理过，跳过")
-    
-    # 超过22:00后执行公告更新逻辑
+    if datetime.datetime.now().weekday() < 5 and now >= datetime.time(18, 2):
+        need_execute = False
+        
+        # 检查 wpg_mk 模块的日期
+        wpg_mk_date = lock_data.get('wpg_mk', '')
+        if not wpg_mk_date or wpg_mk_date < today_str:
+            need_execute = True
+        
+        if need_execute:
+            print(f"[{now}] 超过18:02，执行 cal_wpg_mk()...")
+            cal_wpg_mk()
+            calculate_market_profit_by_day(start_date="2024-09-23")
+            calculate_market_profit_by_day(start_date="2025-12-31")
+            # 更新 wpg_mk 的日期
+            lock_data['wpg_mk'] = today_str
+            # 写入 JSON 格式
+            with open(daily_lock_file, 'w', encoding='utf-8') as f:
+                json.dump(lock_data, f)
+            print(f"[{now}] 已写入日期 {today_str} 到 {daily_lock_file}")
+        else:
+            print(f"[{now}] 今日数据已处理过，跳过")
+    # 超过20:00后执行公告更新逻辑
     if datetime.datetime.now().weekday() != 5 and now >= datetime.time(20, 0):
         need_announce = False
         
@@ -696,8 +728,6 @@ def ontimer_3(context):
             global all_a_stocks
             context.stock_announce_processor.try_load_all_announcements()
             context.stock_announce_processor.UpdateAllStockAnnounce(all_a_stocks, True)
-            calculate_market_profit_by_day(start_date="2024-09-23")
-            calculate_market_profit_by_day(start_date="2025-12-31")
             # 更新 announce 的日期
             lock_data['announce'] = today_str
             # 写入 JSON 格式
@@ -722,9 +752,65 @@ def kzzzg():
         ret = get_symbol_infos(sec_type1=1030, sec_type2=103001, symbols=bsymbol)
         symbols.append(ret[0]["underlying_symbol"].split(".")[1])
     print("可转债对应的正股数量=", len(symbols), symbols)
-
+def cal_wpg_mk(start_date="2017-01-03", end_date=None):
+    if not end_date:
+        end_date = datetime.datetime.now().strftime("%Y-%m-%d")
+    
+    output_path = "stocks/wpg_mk.json"
+    
+    wpg_data = {}
+    last_date = None
+    
+    if os.path.exists(output_path):
+        with open(output_path, 'r', encoding='utf-8') as f:
+            wpg_data = json.load(f)
+        if wpg_data:
+            last_date = max(wpg_data.keys())
+            print(f"已加载 {len(wpg_data)} 条历史数据，最后日期: {last_date}")
+    
+    datas = history(symbol="SHSE.000300", frequency='1d', start_time=start_date, end_time=end_date, fields='symbol, eob', adjust=ADJUST_POST, df=False)
+    trading_days = []
+    for data in datas:
+        trading_days.append(data['eob'].strftime('%Y-%m-%d'))
+    
+    trading_days.sort()
+    
+    start_idx = 0
+    if last_date:
+        for i, day in enumerate(trading_days):
+            if day > last_date:
+                start_idx = i
+                break
+        else:
+            start_idx = len(trading_days)
+    
+    print(f"从索引 {start_idx} 开始获取新数据")
+    
+    processor = stock_price_processor.StockPirceProcessor()
+    new_count = 0
+    
+    for trade_day in trading_days[start_idx:]:
+        avg_mv = processor.calculate_wpg(trade_day)
+        if avg_mv:
+            wpg_data[trade_day] = round(avg_mv, 2)
+            new_count += 1
+        
+        if new_count % 30 == 0:
+            with open(output_path, 'w', encoding='utf-8') as f:
+                json.dump(wpg_data, f, ensure_ascii=False, indent=4)
+            print(f"已保存 {new_count} 条新数据到 {output_path}")
+    
+    if new_count > 0:
+        with open(output_path, 'w', encoding='utf-8') as f:
+            json.dump(wpg_data, f, ensure_ascii=False, indent=4)
+        print(f"数据已保存到 {output_path}，共新增 {new_count} 条")
+    else:
+        print(f"无需更新，数据已是最新")
 def searchWPG():
     processor = stock_price_processor.StockPirceProcessor()
+    avg1 = processor.calculate_wpg("2025-12-31")
+    avg2 = processor.calculate_wpg("2026-07-17")
+    print("=======2026年微盘股β收益=", f"{avg2/avg1*100-100:.2f}%")
     avg1 = processor.calculate_wpg("2013-12-31")
     avg2 = processor.calculate_wpg("2014-12-31")
     print("=======2014年微盘股β收益=", f"{avg2/avg1*100-100:.2f}%")
@@ -761,9 +847,7 @@ def searchWPG():
     avg1 = processor.calculate_wpg("2025-01-02")
     avg2 = processor.calculate_wpg("2025-12-31")
     print("=======2025年微盘股β收益=", f"{avg2/avg1*100-100:.2f}%")
-    avg1 = processor.calculate_wpg("2025-12-31")
-    avg2 = processor.calculate_wpg("2026-07-03")
-    print("=======2026年微盘股β收益=", f"{avg2/avg1*100-100:.2f}%")
+
 
 def etfFill():
     # 打开 Excel 文件

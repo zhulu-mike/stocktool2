@@ -37,6 +37,7 @@
             <th>股票代码</th>
             <th>股票名称</th>
             <th>150日涨跌幅</th>
+            <th>当天涨幅</th>
             <th>市值（亿）</th>
             <th>当前价格</th>
             <th>总排名分数</th>
@@ -81,7 +82,7 @@
         const filteredStocks = [];
         
         for (const [code, value] of Object.entries(data)) {
-          const [change150, mv, name, price] = value;
+          const [change150, mv, name, price, dailyChange] = value;
           
           if (mv < mvLimit) {
             filteredStocks.push({
@@ -89,7 +90,8 @@
               name,
               change150,
               mv,
-              price
+              price,
+              dailyChange: dailyChange || 0
             });
           }
         }
@@ -135,14 +137,17 @@
         topStocks.forEach((stock, index) => {
           const tr = document.createElement('tr');
           const changePercent = (stock.change150 * 100).toFixed(2);
+          const dailyChangePercent = (stock.dailyChange * 100).toFixed(2);
           const mvYi = (stock.mv / 100000000).toFixed(2);
           const isUp = stock.change150 >= 0;
+          const isDailyUp = stock.dailyChange >= 0;
           
           tr.innerHTML = `
             <td>${index + 1}</td>
             <td>${stock.code}</td>
             <td>${stock.name}</td>
             <td class="${isUp ? 'up' : 'down'}">${changePercent}%</td>
+            <td class="${isDailyUp ? 'up' : 'down'}">${dailyChangePercent}%</td>
             <td>${mvYi}</td>
             <td>${stock.price.toFixed(2)}</td>
             <td>${stock.totalScore}</td>

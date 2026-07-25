@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>小盘股排名</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="page-container">
+    <div class="nav-links">
+      <a href="index.html" target="_blank">可转债列表</a>
+      <a href="announce.html" target="_blank">公告查询</a>
+      <a href="label.html" target="_blank">标签管理</a>
+      <a href="market_ratio.html" target="_blank">市场比例</a>
+    </div>
+    
+    <h1>小盘股排名（市值 < 25亿）</h1>
+    
+    <div class="filter-form" style="margin-bottom: 16px;">
+      <label for="mv-filter">市值上限（亿）：</label>
+      <input type="number" id="mv-filter" value="25" min="1" step="1" />
+      <label for="top-n">显示数量：</label>
+      <input type="number" id="top-n" value="25" min="1" max="100" step="1" />
+      <button type="button" id="refresh-button">刷新数据</button>
+    </div>
+    
+    <div class="status-row">
+      <span id="data-status">加载中...</span>
+    </div>
+    
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>排名</th>
+            <th>股票代码</th>
+            <th>股票名称</th>
+            <th>150日涨跌幅</th>
+            <th>市值（亿）</th>
+            <th>当前价格</th>
+            <th>总排名分数</th>
+            <th>市值排名分数</th>
+            <th>150日涨幅排名分数</th>
+          </tr>
+        </thead>
+        <tbody id="stock-table-body">
+        </tbody>
+      </table>
+    </div>
+    
+    <div class="footer">
+      <p>数据来源：<code>stocks/all_xpg.json</code></p>
+      <p>排序规则：市值从小到大（权重2）+ 150日涨跌幅从小到大（权重2）</p>
+    </div>
+  </div>
+
+  <script>
+    const dataStatus = document.getElementById('data-status');
+    const refreshButton = document.getElementById('refresh-button');
+    const mvFilter = document.getElementById('mv-filter');
+    const topNInput = document.getElementById('top-n');
+    const tableBody = document.getElementById('stock-table-body');
+    
+    async function loadData() {
+      dataStatus.textContent = '加载中...';
+      tableBody.innerHTML = '';
+      
+      try {
+        const response = await fetch('../stocks/all_xpg.json');
+        const data = await response.json();
+        
+        if (!data || Object.keys(data).length === 0) {
+          dataStatus.textContent = '无数据';
+          return;
+        }
+        
+        const mvLimit = parseFloat(mvFilter.value) * 100000000;
+        const topN = parseInt(topNInput.value) || 25;
+        
+        const filteredStocks = [];
+        
+        for (const [code, value] of Object.entries(data)) {
+          const [change150, mv, name, price] = value;
+          
+          if (mv < mvLimit) {
+            filteredStocks.push({
+              code,
+              name,
+              change150,
+              mv,
+              price
+            });
+          }
+        }
+        
+        dataStatus.textContent = `已筛选出 ${filteredStocks.length} 只市值低于 ${mvFilter.value} 亿的股票`;
+        
+        if (filteredStocks.length === 0) {
+          return;
+        }
+        
+        const sortedByMv = [...filteredStocks].sort((a, b) => a.mv - b.mv);
+        const sortedByChange = [...filteredStocks].sort((a, b) => a.change150 - b.change150);
+        
+        const totalCount = filteredStocks.length;
+        
+        const mvRankMap = {};
+        sortedByMv.forEach((stock, index) => {
+          mvRankMap[stock.code] = (index + 1) / totalCount;
+        });
+        
+        const changeRankMap = {};
+        sortedByChange.forEach((stock, index) => {
+          changeRankMap[stock.code] = (index + 1) / totalCount;
+        });
+        
+        const scoredStocks = filteredStocks.map(stock => {
+          const mvScore = mvRankMap[stock.code] * 2;
+          const changeScore = changeRankMap[stock.code] * 2;
+          const totalScore = mvScore + changeScore;
+          
+          return {
+            ...stock,
+            mvScore: mvScore.toFixed(4),
+            changeScore: changeScore.toFixed(4),
+            totalScore: totalScore.toFixed(4)
+          };
+        });
+        
+        scoredStocks.sort((a, b) => parseFloat(a.totalScore) - parseFloat(b.totalScore));
+        
+        const topStocks = scoredStocks.slice(0, topN);
+        
+        topStocks.forEach((stock, index) => {
+          const tr = document.createElement('tr');
+          const changePercent = (stock.change150 * 100).toFixed(2);
+          const mvYi = (stock.mv / 100000000).toFixed(2);
+          const isUp = stock.change150 >= 0;
+          
+          tr.innerHTML = `
+            <td>${index + 1}</td>
+            <td>${stock.code}</td>
+            <td>${stock.name}</td>
+            <td class="${isUp ? 'up' : 'down'}">${changePercent}%</td>
+            <td>${mvYi}</td>
+            <td>${stock.price.toFixed(2)}</td>
+            <td>${stock.totalScore}</td>
+            <td>${stock.mvScore}</td>
+            <td>${stock.changeScore}</td>
+          `;
+          tableBody.appendChild(tr);
+        });
+        
+        dataStatus.textContent = `已展示前 ${topStocks.length} 只股票（共筛选 ${filteredStocks.length} 只）`;
+        
+      } catch (error) {
+        dataStatus.textContent = '加载失败: ' + error.message;
+        console.error('Error loading data:', error);
+      }
+    }
+    
+    refreshButton.addEventListener('click', loadData);
+    mvFilter.addEventListener('change', loadData);
+    topNInput.addEventListener('change', loadData);
+    
+    loadData();
+  </script>
+</body>
+</html>

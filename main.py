@@ -313,11 +313,8 @@ def init(context):
         time_orders = [
             [
                 ["2024-09-23", "2026-06-30", "牛市全段"],
-                ["2026-07-16", "2026-07-17", "牛市后期"],
-            ],
-            [
-                ["2024-09-23", "2026-06-30", "牛市全段"],
-                ["2026-06-30", "2026-07-17", "牛市后期"],
+                ["2026-07-30", "2026-07-31", "牛市后期"],
+                ["2026-06-30", "2026-07-31", "牛市后期"],
             ],
             [
                 ["2026-01-05", "2026-06-10", "牛市后段"]
@@ -368,33 +365,21 @@ def init(context):
     elif flag==2021:
         time_orders = [
             [
+                ["2021-12-10","2022-08-18","见顶到反弹顶"]
+            ],
+            [
+                ["2021-02-18", "2021-03-09", "抱团瓦解"],
+                ["2021-03-09", "2021-12-10", "普涨"],
+            ],
+            [
                 ["2019-01-03", "2021-02-18", "牛市全段"],
-                ["2021-02-18", "2021-12-10", "牛市后半段"],
-            ],
-            [
-                ["2020-05-06", "2021-02-18", "牛市前半段"],
-                ["2021-02-18", "2021-12-10", "牛市后半段"],
-            ],
-            [
-                ["2020-06-01", "2021-02-18", "牛市前半段"],
-                ["2021-02-18", "2021-12-10", "牛市后半段"],
-            ],
-            [
-                ["2020-07-01", "2021-02-18", "牛市前半段"],
-                ["2021-02-18", "2021-12-10", "牛市后半段"],
-            ],
-            [
-                ["2020-08-03", "2021-02-18", "牛市前半段"],
+                ["2021-02-18", "2021-03-09", "抱团瓦解"],
                 ["2021-02-18", "2021-12-10", "牛市后半段"],
             ],
             [
                 ["2019-01-03", "2021-12-10", "牛市全段"],
                 ["2021-12-10", "2022-04-26", "杀跌"],
                 ["2022-04-26", "2022-07-04", "反弹"],
-            ],
-            [
-                ["2019-01-03", "2021-02-18", "牛市前半段"],
-                ["2021-02-18", "2021-12-10", "牛市后半段"],
             ],
             [
                 ["2021-02-18", "2021-12-10", "牛市后半段"],
@@ -649,6 +634,8 @@ def init(context):
     elif flag==1000006:
         cal_wpg_mk()
         pass
+    elif flag==55555:
+        calculate_my_profit('202603')
 
 
 
@@ -809,42 +796,42 @@ def cal_wpg_mk(start_date="2017-01-03", end_date=None):
 def searchWPG():
     processor = stock_price_processor.StockPirceProcessor()
     avg1 = processor.calculate_wpg("2025-12-31")
-    avg2 = processor.calculate_wpg("2026-07-17")
+    avg2 = processor.calculate_wpg("2026-07-22")
     print("=======2026年微盘股β收益=", f"{avg2/avg1*100-100:.2f}%")
     avg1 = processor.calculate_wpg("2013-12-31")
     avg2 = processor.calculate_wpg("2014-12-31")
     print("=======2014年微盘股β收益=", f"{avg2/avg1*100-100:.2f}%")
-    avg1 = processor.calculate_wpg("2014-12-31")
+    avg1 = avg2
     avg2 = processor.calculate_wpg("2015-12-31")
     print("=======2015年微盘股β收益=", f"{avg2/avg1*100-100:.2f}%")
     avg1 = processor.calculate_wpg("2016-01-04")
     avg2 = processor.calculate_wpg("2016-12-30")
     print("=======2016年微盘股β收益=", f"{avg2/avg1*100-100:.2f}%")
-    avg1 = processor.calculate_wpg("2017-01-03")
+    avg1 = avg2
     avg2 = processor.calculate_wpg("2017-12-29")
     print("=======2017年微盘股β收益=", f"{avg2/avg1*100-100:.2f}%")
-    avg1 = processor.calculate_wpg("2018-01-02")
+    avg1 = avg2
     avg2 = processor.calculate_wpg("2018-12-28")
     print("=======2018年微盘股β收益=", f"{avg2/avg1*100-100:.2f}%")
-    avg1 = processor.calculate_wpg("2019-01-02")
+    avg1 = avg2
     avg2 = processor.calculate_wpg("2019-12-31")
     print("=======2019年微盘股β收益=", f"{avg2/avg1*100-100:.2f}%")
-    avg1 = processor.calculate_wpg("2020-01-02")
+    avg1 = avg2
     avg2 = processor.calculate_wpg("2020-12-31")
     print("=======2020年微盘股β收益=", f"{avg2/avg1*100-100:.2f}%")
-    avg1 = processor.calculate_wpg("2021-01-04")
+    avg1 = avg2
     avg2 = processor.calculate_wpg("2021-12-31")
     print("=======2021年微盘股β收益=", f"{avg2/avg1*100-100:.2f}%")
-    avg1 = processor.calculate_wpg("2022-01-04")
+    avg1 = avg2
     avg2 = processor.calculate_wpg("2022-12-30")
     print("=======2022年微盘股β收益=", f"{avg2/avg1*100-100:.2f}%")
-    avg1 = processor.calculate_wpg("2023-01-03")
+    avg1 = avg2
     avg2 = processor.calculate_wpg("2023-12-29")
     print("=======2023年微盘股β收益=", f"{avg2/avg1*100-100:.2f}%")
-    avg1 = processor.calculate_wpg("2024-01-02")
+    avg1 = avg2
     avg2 = processor.calculate_wpg("2024-12-31")
     print("=======2024年微盘股β收益=", f"{avg2/avg1*100-100:.2f}%")
-    avg1 = processor.calculate_wpg("2025-01-02")
+    avg1 = avg2
     avg2 = processor.calculate_wpg("2025-12-31")
     print("=======2025年微盘股β收益=", f"{avg2/avg1*100-100:.2f}%")
 
@@ -1033,7 +1020,137 @@ def etfFill():
     wb.save(file_path)
     wb.close()
     
+def calculate_my_profit(file, e_date=None):
+    # 解析文件名，如"202608" -> year=2026, month=8
+    name = file.replace('.json', '')
+    year = int(name[:4])
+    month = int(name[4:6])
+    file_path = os.path.join("my", f"{file}.json")
+    
+    # 计算上一个月
+    if month == 1:
+        prev_month = 12
+        prev_year = year - 1
+    else:
+        prev_month = month - 1
+        prev_year = year
+    
+    # 获取沪深300指数交易日，范围从上个月初到本月末
+    start_date = f"{prev_year}-{prev_month:02d}-01"
+    if e_date == None:
+        if month == 12:
+            end_date = f"{year}-12-31"
+        else:
+            end_date = f"{year}-{month+1:02d}-01"
+    else:
+        end_date = e_date
+    
+    datas = history(symbol="SHSE.000300", frequency='1d', start_time=start_date, end_time=end_date, fields='symbol, eob', adjust=ADJUST_POST, df=False)
+    trading_days = []
+    for data in datas:
+        trading_days.append(data['eob'].strftime('%Y-%m-%d'))
+    trading_days.sort()
+    
+    if len(trading_days) == 0:
+        print("未获取到交易日数据")
+        return
+    
+    # 找上个月最后一个交易日和本月最后一个交易日
+    prev_month_str = f"{prev_year}-{prev_month:02d}"
+    cur_month_str = f"{year}-{month:02d}"
+    
+    prev_last_day = None
+    cur_last_day = None
+    for day in trading_days:
+        if day.startswith(prev_month_str):
+            prev_last_day = day
+        if day.startswith(cur_month_str):
+            cur_last_day = day
+    
+    if not prev_last_day:
+        print(f"未找到{prev_month_str}的最后一个交易日")
+        return
+    if not cur_last_day:
+        print(f"未找到{cur_month_str}的最后一个交易日")
+        return
+    
+    print(f"上月最后交易日: {prev_last_day}, 本月最后交易日: {cur_last_day}")
+    
+    # 读取持仓文件
+    with open(file_path, 'r', encoding='utf-8') as f:
+        portfolios = json.load(f)
+    
+    processor = stock_price_processor.StockPirceProcessor()
+    
+    # 收集所有持仓组合中的股票代码
+    all_codes = set()
+    for holdings in portfolios.values():
+        all_codes.update(holdings.keys())
+    
+    # 获取所有股票的symbol
+    symbols = []
+    code_to_symbol = {}
+    for code in all_codes:
+        symbol = processor.get_stock_symbol(code)
+        code_to_symbol[code] = symbol
+        symbols.append(symbol)
+    
+    # 获取两个月内的所有日线数据
+    start_prices = {}
+    end_prices = {}
+    start_prices_none = {}
+    datas = history(symbol=symbols, frequency='1d', start_time=start_date, end_time=cur_last_day, fields='symbol, close, eob', adjust=None, df=False)
+    for data in datas:
+        symbol = data['symbol']
+        date = data['eob'].strftime('%Y-%m-%d')
+        if date.startswith(prev_month_str):
+            start_prices_none[symbol] = data['close']
+    datas = history(symbol=symbols, frequency='1d', start_time=start_date, end_time=cur_last_day, fields='symbol, close, eob', adjust=ADJUST_PREV, df=False)
+    for data in datas:
+        symbol = data['symbol']
+        date = data['eob'].strftime('%Y-%m-%d')
+        if date.startswith(prev_month_str):
+            start_prices[symbol] = data['close']
+        if date.startswith(cur_month_str):
+            end_prices[symbol] = data['close']
+    
+    # 对每个持仓组合做统计
+    for portfolio_name, holdings in portfolios.items():
+        print(f"\n{'='*60}")
+        print(f"持仓组合: {portfolio_name}")
+        print(f"{'='*60}")
+        
+        total_profit = 0.0
+        total_start_asset = 0.0
+        total_end_asset = 0.0
+        profit_list = []
+        for code, quantity in holdings.items():
+            symbol = code_to_symbol[code]
+            if symbol not in start_prices or symbol not in end_prices:
+                print(f"  {code} {symbol} 数据缺失，跳过")
+                continue
+            start_close = start_prices[symbol]
+            end_close = end_prices[symbol]
+            profit = quantity * (end_close - start_close)
+            total_profit += profit
+            start_asset = quantity * start_prices_none[symbol]
+            total_start_asset += start_asset
+            total_end_asset += quantity * end_close
+            profit_list.append((code, symbol, quantity, start_close, end_close, profit, start_asset))
 
+        print(f"\n初始时间各股票资产（{prev_last_day}）：")
+        start_asset_list = sorted(profit_list, key=lambda x: x[6], reverse=True)
+        for code, symbol, quantity, start_close, end_close, profit, start_asset in start_asset_list:
+            print(f"  {code} {symbol}: 持仓{quantity}股, 价格{start_close:.2f}, 资产{start_asset:.2f}")
+
+        print(f"\n盈利明细（按盈利从大到小）：")
+        profit_list.sort(key=lambda x: x[5], reverse=True)
+        for code, symbol, quantity, start_close, end_close, profit, start_asset in profit_list:
+            print(f"  {code} {symbol}: 持仓{quantity}股, 买入价{start_close:.2f}, 卖出价{end_close:.2f}, 盈利{profit:.2f}, 初始资产{start_asset:.2f}")
+        
+        print(f"\n{portfolio_name} {prev_last_day} 总资产: {total_start_asset:.2f}")
+        print(f"{portfolio_name} {cur_last_day} 总资产: {total_end_asset:.2f}")
+        print(f"{portfolio_name} {cur_month_str} 总盈利金额: {total_profit:.2f}")
 
 #统计全市场股票在牛市之后的表现
 def calculate_market_profit(time_orders, group_range=None, flag=None, stock_list=all_a_stocks):

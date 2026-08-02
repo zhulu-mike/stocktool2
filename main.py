@@ -635,7 +635,7 @@ def init(context):
         cal_wpg_mk()
         pass
     elif flag==55555:
-        calculate_my_profit('202603')
+        calculate_my_profit('202605', "2026-07-31")
 
 
 
@@ -1057,7 +1057,10 @@ def calculate_my_profit(file, e_date=None):
     
     # 找上个月最后一个交易日和本月最后一个交易日
     prev_month_str = f"{prev_year}-{prev_month:02d}"
-    cur_month_str = f"{year}-{month:02d}"
+    if e_date == None:
+        cur_month_str = f"{year}-{month:02d}"
+    else:
+        cur_month_str = e_date[:7]
     
     prev_last_day = None
     cur_last_day = None

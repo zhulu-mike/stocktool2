@@ -9,8 +9,8 @@ import html
 import random
 import stock_price_processor
 
-CB_LIST_URL_TEMPLATE = "https://push2.eastmoney.com/api/qt/clist/get?np=1&fltt=1&invt=2&fs=b%3AMK0354&fields=f12%2Cf13%2Cf14%2Cf1%2Cf2%2Cf4%2Cf3%2Cf152%2Cf232%2Cf233%2Cf234%2Cf229%2Cf230%2Cf231%2Cf235%2Cf236%2Cf154%2Cf237%2Cf238%2Cf239%2Cf240%2Cf241%2Cf242%2Cf26%2Cf243&fid=f243&po=1&dect=1&ut=fa5fd1943c7b386f172d6893dbfba10b&wbp2u=%7C0%7C0%7C0%7Cweb&pn={page}&pz={page_size}&_={timestamp}"
-REALTIME_URL_TEMPLATE = "https://push2.eastmoney.com/api/qt/clist/get?np=1&fltt=1&invt=2&cb=jQuery37108254419802265193_{timestamp}&fs=b%3AMK0354&fields=f12%2Cf13%2Cf14%2Cf1%2Cf2%2Cf4%2Cf3%2Cf152%2Cf232%2Cf233%2Cf234%2Cf229%2Cf230%2Cf231%2Cf235%2Cf236%2Cf154%2Cf237%2Cf238%2Cf239%2Cf240%2Cf241%2Cf227%2Cf242%2Cf26%2Cf243&fid=f243&pn={page}&pz={page_size}&po=1&dect=1&ut=fa5fd1943c7b386f172d6893dbfba10b&wbp2u=3046094285466864%7C0%7C1%7C0%7Cweb&_={timestamp}"
+CB_LIST_URL_TEMPLATE = "https://push2.eastmoney.com/webguest/api/qt/clist/get?np=1&fltt=1&invt=2&fs=b%3AMK0354&fields=f12%2Cf13%2Cf14%2Cf1%2Cf2%2Cf4%2Cf3%2Cf152%2Cf232%2Cf233%2Cf234%2Cf229%2Cf230%2Cf231%2Cf235%2Cf236%2Cf154%2Cf237%2Cf238%2Cf239%2Cf240%2Cf241%2Cf242%2Cf26%2Cf243&fid=f243&po=1&dect=1&ut=fa5fd1943c7b386f172d6893dbfba10b&wbp2u=%7C0%7C0%7C0%7Cweb&pn={page}&pz={page_size}&_={timestamp}"
+REALTIME_URL_TEMPLATE = "https://push2.eastmoney.com/webguest/api/qt/clist/get?np=1&fltt=1&invt=2&cb=jQuery37108254419802265193_{timestamp}&fs=b%3AMK0354&fields=f12%2Cf13%2Cf14%2Cf1%2Cf2%2Cf4%2Cf3%2Cf152%2Cf232%2Cf233%2Cf234%2Cf229%2Cf230%2Cf231%2Cf235%2Cf236%2Cf154%2Cf237%2Cf238%2Cf239%2Cf240%2Cf241%2Cf227%2Cf242%2Cf26%2Cf243&fid=f243&pn={page}&pz={page_size}&po=1&dect=1&ut=fa5fd1943c7b386f172d6893dbfba10b&wbp2u=3046094285466864%7C0%7C1%7C0%7Cweb&_={timestamp}"
 EASTMONEY_LIST_PAGE_SIZE = 500
 REALTIME_PAGE_SIZE = 100
 
@@ -428,6 +428,8 @@ def fetch_all_convert_bonds(save_path: str = None) -> str:
                 "stock_id": str(row.get("f232", "") or ""),
                 "stock_name": str(row.get("f234", "") or ""),
             }
+            if bond_record["stock_id"] == "-":
+                continue
             bonds.append(bond_record)
 
         if not rows or (total_count and len(bonds) >= total_count):
@@ -465,5 +467,4 @@ def fetch_all_convert_bonds(save_path: str = None) -> str:
 
 
 if __name__ == "__main__":
-    fetcher = ConvertBondDetailFetcher("128129")
-    print(fetcher.fetch_json())
+    fetch_all_convert_bonds()

@@ -1,0 +1,2900 @@
+{
+  "xpg": [
+    {
+      "code": "301056",
+      "name": "森赫股份",
+      "min_price": 8.9,
+      "latest_price": 9.77
+    },
+    {
+      "code": "301081",
+      "name": "严牌股份",
+      "min_price": 10.28,
+      "latest_price": 11.24
+    },
+    {
+      "code": "603017",
+      "name": "中衡设计",
+      "min_price": 8.28,
+      "latest_price": 9.27
+    },
+    {
+      "code": "300650",
+      "name": "太龙股份",
+      "min_price": 9.7,
+      "latest_price": 10.98
+    },
+    {
+      "code": "300950",
+      "name": "德固特",
+      "min_price": 14.3,
+      "latest_price": 16.26
+    },
+    {
+      "code": "300912",
+      "name": "凯龙高科",
+      "min_price": 21.71,
+      "latest_price": 22.05
+    },
+    {
+      "code": "300813",
+      "name": "泰林生物",
+      "min_price": 17.08,
+      "latest_price": 18.71
+    },
+    {
+      "code": "600250",
+      "name": "南京商旅",
+      "min_price": 7.58,
+      "latest_price": 8.49
+    },
+    {
+      "code": "300854",
+      "name": "中兰环保",
+      "min_price": 13.43,
+      "latest_price": 16.9
+    },
+    {
+      "code": "300651",
+      "name": "金陵体育",
+      "min_price": 15.16,
+      "latest_price": 17.28
+    },
+    {
+      "code": "301001",
+      "name": "凯淳股份",
+      "min_price": 20.14,
+      "latest_price": 23.22
+    },
+    {
+      "code": "001209",
+      "name": "洪兴股份",
+      "min_price": 14.54,
+      "latest_price": 16.22
+    },
+    {
+      "code": "002295",
+      "name": "精艺股份",
+      "min_price": 7.44,
+      "latest_price": 8.34
+    },
+    {
+      "code": "300987",
+      "name": "川网传媒",
+      "min_price": 11.78,
+      "latest_price": 13.46
+    },
+    {
+      "code": "300897",
+      "name": "山科智能",
+      "min_price": 12.16,
+      "latest_price": 15.41
+    },
+    {
+      "code": "300922",
+      "name": "天秦装备",
+      "min_price": 13.84,
+      "latest_price": 16.04
+    },
+    {
+      "code": "002795",
+      "name": "永和智控",
+      "min_price": 5.05,
+      "latest_price": 6.27
+    },
+    {
+      "code": "002769",
+      "name": "普路通",
+      "min_price": 6.02,
+      "latest_price": 6.87
+    },
+    {
+      "code": "605567",
+      "name": "春雪食品",
+      "min_price": 7.65,
+      "latest_price": 8.7
+    },
+    {
+      "code": "300411",
+      "name": "金盾股份",
+      "min_price": 6.39,
+      "latest_price": 7.43
+    },
+    {
+      "code": "301057",
+      "name": "汇隆新材",
+      "min_price": 18.4,
+      "latest_price": 20.69
+    },
+    {
+      "code": "300971",
+      "name": "博亚精工",
+      "min_price": 16.72,
+      "latest_price": 18.27
+    },
+    {
+      "code": "605003",
+      "name": "众望布艺",
+      "min_price": 17.48,
+      "latest_price": 19.86
+    },
+    {
+      "code": "603709",
+      "name": "中源家居",
+      "min_price": 9.33,
+      "latest_price": 10.76
+    },
+    {
+      "code": "002802",
+      "name": "洪汇新材",
+      "min_price": 9.93,
+      "latest_price": 11.08
+    },
+    {
+      "code": "300995",
+      "name": "奇德新材",
+      "min_price": 22.74,
+      "latest_price": 25.24
+    },
+    {
+      "code": "301159",
+      "name": "三维天地",
+      "min_price": 25.93,
+      "latest_price": 29.83
+    },
+    {
+      "code": "002830",
+      "name": "名雕股份",
+      "min_price": 11.23,
+      "latest_price": 12.47
+    },
+    {
+      "code": "300837",
+      "name": "浙矿股份",
+      "min_price": 19.7,
+      "latest_price": 22.02
+    },
+    {
+      "code": "002800",
+      "name": "天顺股份",
+      "min_price": 11.23,
+      "latest_price": 13.07
+    },
+    {
+      "code": "300886",
+      "name": "华业香料",
+      "min_price": 18.98,
+      "latest_price": 22.18
+    },
+    {
+      "code": "605033",
+      "name": "美邦股份",
+      "min_price": 16.11,
+      "latest_price": 18.12
+    },
+    {
+      "code": "600721",
+      "name": "百花医药",
+      "min_price": 6.5,
+      "latest_price": 7.2
+    },
+    {
+      "code": "603903",
+      "name": "中持股份",
+      "min_price": 10.3,
+      "latest_price": 11.05
+    },
+    {
+      "code": "301066",
+      "name": "万事利",
+      "min_price": 10.6,
+      "latest_price": 12.17
+    },
+    {
+      "code": "603937",
+      "name": "丽岛新材",
+      "min_price": 9.25,
+      "latest_price": 10.59
+    },
+    {
+      "code": "001225",
+      "name": "和泰机电",
+      "min_price": 34.3,
+      "latest_price": 40.99
+    },
+    {
+      "code": "002591",
+      "name": "恒大高新",
+      "min_price": 5.31,
+      "latest_price": 6.03
+    },
+    {
+      "code": "600539",
+      "name": "狮头股份",
+      "min_price": 13.02,
+      "latest_price": 13.37
+    },
+    {
+      "code": "301042",
+      "name": "安联锐视",
+      "min_price": 25.24,
+      "latest_price": 27.01
+    },
+    {
+      "code": "301388",
+      "name": "欣灵电气",
+      "min_price": 20.48,
+      "latest_price": 23.13
+    },
+    {
+      "code": "603829",
+      "name": "洛凯股份",
+      "min_price": 12.95,
+      "latest_price": 14.58
+    },
+    {
+      "code": "603001",
+      "name": "奥康国际",
+      "min_price": 5.76,
+      "latest_price": 6.63
+    },
+    {
+      "code": "603696",
+      "name": "安记食品",
+      "min_price": 10.3,
+      "latest_price": 13.21
+    },
+    {
+      "code": "301158",
+      "name": "德石股份",
+      "min_price": 12.44,
+      "latest_price": 14.32
+    },
+    {
+      "code": "001296",
+      "name": "长江材料",
+      "min_price": 15.78,
+      "latest_price": 17.44
+    },
+    {
+      "code": "300945",
+      "name": "曼卡龙",
+      "min_price": 10.24,
+      "latest_price": 11.56
+    },
+    {
+      "code": "603289",
+      "name": "泰瑞机器",
+      "min_price": 7.4,
+      "latest_price": 8.23
+    },
+    {
+      "code": "300970",
+      "name": "华绿生物",
+      "min_price": 14.6,
+      "latest_price": 16.63
+    },
+    {
+      "code": "301552",
+      "name": "科力装备",
+      "min_price": 19.95,
+      "latest_price": 23.44
+    },
+    {
+      "code": "603280",
+      "name": "南方路机",
+      "min_price": 23.2,
+      "latest_price": 25.78
+    },
+    {
+      "code": "301043",
+      "name": "绿岛风",
+      "min_price": 36.03,
+      "latest_price": 39.86
+    },
+    {
+      "code": "300591",
+      "name": "万里马",
+      "min_price": 5.57,
+      "latest_price": 7.0
+    },
+    {
+      "code": "300828",
+      "name": "锐新科技",
+      "min_price": 13.5,
+      "latest_price": 14.76
+    },
+    {
+      "code": "001234",
+      "name": "泰慕士",
+      "min_price": 17.72,
+      "latest_price": 20.25
+    },
+    {
+      "code": "002702",
+      "name": "海欣食品",
+      "min_price": 4.08,
+      "latest_price": 4.73
+    },
+    {
+      "code": "003003",
+      "name": "天元股份",
+      "min_price": 9.18,
+      "latest_price": 10.44
+    },
+    {
+      "code": "003023",
+      "name": "彩虹集团",
+      "min_price": 16.88,
+      "latest_price": 20.69
+    },
+    {
+      "code": "001211",
+      "name": "双枪科技",
+      "min_price": 18.18,
+      "latest_price": 19.71
+    },
+    {
+      "code": "301276",
+      "name": "嘉曼服饰",
+      "min_price": 16.83,
+      "latest_price": 19.43
+    },
+    {
+      "code": "301118",
+      "name": "恒光股份",
+      "min_price": 18.1,
+      "latest_price": 20.58
+    },
+    {
+      "code": "301636",
+      "name": "泽润新能",
+      "min_price": 34.96,
+      "latest_price": 39.64
+    },
+    {
+      "code": "301010",
+      "name": "晶雪节能",
+      "min_price": 14.08,
+      "latest_price": 16.41
+    },
+    {
+      "code": "603136",
+      "name": "天目湖",
+      "min_price": 8.31,
+      "latest_price": 9.07
+    },
+    {
+      "code": "301234",
+      "name": "五洲医疗",
+      "min_price": 32.89,
+      "latest_price": 66.1
+    },
+    {
+      "code": "603585",
+      "name": "苏利股份",
+      "min_price": 9.11,
+      "latest_price": 10.16
+    },
+    {
+      "code": "300640",
+      "name": "德艺文创",
+      "min_price": 5.3,
+      "latest_price": 6.53
+    },
+    {
+      "code": "603329",
+      "name": "上海雅仕",
+      "min_price": 8.92,
+      "latest_price": 10.01
+    },
+    {
+      "code": "300865",
+      "name": "大宏立",
+      "min_price": 19.54,
+      "latest_price": 22.29
+    },
+    {
+      "code": "301533",
+      "name": "威马农机",
+      "min_price": 22.36,
+      "latest_price": 25.56
+    },
+    {
+      "code": "002394",
+      "name": "联发股份",
+      "min_price": 7.75,
+      "latest_price": 9.15
+    },
+    {
+      "code": "300631",
+      "name": "久吾高科",
+      "min_price": 18.29,
+      "latest_price": 20.91
+    }
+  ],
+  "cixin": [
+    {
+      "code": "301585",
+      "name": "蓝宇股份",
+      "min_price": 23.9,
+      "latest_price": 25.54
+    },
+    {
+      "code": "001387",
+      "name": "雪祺电气",
+      "min_price": 10.42,
+      "latest_price": 11.72
+    },
+    {
+      "code": "301556",
+      "name": "托普云农",
+      "min_price": 52.18,
+      "latest_price": 58.9
+    },
+    {
+      "code": "301586",
+      "name": "佳力奇",
+      "min_price": 28.27,
+      "latest_price": 31.42
+    },
+    {
+      "code": "301602",
+      "name": "超研股份",
+      "min_price": 13.63,
+      "latest_price": 15.14
+    },
+    {
+      "code": "301535",
+      "name": "浙江华远",
+      "min_price": 12.17,
+      "latest_price": 16.33
+    },
+    {
+      "code": "001277",
+      "name": "速达股份",
+      "min_price": 25.21,
+      "latest_price": 28.03
+    },
+    {
+      "code": "301173",
+      "name": "毓恬冠佳",
+      "min_price": 27.65,
+      "latest_price": 30.33
+    },
+    {
+      "code": "301622",
+      "name": "英思特",
+      "min_price": 37.95,
+      "latest_price": 42.48
+    },
+    {
+      "code": "301522",
+      "name": "上大股份",
+      "min_price": 21.02,
+      "latest_price": 23.66
+    },
+    {
+      "code": "301479",
+      "name": "弘景光电",
+      "min_price": 43.32,
+      "latest_price": 45.37
+    },
+    {
+      "code": "301418",
+      "name": "协昌科技",
+      "min_price": 31.0,
+      "latest_price": 34.49
+    },
+    {
+      "code": "001386",
+      "name": "马可波罗",
+      "min_price": 13.94,
+      "latest_price": 15.2
+    },
+    {
+      "code": "301665",
+      "name": "泰禾股份",
+      "min_price": 20.96,
+      "latest_price": 22.43
+    },
+    {
+      "code": "301320",
+      "name": "豪江智能",
+      "min_price": 11.16,
+      "latest_price": 12.44
+    },
+    {
+      "code": "301581",
+      "name": "黄山谷捷",
+      "min_price": 32.3,
+      "latest_price": 34.84
+    },
+    {
+      "code": "001379",
+      "name": "腾达科技",
+      "min_price": 14.1,
+      "latest_price": 15.54
+    },
+    {
+      "code": "001279",
+      "name": "强邦新材",
+      "min_price": 23.02,
+      "latest_price": 24.92
+    },
+    {
+      "code": "688793",
+      "name": "倍轻松",
+      "min_price": 14.64,
+      "latest_price": 17.48
+    },
+    {
+      "code": "301539",
+      "name": "宏鑫科技",
+      "min_price": 12.81,
+      "latest_price": 14.33
+    },
+    {
+      "code": "603262",
+      "name": "技源集团",
+      "min_price": 18.7,
+      "latest_price": 19.01
+    },
+    {
+      "code": "001390",
+      "name": "古麒绒材",
+      "min_price": 16.81,
+      "latest_price": 17.7
+    },
+    {
+      "code": "603395",
+      "name": "红四方",
+      "min_price": 20.0,
+      "latest_price": 23.41
+    },
+    {
+      "code": "001325",
+      "name": "元创股份",
+      "min_price": 33.11,
+      "latest_price": 36.44
+    },
+    {
+      "code": "301591",
+      "name": "肯特股份",
+      "min_price": 24.73,
+      "latest_price": 26.4
+    },
+    {
+      "code": "603382",
+      "name": "海阳科技",
+      "min_price": 15.91,
+      "latest_price": 18.45
+    },
+    {
+      "code": "688783",
+      "name": "",
+      "min_price": 24.1,
+      "latest_price": 24.1
+    },
+    {
+      "code": "603107",
+      "name": "上海汽配",
+      "min_price": 11.1,
+      "latest_price": 12.29
+    },
+    {
+      "code": "603205",
+      "name": "健尔康",
+      "min_price": 19.87,
+      "latest_price": 21.08
+    },
+    {
+      "code": "001388",
+      "name": "信通电子",
+      "min_price": 17.1,
+      "latest_price": 20.38
+    },
+    {
+      "code": "001356",
+      "name": "富岭股份",
+      "min_price": 8.16,
+      "latest_price": 8.83
+    },
+    {
+      "code": "301311",
+      "name": "昆船智能",
+      "min_price": 12.27,
+      "latest_price": 13.61
+    },
+    {
+      "code": "688750",
+      "name": "金天钛业",
+      "min_price": 13.61,
+      "latest_price": 14.51
+    },
+    {
+      "code": "301501",
+      "name": "恒鑫生活",
+      "min_price": 25.42,
+      "latest_price": 28.3
+    },
+    {
+      "code": "301601",
+      "name": "惠通科技",
+      "min_price": 14.15,
+      "latest_price": 16.1
+    },
+    {
+      "code": "301296",
+      "name": "新巨丰",
+      "min_price": 5.88,
+      "latest_price": 6.35
+    },
+    {
+      "code": "301633",
+      "name": "港迪技术",
+      "min_price": 44.0,
+      "latest_price": 56.33
+    },
+    {
+      "code": "301332",
+      "name": "德尔玛",
+      "min_price": 7.49,
+      "latest_price": 8.16
+    },
+    {
+      "code": "688755",
+      "name": "汉邦科技",
+      "min_price": 22.12,
+      "latest_price": 24.6
+    },
+    {
+      "code": "603370",
+      "name": "",
+      "min_price": 31.19,
+      "latest_price": 33.11
+    }
+  ],
+  "chicang": [
+    {
+      "code": "002982",
+      "name": "湘佳股份",
+      "min_price": 10.55,
+      "latest_price": 11.81
+    },
+    {
+      "code": "000705",
+      "name": "浙江震元",
+      "min_price": 5.85,
+      "latest_price": 6.66
+    },
+    {
+      "code": "301081",
+      "name": "严牌股份",
+      "min_price": 10.28,
+      "latest_price": 11.24
+    },
+    {
+      "code": "600789",
+      "name": "鲁抗医药",
+      "min_price": 6.71,
+      "latest_price": 7.46
+    },
+    {
+      "code": "600529",
+      "name": "山东药玻",
+      "min_price": 17.93,
+      "latest_price": 20.05
+    },
+    {
+      "code": "000792",
+      "name": "盐湖股份",
+      "min_price": 24.48,
+      "latest_price": 27.4
+    },
+    {
+      "code": "300917",
+      "name": "特发服务",
+      "min_price": 22.47,
+      "latest_price": 26.28
+    },
+    {
+      "code": "605108",
+      "name": "同庆楼",
+      "min_price": 11.1,
+      "latest_price": 12.92
+    },
+    {
+      "code": "603801",
+      "name": "志邦家居",
+      "min_price": 5.18,
+      "latest_price": 5.97
+    },
+    {
+      "code": "002282",
+      "name": "博深股份",
+      "min_price": 5.51,
+      "latest_price": 5.9
+    },
+    {
+      "code": "603639",
+      "name": "海利尔",
+      "min_price": 9.64,
+      "latest_price": 10.66
+    },
+    {
+      "code": "301586",
+      "name": "佳力奇",
+      "min_price": 28.27,
+      "latest_price": 31.42
+    },
+    {
+      "code": "301556",
+      "name": "托普云农",
+      "min_price": 52.18,
+      "latest_price": 58.9
+    },
+    {
+      "code": "301622",
+      "name": "英思特",
+      "min_price": 37.95,
+      "latest_price": 42.48
+    },
+    {
+      "code": "002634",
+      "name": "*ST棒杰",
+      "min_price": 3.51,
+      "latest_price": 4.15
+    },
+    {
+      "code": "300971",
+      "name": "博亚精工",
+      "min_price": 16.72,
+      "latest_price": 18.27
+    },
+    {
+      "code": "301418",
+      "name": "协昌科技",
+      "min_price": 31.0,
+      "latest_price": 34.49
+    },
+    {
+      "code": "300891",
+      "name": "惠云钛业",
+      "min_price": 5.89,
+      "latest_price": 6.84
+    },
+    {
+      "code": "301159",
+      "name": "三维天地",
+      "min_price": 25.93,
+      "latest_price": 29.83
+    },
+    {
+      "code": "300645",
+      "name": "正元智慧",
+      "min_price": 11.1,
+      "latest_price": 12.76
+    },
+    {
+      "code": "000686",
+      "name": "东北证券",
+      "min_price": 7.88,
+      "latest_price": 8.18
+    },
+    {
+      "code": "300886",
+      "name": "华业香料",
+      "min_price": 18.98,
+      "latest_price": 22.18
+    },
+    {
+      "code": "002962",
+      "name": "五方光电",
+      "min_price": 11.2,
+      "latest_price": 12.13
+    },
+    {
+      "code": "300705",
+      "name": "九典制药",
+      "min_price": 9.51,
+      "latest_price": 11.05
+    },
+    {
+      "code": "300338",
+      "name": "*ST开元",
+      "min_price": 2.46,
+      "latest_price": 2.86
+    },
+    {
+      "code": "300112",
+      "name": "万讯自控",
+      "min_price": 5.8,
+      "latest_price": 8.09
+    },
+    {
+      "code": "000610",
+      "name": "*ST西旅",
+      "min_price": 5.03,
+      "latest_price": 5.71
+    },
+    {
+      "code": "603107",
+      "name": "上海汽配",
+      "min_price": 11.1,
+      "latest_price": 12.29
+    },
+    {
+      "code": "603205",
+      "name": "健尔康",
+      "min_price": 19.87,
+      "latest_price": 21.08
+    },
+    {
+      "code": "300351",
+      "name": "永贵电器",
+      "min_price": 11.77,
+      "latest_price": 13.67
+    },
+    {
+      "code": "300977",
+      "name": "深圳瑞捷",
+      "min_price": 13.43,
+      "latest_price": 15.35
+    },
+    {
+      "code": "603136",
+      "name": "天目湖",
+      "min_price": 8.31,
+      "latest_price": 9.07
+    },
+    {
+      "code": "002034",
+      "name": "旺能环境",
+      "min_price": 13.6,
+      "latest_price": 14.55
+    },
+    {
+      "code": "301036",
+      "name": "双乐股份",
+      "min_price": 18.28,
+      "latest_price": 20.66
+    },
+    {
+      "code": "603896",
+      "name": "寿仙谷",
+      "min_price": 12.95,
+      "latest_price": 14.95
+    },
+    {
+      "code": "002077",
+      "name": "大港股份",
+      "min_price": 11.25,
+      "latest_price": 11.53
+    },
+    {
+      "code": "300640",
+      "name": "德艺文创",
+      "min_price": 5.3,
+      "latest_price": 6.53
+    },
+    {
+      "code": "600581",
+      "name": "*ST八钢",
+      "min_price": 2.07,
+      "latest_price": 2.36
+    },
+    {
+      "code": "600119",
+      "name": "*ST长投",
+      "min_price": 3.96,
+      "latest_price": 4.54
+    },
+    {
+      "code": "688007",
+      "name": "光峰科技",
+      "min_price": 9.97,
+      "latest_price": 10.38
+    },
+    {
+      "code": "300406",
+      "name": "九强生物",
+      "min_price": 10.82,
+      "latest_price": 11.75
+    },
+    {
+      "code": "688639",
+      "name": "华恒生物",
+      "min_price": 15.4,
+      "latest_price": 17.2
+    },
+    {
+      "code": "002295",
+      "name": "精艺股份",
+      "min_price": 7.44,
+      "latest_price": 8.34
+    },
+    {
+      "code": "300987",
+      "name": "川网传媒",
+      "min_price": 11.78,
+      "latest_price": 13.46
+    },
+    {
+      "code": "600416",
+      "name": "湘电股份",
+      "min_price": 8.42,
+      "latest_price": 9.42
+    },
+    {
+      "code": "002719",
+      "name": "ST麦趣",
+      "min_price": 5.04,
+      "latest_price": 6.13
+    },
+    {
+      "code": "002521",
+      "name": "齐峰新材",
+      "min_price": 6.43,
+      "latest_price": 6.95
+    },
+    {
+      "code": "300525",
+      "name": "博思软件",
+      "min_price": 7.23,
+      "latest_price": 9.01
+    },
+    {
+      "code": "603878",
+      "name": "武进不锈",
+      "min_price": 4.33,
+      "latest_price": 4.99
+    },
+    {
+      "code": "001379",
+      "name": "腾达科技",
+      "min_price": 14.1,
+      "latest_price": 15.54
+    },
+    {
+      "code": "300160",
+      "name": "秀强股份",
+      "min_price": 4.05,
+      "latest_price": 4.38
+    },
+    {
+      "code": "002227",
+      "name": "*ST特迅",
+      "min_price": 5.43,
+      "latest_price": 6.31
+    },
+    {
+      "code": "603108",
+      "name": "润达医疗",
+      "min_price": 8.83,
+      "latest_price": 10.14
+    },
+    {
+      "code": "002035",
+      "name": "华帝股份",
+      "min_price": 4.46,
+      "latest_price": 4.95
+    },
+    {
+      "code": "002714",
+      "name": "牧原股份",
+      "min_price": 32.36,
+      "latest_price": 38.93
+    },
+    {
+      "code": "001234",
+      "name": "泰慕士",
+      "min_price": 17.72,
+      "latest_price": 20.25
+    },
+    {
+      "code": "300775",
+      "name": "三角防务",
+      "min_price": 19.23,
+      "latest_price": 21.64
+    },
+    {
+      "code": "300498",
+      "name": "温氏股份",
+      "min_price": 11.72,
+      "latest_price": 13.94
+    },
+    {
+      "code": "002078",
+      "name": "太阳纸业",
+      "min_price": 11.83,
+      "latest_price": 14.46
+    },
+    {
+      "code": "002959",
+      "name": "小熊电器",
+      "min_price": 30.8,
+      "latest_price": 34.65
+    },
+    {
+      "code": "002694",
+      "name": "*ST顾地",
+      "min_price": 1.75,
+      "latest_price": 2.13
+    },
+    {
+      "code": "002390",
+      "name": "信邦制药",
+      "min_price": 2.6,
+      "latest_price": 3.01
+    },
+    {
+      "code": "600609",
+      "name": "金杯汽车",
+      "min_price": 3.07,
+      "latest_price": 3.4
+    },
+    {
+      "code": "301601",
+      "name": "惠通科技",
+      "min_price": 14.15,
+      "latest_price": 16.1
+    },
+    {
+      "code": "300865",
+      "name": "大宏立",
+      "min_price": 19.54,
+      "latest_price": 22.29
+    },
+    {
+      "code": "300908",
+      "name": "仲景食品",
+      "min_price": 21.97,
+      "latest_price": 24.12
+    },
+    {
+      "code": "300349",
+      "name": "金卡智能",
+      "min_price": 9.43,
+      "latest_price": 10.35
+    },
+    {
+      "code": "002166",
+      "name": "莱茵生物",
+      "min_price": 6.2,
+      "latest_price": 6.81
+    },
+    {
+      "code": "603367",
+      "name": "辰欣药业",
+      "min_price": 12.45,
+      "latest_price": 14.58
+    },
+    {
+      "code": "300294",
+      "name": "博雅生物",
+      "min_price": 14.19,
+      "latest_price": 15.91
+    },
+    {
+      "code": "301229",
+      "name": "纽泰格",
+      "min_price": 10.65,
+      "latest_price": 11.9
+    },
+    {
+      "code": "300854",
+      "name": "中兰环保",
+      "min_price": 13.43,
+      "latest_price": 16.9
+    },
+    {
+      "code": "001205",
+      "name": "盛航股份",
+      "min_price": 12.29,
+      "latest_price": 13.64
+    },
+    {
+      "code": "300481",
+      "name": "濮阳惠成",
+      "min_price": 12.6,
+      "latest_price": 13.3
+    },
+    {
+      "code": "605567",
+      "name": "春雪食品",
+      "min_price": 7.65,
+      "latest_price": 8.7
+    },
+    {
+      "code": "301508",
+      "name": "中机认检",
+      "min_price": 22.0,
+      "latest_price": 23.76
+    },
+    {
+      "code": "301057",
+      "name": "汇隆新材",
+      "min_price": 18.4,
+      "latest_price": 20.69
+    },
+    {
+      "code": "000655",
+      "name": "金岭矿业",
+      "min_price": 6.18,
+      "latest_price": 6.91
+    },
+    {
+      "code": "300707",
+      "name": "威唐工业",
+      "min_price": 10.3,
+      "latest_price": 12.15
+    },
+    {
+      "code": "002949",
+      "name": "华阳国际",
+      "min_price": 9.18,
+      "latest_price": 10.33
+    },
+    {
+      "code": "301348",
+      "name": "蓝箭电子",
+      "min_price": 17.37,
+      "latest_price": 18.46
+    },
+    {
+      "code": "002777",
+      "name": "久远银海",
+      "min_price": 11.8,
+      "latest_price": 13.42
+    },
+    {
+      "code": "603676",
+      "name": "卫信康",
+      "min_price": 8.04,
+      "latest_price": 8.86
+    },
+    {
+      "code": "688366",
+      "name": "昊海生科",
+      "min_price": 28.61,
+      "latest_price": 31.89
+    },
+    {
+      "code": "603382",
+      "name": "海阳科技",
+      "min_price": 15.91,
+      "latest_price": 18.45
+    },
+    {
+      "code": "300942",
+      "name": "易瑞生物",
+      "min_price": 5.71,
+      "latest_price": 6.37
+    },
+    {
+      "code": "002991",
+      "name": "甘源食品",
+      "min_price": 38.96,
+      "latest_price": 44.23
+    },
+    {
+      "code": "300869",
+      "name": "康泰医学",
+      "min_price": 10.26,
+      "latest_price": 11.2
+    },
+    {
+      "code": "003003",
+      "name": "天元股份",
+      "min_price": 9.18,
+      "latest_price": 10.44
+    },
+    {
+      "code": "001338",
+      "name": "永顺泰",
+      "min_price": 8.12,
+      "latest_price": 8.92
+    },
+    {
+      "code": "301268",
+      "name": "铭利达",
+      "min_price": 11.88,
+      "latest_price": 13.23
+    },
+    {
+      "code": "688687",
+      "name": "凯因科技",
+      "min_price": 15.01,
+      "latest_price": 16.23
+    },
+    {
+      "code": "300332",
+      "name": "天壕能源",
+      "min_price": 4.22,
+      "latest_price": 4.78
+    },
+    {
+      "code": "600476",
+      "name": "*ST湘邮",
+      "min_price": 7.7,
+      "latest_price": 8.98
+    },
+    {
+      "code": "000733",
+      "name": "振华科技",
+      "min_price": 37.65,
+      "latest_price": 41.04
+    },
+    {
+      "code": "110092",
+      "name": "",
+      "min_price": 63.54,
+      "latest_price": 72.45
+    },
+    {
+      "code": "300315",
+      "name": "掌趣科技",
+      "min_price": 3.8,
+      "latest_price": 4.4
+    },
+    {
+      "code": "002398",
+      "name": "垒知集团",
+      "min_price": 3.63,
+      "latest_price": 4.07
+    },
+    {
+      "code": "605077",
+      "name": "华康股份",
+      "min_price": 10.04,
+      "latest_price": 11.17
+    },
+    {
+      "code": "001277",
+      "name": "速达股份",
+      "min_price": 25.21,
+      "latest_price": 28.03
+    },
+    {
+      "code": "300796",
+      "name": "贝斯美",
+      "min_price": 6.02,
+      "latest_price": 6.62
+    },
+    {
+      "code": "301173",
+      "name": "毓恬冠佳",
+      "min_price": 27.65,
+      "latest_price": 30.33
+    },
+    {
+      "code": "688223",
+      "name": "晶科能源",
+      "min_price": 4.01,
+      "latest_price": 4.55
+    },
+    {
+      "code": "000738",
+      "name": "航发控制",
+      "min_price": 16.54,
+      "latest_price": 18.62
+    },
+    {
+      "code": "603689",
+      "name": "皖天然气",
+      "min_price": 6.93,
+      "latest_price": 7.65
+    },
+    {
+      "code": "301503",
+      "name": "智迪科技",
+      "min_price": 19.08,
+      "latest_price": 20.93
+    },
+    {
+      "code": "600543",
+      "name": "*ST莫高",
+      "min_price": 3.41,
+      "latest_price": 3.85
+    },
+    {
+      "code": "300973",
+      "name": "立高食品",
+      "min_price": 21.95,
+      "latest_price": 25.65
+    },
+    {
+      "code": "603213",
+      "name": "镇洋发展",
+      "min_price": 13.43,
+      "latest_price": 13.9
+    },
+    {
+      "code": "002800",
+      "name": "天顺股份",
+      "min_price": 11.23,
+      "latest_price": 13.07
+    },
+    {
+      "code": "300482",
+      "name": "万孚生物",
+      "min_price": 15.69,
+      "latest_price": 17.64
+    },
+    {
+      "code": "605033",
+      "name": "美邦股份",
+      "min_price": 16.11,
+      "latest_price": 18.12
+    },
+    {
+      "code": "001279",
+      "name": "强邦新材",
+      "min_price": 23.02,
+      "latest_price": 24.92
+    },
+    {
+      "code": "300284",
+      "name": "苏交科",
+      "min_price": 5.0,
+      "latest_price": 5.73
+    },
+    {
+      "code": "601688",
+      "name": "华泰证券",
+      "min_price": 19.6,
+      "latest_price": 19.6
+    },
+    {
+      "code": "301539",
+      "name": "宏鑫科技",
+      "min_price": 12.81,
+      "latest_price": 14.33
+    },
+    {
+      "code": "603055",
+      "name": "台华新材",
+      "min_price": 7.79,
+      "latest_price": 8.67
+    },
+    {
+      "code": "688727",
+      "name": "",
+      "min_price": 37.04,
+      "latest_price": 37.76
+    },
+    {
+      "code": "300494",
+      "name": "盛天网络",
+      "min_price": 7.59,
+      "latest_price": 8.66
+    },
+    {
+      "code": "603628",
+      "name": "清源股份",
+      "min_price": 8.74,
+      "latest_price": 9.68
+    },
+    {
+      "code": "002732",
+      "name": "燕塘乳业",
+      "min_price": 12.12,
+      "latest_price": 13.67
+    },
+    {
+      "code": "603395",
+      "name": "红四方",
+      "min_price": 20.0,
+      "latest_price": 23.41
+    },
+    {
+      "code": "301591",
+      "name": "肯特股份",
+      "min_price": 24.73,
+      "latest_price": 26.4
+    },
+    {
+      "code": "301311",
+      "name": "昆船智能",
+      "min_price": 12.27,
+      "latest_price": 13.61
+    },
+    {
+      "code": "300172",
+      "name": "中电环保",
+      "min_price": 4.11,
+      "latest_price": 4.54
+    },
+    {
+      "code": "002540",
+      "name": "亚太科技",
+      "min_price": 4.53,
+      "latest_price": 5.23
+    },
+    {
+      "code": "301062",
+      "name": "上海艾录",
+      "min_price": 5.53,
+      "latest_price": 6.36
+    },
+    {
+      "code": "603786",
+      "name": "科博达",
+      "min_price": 39.6,
+      "latest_price": 43.55
+    },
+    {
+      "code": "000016",
+      "name": "*ST康佳A",
+      "min_price": 2.19,
+      "latest_price": 2.57
+    },
+    {
+      "code": "603170",
+      "name": "宝立食品",
+      "min_price": 11.3,
+      "latest_price": 13.09
+    },
+    {
+      "code": "605333",
+      "name": "沪光股份",
+      "min_price": 15.58,
+      "latest_price": 17.72
+    },
+    {
+      "code": "301332",
+      "name": "德尔玛",
+      "min_price": 7.49,
+      "latest_price": 8.16
+    },
+    {
+      "code": "600363",
+      "name": "联创光电",
+      "min_price": 24.93,
+      "latest_price": 27.04
+    }
+  ],
+  "STZH": [
+    {
+      "code": "600119",
+      "name": "*ST长投",
+      "min_price": 3.96,
+      "latest_price": 4.54
+    },
+    {
+      "code": "301030",
+      "name": "*ST仕净",
+      "min_price": 7.3,
+      "latest_price": 9.04
+    },
+    {
+      "code": "000826",
+      "name": "*ST启环",
+      "min_price": 1.33,
+      "latest_price": 1.83
+    },
+    {
+      "code": "603718",
+      "name": "*ST海利",
+      "min_price": 2.61,
+      "latest_price": 2.93
+    },
+    {
+      "code": "002932",
+      "name": "*ST明德",
+      "min_price": 13.85,
+      "latest_price": 14.88
+    },
+    {
+      "code": "002634",
+      "name": "*ST棒杰",
+      "min_price": 3.51,
+      "latest_price": 4.15
+    },
+    {
+      "code": "002691",
+      "name": "*ST冀凯",
+      "min_price": 3.36,
+      "latest_price": 4.21
+    },
+    {
+      "code": "600265",
+      "name": "*ST景谷",
+      "min_price": 20.49,
+      "latest_price": 21.7
+    },
+    {
+      "code": "688066",
+      "name": "*ST航图",
+      "min_price": 7.12,
+      "latest_price": 9.68
+    },
+    {
+      "code": "002719",
+      "name": "ST麦趣",
+      "min_price": 5.04,
+      "latest_price": 6.13
+    },
+    {
+      "code": "600543",
+      "name": "*ST莫高",
+      "min_price": 3.41,
+      "latest_price": 3.85
+    },
+    {
+      "code": "002211",
+      "name": "ST宏达",
+      "min_price": 3.0,
+      "latest_price": 3.74
+    },
+    {
+      "code": "600730",
+      "name": "*ST高科",
+      "min_price": 7.82,
+      "latest_price": 10.55
+    },
+    {
+      "code": "002514",
+      "name": "*ST宝馨",
+      "min_price": 1.45,
+      "latest_price": 2.0
+    },
+    {
+      "code": "002207",
+      "name": "*ST准油",
+      "min_price": 4.78,
+      "latest_price": 6.0
+    },
+    {
+      "code": "600107",
+      "name": "*ST尔雅",
+      "min_price": 5.08,
+      "latest_price": 5.08
+    },
+    {
+      "code": "002501",
+      "name": "*ST利源",
+      "min_price": 1.2,
+      "latest_price": 1.25
+    },
+    {
+      "code": "300295",
+      "name": "*ST三六五",
+      "min_price": 9.74,
+      "latest_price": 11.89
+    },
+    {
+      "code": "002227",
+      "name": "*ST特迅",
+      "min_price": 5.43,
+      "latest_price": 6.31
+    },
+    {
+      "code": "000911",
+      "name": "*ST广糖",
+      "min_price": 3.61,
+      "latest_price": 4.44
+    },
+    {
+      "code": "600745",
+      "name": "*ST闻泰",
+      "min_price": 15.87,
+      "latest_price": 16.42
+    },
+    {
+      "code": "002360",
+      "name": "ST同德",
+      "min_price": 4.48,
+      "latest_price": 5.08
+    },
+    {
+      "code": "300152",
+      "name": "*ST动力",
+      "min_price": 1.37,
+      "latest_price": 1.5
+    },
+    {
+      "code": "002977",
+      "name": "*ST天箭",
+      "min_price": 19.8,
+      "latest_price": 21.36
+    },
+    {
+      "code": "603189",
+      "name": "*ST网达",
+      "min_price": 8.11,
+      "latest_price": 8.89
+    },
+    {
+      "code": "300123",
+      "name": "ST亚光",
+      "min_price": 3.41,
+      "latest_price": 4.5
+    },
+    {
+      "code": "300338",
+      "name": "*ST开元",
+      "min_price": 2.46,
+      "latest_price": 2.86
+    },
+    {
+      "code": "000610",
+      "name": "*ST西旅",
+      "min_price": 5.03,
+      "latest_price": 5.71
+    },
+    {
+      "code": "600302",
+      "name": "ST标准",
+      "min_price": 5.1,
+      "latest_price": 6.12
+    },
+    {
+      "code": "002175",
+      "name": "*ST东智",
+      "min_price": 2.26,
+      "latest_price": 2.38
+    },
+    {
+      "code": "600370",
+      "name": "*ST三房",
+      "min_price": 1.5,
+      "latest_price": 1.53
+    },
+    {
+      "code": "600735",
+      "name": "ST新华锦",
+      "min_price": 5.58,
+      "latest_price": 6.21
+    },
+    {
+      "code": "600423",
+      "name": "*ST柳化",
+      "min_price": 2.22,
+      "latest_price": 2.81
+    },
+    {
+      "code": "000056",
+      "name": "*ST皇庭",
+      "min_price": 1.69,
+      "latest_price": 1.92
+    },
+    {
+      "code": "002694",
+      "name": "*ST顾地",
+      "min_price": 1.75,
+      "latest_price": 2.13
+    },
+    {
+      "code": "000016",
+      "name": "*ST康佳A",
+      "min_price": 2.19,
+      "latest_price": 2.57
+    },
+    {
+      "code": "002856",
+      "name": "*ST美芝",
+      "min_price": 11.89,
+      "latest_price": 15.46
+    },
+    {
+      "code": "002620",
+      "name": "*ST瑞和",
+      "min_price": 4.11,
+      "latest_price": 4.93
+    },
+    {
+      "code": "300237",
+      "name": "ST美晨",
+      "min_price": 1.66,
+      "latest_price": 1.96
+    },
+    {
+      "code": "002598",
+      "name": "ST章鼓",
+      "min_price": 6.04,
+      "latest_price": 6.64
+    },
+    {
+      "code": "000632",
+      "name": "ST三木",
+      "min_price": 2.67,
+      "latest_price": 3.45
+    },
+    {
+      "code": "300245",
+      "name": "ST天玑",
+      "min_price": 4.95,
+      "latest_price": 5.68
+    },
+    {
+      "code": "600581",
+      "name": "*ST八钢",
+      "min_price": 2.07,
+      "latest_price": 2.36
+    },
+    {
+      "code": "600084",
+      "name": "*ST尼雅",
+      "min_price": 3.76,
+      "latest_price": 4.26
+    },
+    {
+      "code": "600476",
+      "name": "*ST湘邮",
+      "min_price": 7.7,
+      "latest_price": 8.98
+    },
+    {
+      "code": "000752",
+      "name": "*ST西发",
+      "min_price": 7.33,
+      "latest_price": 8.04
+    }
+  ],
+  "kejichi": [
+    {
+      "code": "688279",
+      "name": "峰岹科技",
+      "min_price": 150.41,
+      "latest_price": 159.28
+    },
+    {
+      "code": "688633",
+      "name": "星球石墨",
+      "min_price": 20.61,
+      "latest_price": 22.98
+    },
+    {
+      "code": "002222",
+      "name": "福晶科技",
+      "min_price": 47.3,
+      "latest_price": 49.02
+    },
+    {
+      "code": "688047",
+      "name": "龙芯中科",
+      "min_price": 101.85,
+      "latest_price": 107.63
+    },
+    {
+      "code": "603435",
+      "name": "",
+      "min_price": 40.95,
+      "latest_price": 45.31
+    },
+    {
+      "code": "300263",
+      "name": "隆华科技",
+      "min_price": 8.27,
+      "latest_price": 8.64
+    },
+    {
+      "code": "688286",
+      "name": "敏芯股份",
+      "min_price": 36.61,
+      "latest_price": 37.68
+    },
+    {
+      "code": "600171",
+      "name": "上海贝岭",
+      "min_price": 22.3,
+      "latest_price": 23.05
+    },
+    {
+      "code": "301418",
+      "name": "协昌科技",
+      "min_price": 31.0,
+      "latest_price": 34.49
+    },
+    {
+      "code": "688153",
+      "name": "唯捷创芯",
+      "min_price": 23.33,
+      "latest_price": 24.54
+    },
+    {
+      "code": "688535",
+      "name": "华海诚科",
+      "min_price": 81.66,
+      "latest_price": 81.66
+    },
+    {
+      "code": "301577",
+      "name": "美信科技",
+      "min_price": 44.86,
+      "latest_price": 49.3
+    },
+    {
+      "code": "688729",
+      "name": "屹唐股份",
+      "min_price": 21.48,
+      "latest_price": 21.48
+    },
+    {
+      "code": "603005",
+      "name": "晶方科技",
+      "min_price": 27.81,
+      "latest_price": 28.24
+    },
+    {
+      "code": "688099",
+      "name": "晶晨股份",
+      "min_price": 85.0,
+      "latest_price": 92.22
+    },
+    {
+      "code": "688512",
+      "name": "慧智微",
+      "min_price": 10.99,
+      "latest_price": 11.18
+    },
+    {
+      "code": "603375",
+      "name": "盛景微",
+      "min_price": 30.42,
+      "latest_price": 32.94
+    },
+    {
+      "code": "688720",
+      "name": "艾森股份",
+      "min_price": 49.13,
+      "latest_price": 49.13
+    },
+    {
+      "code": "301629",
+      "name": "矽电股份",
+      "min_price": 210.0,
+      "latest_price": 211.0
+    },
+    {
+      "code": "300351",
+      "name": "永贵电器",
+      "min_price": 11.77,
+      "latest_price": 13.67
+    },
+    {
+      "code": "603501",
+      "name": "豪威集团",
+      "min_price": 86.72,
+      "latest_price": 88.22
+    },
+    {
+      "code": "300776",
+      "name": "帝尔激光",
+      "min_price": 94.91,
+      "latest_price": 94.91
+    },
+    {
+      "code": "688107",
+      "name": "安路科技",
+      "min_price": 27.3,
+      "latest_price": 27.49
+    },
+    {
+      "code": "688798",
+      "name": "艾为电子",
+      "min_price": 52.51,
+      "latest_price": 53.92
+    },
+    {
+      "code": "603160",
+      "name": "汇顶科技",
+      "min_price": 49.2,
+      "latest_price": 52.36
+    },
+    {
+      "code": "002077",
+      "name": "大港股份",
+      "min_price": 11.25,
+      "latest_price": 11.53
+    },
+    {
+      "code": "002049",
+      "name": "紫光国微",
+      "min_price": 61.77,
+      "latest_price": 64.1
+    },
+    {
+      "code": "002179",
+      "name": "中航光电",
+      "min_price": 32.27,
+      "latest_price": 34.07
+    },
+    {
+      "code": "688584",
+      "name": "上海合晶",
+      "min_price": 23.42,
+      "latest_price": 23.86
+    },
+    {
+      "code": "600584",
+      "name": "长电科技",
+      "min_price": 61.0,
+      "latest_price": 61.0
+    },
+    {
+      "code": "688143",
+      "name": "长盈通",
+      "min_price": 79.84,
+      "latest_price": 82.2
+    },
+    {
+      "code": "688368",
+      "name": "晶丰明源",
+      "min_price": 96.59,
+      "latest_price": 96.59
+    },
+    {
+      "code": "688721",
+      "name": "龙图光罩",
+      "min_price": 33.33,
+      "latest_price": 34.18
+    },
+    {
+      "code": "688385",
+      "name": "复旦微电",
+      "min_price": 46.2,
+      "latest_price": 48.4
+    },
+    {
+      "code": "688802",
+      "name": "",
+      "min_price": 665.0,
+      "latest_price": 665.0
+    },
+    {
+      "code": "300661",
+      "name": "圣邦股份",
+      "min_price": 89.58,
+      "latest_price": 94.4
+    },
+    {
+      "code": "688539",
+      "name": "高华科技",
+      "min_price": 22.34,
+      "latest_price": 24.32
+    },
+    {
+      "code": "688396",
+      "name": "华润微",
+      "min_price": 51.84,
+      "latest_price": 51.84
+    },
+    {
+      "code": "688234",
+      "name": "天岳先进",
+      "min_price": 81.35,
+      "latest_price": 81.39
+    },
+    {
+      "code": "688653",
+      "name": "康希通信",
+      "min_price": 10.6,
+      "latest_price": 11.01
+    },
+    {
+      "code": "300236",
+      "name": "上海新阳",
+      "min_price": 80.11,
+      "latest_price": 80.11
+    },
+    {
+      "code": "600416",
+      "name": "湘电股份",
+      "min_price": 8.42,
+      "latest_price": 9.42
+    },
+    {
+      "code": "688478",
+      "name": "晶升股份",
+      "min_price": 38.46,
+      "latest_price": 38.46
+    },
+    {
+      "code": "003015",
+      "name": "日久光电",
+      "min_price": 10.11,
+      "latest_price": 10.67
+    },
+    {
+      "code": "600877",
+      "name": "电科芯片",
+      "min_price": 11.33,
+      "latest_price": 12.17
+    },
+    {
+      "code": "688048",
+      "name": "长光华芯",
+      "min_price": 213.0,
+      "latest_price": 236.29
+    },
+    {
+      "code": "688728",
+      "name": "格科微",
+      "min_price": 14.08,
+      "latest_price": 14.38
+    },
+    {
+      "code": "688352",
+      "name": "颀中科技",
+      "min_price": 12.49,
+      "latest_price": 13.31
+    },
+    {
+      "code": "688790",
+      "name": "",
+      "min_price": 86.55,
+      "latest_price": 93.31
+    },
+    {
+      "code": "688603",
+      "name": "天承科技",
+      "min_price": 81.0,
+      "latest_price": 81.46
+    },
+    {
+      "code": "301269",
+      "name": "华大九天",
+      "min_price": 85.49,
+      "latest_price": 87.05
+    },
+    {
+      "code": "688449",
+      "name": "联芸科技",
+      "min_price": 48.66,
+      "latest_price": 48.96
+    },
+    {
+      "code": "688213",
+      "name": "思特威",
+      "min_price": 89.97,
+      "latest_price": 90.46
+    },
+    {
+      "code": "300706",
+      "name": "阿石创",
+      "min_price": 42.1,
+      "latest_price": 42.17
+    },
+    {
+      "code": "000725",
+      "name": "京东方A",
+      "min_price": 5.36,
+      "latest_price": 5.42
+    },
+    {
+      "code": "600141",
+      "name": "兴发集团",
+      "min_price": 27.66,
+      "latest_price": 28.88
+    },
+    {
+      "code": "300613",
+      "name": "富瀚微",
+      "min_price": 51.41,
+      "latest_price": 67.48
+    },
+    {
+      "code": "688582",
+      "name": "芯动联科",
+      "min_price": 35.3,
+      "latest_price": 37.71
+    },
+    {
+      "code": "688061",
+      "name": "灿瑞科技",
+      "min_price": 31.43,
+      "latest_price": 33.37
+    },
+    {
+      "code": "600468",
+      "name": "百利电气",
+      "min_price": 4.97,
+      "latest_price": 6.22
+    },
+    {
+      "code": "688548",
+      "name": "广钢气体",
+      "min_price": 29.23,
+      "latest_price": 29.23
+    },
+    {
+      "code": "688079",
+      "name": "美迪凯",
+      "min_price": 12.3,
+      "latest_price": 12.94
+    },
+    {
+      "code": "688682",
+      "name": "霍莱沃",
+      "min_price": 27.51,
+      "latest_price": 29.51
+    },
+    {
+      "code": "301348",
+      "name": "蓝箭电子",
+      "min_price": 17.37,
+      "latest_price": 18.46
+    },
+    {
+      "code": "688126",
+      "name": "沪硅产业",
+      "min_price": 22.65,
+      "latest_price": 23.12
+    },
+    {
+      "code": "688484",
+      "name": "南芯科技",
+      "min_price": 33.16,
+      "latest_price": 33.78
+    },
+    {
+      "code": "688783",
+      "name": "",
+      "min_price": 24.1,
+      "latest_price": 24.1
+    },
+    {
+      "code": "688596",
+      "name": "正帆科技",
+      "min_price": 41.84,
+      "latest_price": 43.5
+    },
+    {
+      "code": "603290",
+      "name": "斯达半导",
+      "min_price": 79.08,
+      "latest_price": 80.13
+    },
+    {
+      "code": "301238",
+      "name": "瑞泰新材",
+      "min_price": 14.5,
+      "latest_price": 16.1
+    },
+    {
+      "code": "600667",
+      "name": "太极实业",
+      "min_price": 15.17,
+      "latest_price": 16.28
+    },
+    {
+      "code": "688259",
+      "name": "创耀科技",
+      "min_price": 27.27,
+      "latest_price": 28.7
+    },
+    {
+      "code": "688381",
+      "name": "帝奥微",
+      "min_price": 24.17,
+      "latest_price": 25.56
+    },
+    {
+      "code": "300102",
+      "name": "乾照光电",
+      "min_price": 15.75,
+      "latest_price": 17.47
+    },
+    {
+      "code": "600520",
+      "name": "三佳科技",
+      "min_price": 20.52,
+      "latest_price": 21.08
+    },
+    {
+      "code": "300684",
+      "name": "中石科技",
+      "min_price": 42.13,
+      "latest_price": 42.41
+    },
+    {
+      "code": "300666",
+      "name": "江丰电子",
+      "min_price": 185.01,
+      "latest_price": 185.01
+    },
+    {
+      "code": "688635",
+      "name": "",
+      "min_price": 200.0,
+      "latest_price": 216.81
+    },
+    {
+      "code": "301531",
+      "name": "春光集团",
+      "min_price": 42.88,
+      "latest_price": 46.09
+    },
+    {
+      "code": "688261",
+      "name": "东微半导",
+      "min_price": 59.84,
+      "latest_price": 64.28
+    },
+    {
+      "code": "300655",
+      "name": "晶瑞电材",
+      "min_price": 11.4,
+      "latest_price": 11.57
+    },
+    {
+      "code": "300782",
+      "name": "卓胜微",
+      "min_price": 64.72,
+      "latest_price": 67.02
+    },
+    {
+      "code": "002409",
+      "name": "雅克科技",
+      "min_price": 120.91,
+      "latest_price": 120.91
+    },
+    {
+      "code": "300101",
+      "name": "振芯科技",
+      "min_price": 13.52,
+      "latest_price": 14.91
+    },
+    {
+      "code": "688807",
+      "name": "",
+      "min_price": 210.95,
+      "latest_price": 219.84
+    },
+    {
+      "code": "002527",
+      "name": "新时达",
+      "min_price": 9.84,
+      "latest_price": 11.24
+    },
+    {
+      "code": "688516",
+      "name": "奥特维",
+      "min_price": 37.03,
+      "latest_price": 38.99
+    },
+    {
+      "code": "300623",
+      "name": "捷捷微电",
+      "min_price": 22.57,
+      "latest_price": 23.06
+    },
+    {
+      "code": "688727",
+      "name": "",
+      "min_price": 37.04,
+      "latest_price": 37.76
+    },
+    {
+      "code": "603175",
+      "name": "",
+      "min_price": 70.68,
+      "latest_price": 74.12
+    },
+    {
+      "code": "688809",
+      "name": "",
+      "min_price": 358.01,
+      "latest_price": 413.33
+    },
+    {
+      "code": "688589",
+      "name": "力合微",
+      "min_price": 16.25,
+      "latest_price": 17.25
+    },
+    {
+      "code": "300474",
+      "name": "景嘉微",
+      "min_price": 50.17,
+      "latest_price": 52.82
+    },
+    {
+      "code": "301176",
+      "name": "逸豪新材",
+      "min_price": 36.7,
+      "latest_price": 38.14
+    },
+    {
+      "code": "300458",
+      "name": "全志科技",
+      "min_price": 31.82,
+      "latest_price": 32.17
+    },
+    {
+      "code": "600563",
+      "name": "法拉电子",
+      "min_price": 121.8,
+      "latest_price": 136.34
+    },
+    {
+      "code": "300656",
+      "name": "民德电子",
+      "min_price": 21.77,
+      "latest_price": 23.0
+    },
+    {
+      "code": "600363",
+      "name": "联创光电",
+      "min_price": 24.93,
+      "latest_price": 27.04
+    }
+  ],
+  "yiyao": [
+    {
+      "code": "603998",
+      "name": "方盛制药",
+      "min_price": 8.85,
+      "latest_price": 9.56
+    },
+    {
+      "code": "600789",
+      "name": "鲁抗医药",
+      "min_price": 6.71,
+      "latest_price": 7.46
+    },
+    {
+      "code": "688166",
+      "name": "博瑞医药",
+      "min_price": 29.53,
+      "latest_price": 34.57
+    },
+    {
+      "code": "603309",
+      "name": "维力医疗",
+      "min_price": 11.06,
+      "latest_price": 11.38
+    },
+    {
+      "code": "688139",
+      "name": "海尔生物",
+      "min_price": 24.7,
+      "latest_price": 28.76
+    },
+    {
+      "code": "600572",
+      "name": "康恩贝",
+      "min_price": 3.88,
+      "latest_price": 4.38
+    },
+    {
+      "code": "002007",
+      "name": "华兰生物",
+      "min_price": 12.12,
+      "latest_price": 13.68
+    },
+    {
+      "code": "300705",
+      "name": "九典制药",
+      "min_price": 9.51,
+      "latest_price": 11.05
+    },
+    {
+      "code": "688114",
+      "name": "华大智造",
+      "min_price": 47.11,
+      "latest_price": 49.77
+    },
+    {
+      "code": "600351",
+      "name": "亚宝药业",
+      "min_price": 5.7,
+      "latest_price": 6.91
+    },
+    {
+      "code": "600479",
+      "name": "千金药业",
+      "min_price": 9.06,
+      "latest_price": 9.86
+    },
+    {
+      "code": "301207",
+      "name": "华兰疫苗",
+      "min_price": 15.86,
+      "latest_price": 17.81
+    },
+    {
+      "code": "603896",
+      "name": "寿仙谷",
+      "min_price": 12.95,
+      "latest_price": 14.95
+    },
+    {
+      "code": "688271",
+      "name": "联影医疗",
+      "min_price": 98.07,
+      "latest_price": 116.45
+    },
+    {
+      "code": "600867",
+      "name": "通化东宝",
+      "min_price": 7.43,
+      "latest_price": 8.36
+    },
+    {
+      "code": "000403",
+      "name": "派林生物",
+      "min_price": 8.79,
+      "latest_price": 10.62
+    },
+    {
+      "code": "688180",
+      "name": "君实生物",
+      "min_price": 29.68,
+      "latest_price": 35.41
+    },
+    {
+      "code": "000963",
+      "name": "华东医药",
+      "min_price": 26.41,
+      "latest_price": 28.57
+    },
+    {
+      "code": "002755",
+      "name": "奥赛康",
+      "min_price": 12.5,
+      "latest_price": 13.33
+    },
+    {
+      "code": "688212",
+      "name": "澳华内镜",
+      "min_price": 25.37,
+      "latest_price": 27.1
+    },
+    {
+      "code": "600079",
+      "name": "ST人福",
+      "min_price": 15.93,
+      "latest_price": 17.69
+    },
+    {
+      "code": "688276",
+      "name": "百克生物",
+      "min_price": 13.58,
+      "latest_price": 15.07
+    },
+    {
+      "code": "000756",
+      "name": "新华制药",
+      "min_price": 12.21,
+      "latest_price": 13.75
+    },
+    {
+      "code": "301331",
+      "name": "恩威医药",
+      "min_price": 19.09,
+      "latest_price": 20.57
+    },
+    {
+      "code": "300406",
+      "name": "九强生物",
+      "min_price": 10.82,
+      "latest_price": 11.75
+    },
+    {
+      "code": "688639",
+      "name": "华恒生物",
+      "min_price": 15.4,
+      "latest_price": 17.2
+    },
+    {
+      "code": "300253",
+      "name": "卫宁健康",
+      "min_price": 6.52,
+      "latest_price": 7.54
+    },
+    {
+      "code": "301602",
+      "name": "超研股份",
+      "min_price": 13.63,
+      "latest_price": 15.14
+    },
+    {
+      "code": "002030",
+      "name": "达安基因",
+      "min_price": 4.88,
+      "latest_price": 5.53
+    },
+    {
+      "code": "600535",
+      "name": "天士力",
+      "min_price": 13.23,
+      "latest_price": 15.9
+    },
+    {
+      "code": "002294",
+      "name": "信立泰",
+      "min_price": 30.15,
+      "latest_price": 33.2
+    },
+    {
+      "code": "688758",
+      "name": "赛分科技",
+      "min_price": 19.15,
+      "latest_price": 23.01
+    },
+    {
+      "code": "300633",
+      "name": "开立医疗",
+      "min_price": 17.97,
+      "latest_price": 20.52
+    },
+    {
+      "code": "603108",
+      "name": "润达医疗",
+      "min_price": 8.83,
+      "latest_price": 10.14
+    },
+    {
+      "code": "000739",
+      "name": "普洛药业",
+      "min_price": 15.96,
+      "latest_price": 20.11
+    },
+    {
+      "code": "300142",
+      "name": "沃森生物",
+      "min_price": 11.67,
+      "latest_price": 12.32
+    },
+    {
+      "code": "301015",
+      "name": "百洋医药",
+      "min_price": 19.06,
+      "latest_price": 22.56
+    },
+    {
+      "code": "688382",
+      "name": "益方生物",
+      "min_price": 15.96,
+      "latest_price": 18.79
+    },
+    {
+      "code": "688050",
+      "name": "爱博医疗",
+      "min_price": 36.26,
+      "latest_price": 41.99
+    },
+    {
+      "code": "300653",
+      "name": "正海生物",
+      "min_price": 13.54,
+      "latest_price": 14.61
+    },
+    {
+      "code": "300357",
+      "name": "我武生物",
+      "min_price": 21.16,
+      "latest_price": 23.44
+    },
+    {
+      "code": "688617",
+      "name": "惠泰医疗",
+      "min_price": 181.27,
+      "latest_price": 220.85
+    },
+    {
+      "code": "300181",
+      "name": "佐力药业",
+      "min_price": 12.86,
+      "latest_price": 14.41
+    },
+    {
+      "code": "688363",
+      "name": "华熙生物",
+      "min_price": 33.74,
+      "latest_price": 39.09
+    },
+    {
+      "code": "000650",
+      "name": "仁和药业",
+      "min_price": 4.86,
+      "latest_price": 5.49
+    },
+    {
+      "code": "688289",
+      "name": "圣湘生物",
+      "min_price": 13.87,
+      "latest_price": 15.68
+    },
+    {
+      "code": "000513",
+      "name": "丽珠集团",
+      "min_price": 28.43,
+      "latest_price": 31.02
+    },
+    {
+      "code": "603882",
+      "name": "金域医学",
+      "min_price": 22.16,
+      "latest_price": 27.51
+    },
+    {
+      "code": "300009",
+      "name": "安科生物",
+      "min_price": 7.5,
+      "latest_price": 8.36
+    },
+    {
+      "code": "002166",
+      "name": "莱茵生物",
+      "min_price": 6.2,
+      "latest_price": 6.81
+    },
+    {
+      "code": "603367",
+      "name": "辰欣药业",
+      "min_price": 12.45,
+      "latest_price": 14.58
+    },
+    {
+      "code": "300294",
+      "name": "博雅生物",
+      "min_price": 14.19,
+      "latest_price": 15.91
+    },
+    {
+      "code": "600161",
+      "name": "天坛生物",
+      "min_price": 11.36,
+      "latest_price": 12.93
+    },
+    {
+      "code": "300813",
+      "name": "泰林生物",
+      "min_price": 17.08,
+      "latest_price": 18.71
+    },
+    {
+      "code": "600211",
+      "name": "西藏药业",
+      "min_price": 35.6,
+      "latest_price": 39.05
+    },
+    {
+      "code": "300314",
+      "name": "戴维医疗",
+      "min_price": 9.03,
+      "latest_price": 10.02
+    },
+    {
+      "code": "002550",
+      "name": "千红制药",
+      "min_price": 5.92,
+      "latest_price": 6.96
+    },
+    {
+      "code": "603658",
+      "name": "安图生物",
+      "min_price": 28.72,
+      "latest_price": 34.17
+    },
+    {
+      "code": "600771",
+      "name": "广誉远",
+      "min_price": 12.71,
+      "latest_price": 14.76
+    },
+    {
+      "code": "300583",
+      "name": "赛托生物",
+      "min_price": 10.95,
+      "latest_price": 12.23
+    },
+    {
+      "code": "600062",
+      "name": "华润双鹤",
+      "min_price": 15.25,
+      "latest_price": 16.31
+    },
+    {
+      "code": "603676",
+      "name": "卫信康",
+      "min_price": 8.04,
+      "latest_price": 8.86
+    },
+    {
+      "code": "600196",
+      "name": "复星医药",
+      "min_price": 20.85,
+      "latest_price": 23.15
+    },
+    {
+      "code": "688366",
+      "name": "昊海生科",
+      "min_price": 28.61,
+      "latest_price": 31.89
+    },
+    {
+      "code": "300298",
+      "name": "三诺生物",
+      "min_price": 13.65,
+      "latest_price": 16.55
+    },
+    {
+      "code": "300942",
+      "name": "易瑞生物",
+      "min_price": 5.71,
+      "latest_price": 6.37
+    },
+    {
+      "code": "300869",
+      "name": "康泰医学",
+      "min_price": 10.26,
+      "latest_price": 11.2
+    },
+    {
+      "code": "300453",
+      "name": "三鑫医疗",
+      "min_price": 8.91,
+      "latest_price": 9.82
+    },
+    {
+      "code": "002603",
+      "name": "以岭药业",
+      "min_price": 14.66,
+      "latest_price": 16.72
+    },
+    {
+      "code": "688805",
+      "name": "",
+      "min_price": 36.56,
+      "latest_price": 39.06
+    },
+    {
+      "code": "688687",
+      "name": "凯因科技",
+      "min_price": 15.01,
+      "latest_price": 16.23
+    },
+    {
+      "code": "002950",
+      "name": "奥美医疗",
+      "min_price": 8.52,
+      "latest_price": 9.33
+    },
+    {
+      "code": "688310",
+      "name": "迈得医疗",
+      "min_price": 12.59,
+      "latest_price": 13.29
+    },
+    {
+      "code": "300558",
+      "name": "贝达药业",
+      "min_price": 55.78,
+      "latest_price": 56.15
+    },
+    {
+      "code": "000661",
+      "name": "长春高新",
+      "min_price": 62.8,
+      "latest_price": 78.64
+    },
+    {
+      "code": "300601",
+      "name": "康泰生物",
+      "min_price": 10.97,
+      "latest_price": 12.55
+    },
+    {
+      "code": "301103",
+      "name": "何氏眼科",
+      "min_price": 14.65,
+      "latest_price": 16.27
+    },
+    {
+      "code": "300529",
+      "name": "健帆生物",
+      "min_price": 15.04,
+      "latest_price": 18.89
+    },
+    {
+      "code": "600216",
+      "name": "浙江医药",
+      "min_price": 11.03,
+      "latest_price": 12.26
+    },
+    {
+      "code": "300791",
+      "name": "仙乐健康",
+      "min_price": 15.63,
+      "latest_price": 17.46
+    },
+    {
+      "code": "300482",
+      "name": "万孚生物",
+      "min_price": 15.69,
+      "latest_price": 17.64
+    },
+    {
+      "code": "603439",
+      "name": "三力制药",
+      "min_price": 9.68,
+      "latest_price": 10.62
+    },
+    {
+      "code": "301033",
+      "name": "迈普医学",
+      "min_price": 45.16,
+      "latest_price": 59.19
+    },
+    {
+      "code": "688247",
+      "name": "宣泰医药",
+      "min_price": 7.26,
+      "latest_price": 7.92
+    },
+    {
+      "code": "300401",
+      "name": "花园生物",
+      "min_price": 11.9,
+      "latest_price": 12.55
+    },
+    {
+      "code": "300981",
+      "name": "中红医疗",
+      "min_price": 9.5,
+      "latest_price": 14.69
+    },
+    {
+      "code": "688016",
+      "name": "心脉医疗",
+      "min_price": 86.08,
+      "latest_price": 93.9
+    },
+    {
+      "code": "301267",
+      "name": "华厦眼科",
+      "min_price": 14.42,
+      "latest_price": 16.59
+    },
+    {
+      "code": "002262",
+      "name": "恩华药业",
+      "min_price": 18.23,
+      "latest_price": 22.23
+    },
+    {
+      "code": "605369",
+      "name": "拱东医疗",
+      "min_price": 15.13,
+      "latest_price": 16.41
+    },
+    {
+      "code": "688520",
+      "name": "神州细胞",
+      "min_price": 33.0,
+      "latest_price": 33.83
+    },
+    {
+      "code": "000423",
+      "name": "东阿阿胶",
+      "min_price": 43.48,
+      "latest_price": 55.4
+    }
+  ]
+}

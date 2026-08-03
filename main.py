@@ -665,7 +665,6 @@ def ontimer_3(context):
         etffill_date = lock_data.get('etffill', '')
         if not etffill_date or etffill_date < today_str:
             need_execute = True
-        
         if need_execute:
             print(f"[{now}] 超过15:10，执行 etfFill()...")
             etfFill()
@@ -691,6 +690,7 @@ def ontimer_3(context):
         if need_execute:
             print(f"[{now}] 超过18:02，执行 cal_wpg_mk()...")
             cal_wpg_mk()
+            calculate_attention()
             calculate_market_profit_by_day(start_date="2024-09-23")
             calculate_market_profit_by_day(start_date="2025-12-31")
             # 更新 wpg_mk 的日期
@@ -727,6 +727,7 @@ def ontimer_3(context):
     if now >= datetime.time(9, 15) and now < datetime.time(15, 10):
         processor = context.stock_price_processor
         processor.update_kzz_with_market_data()
+        calculate_attention_profit()
 def kzzzg():
     bonds = [118049,123251,123176,118063,127042,113045,123256,113575,111023,127080,127038,118062,113687,118057,118048,111012,123263,123182,118052,127071,110074,118054,123255,118055,113644,118058,113677,127070,123241,123262,113651,113646,118039,123118,118045,123245,123210,118021,111010,127055,123224,113615,113033,113052,128127,113698,113623,118006,123207,113601,110089,123254,123159,123131,113697,123252,113588,123211,118050,113695,118029,123247,123195,113042,113039,110094,118027,118013,127037,118031,118030,118009,123199,123180,123197,123158,113639,123209,127028,113593,118061,123088,118012,128136,118056,118053,123124,113056,123257,118000,113673,111016,123213,110081,118060,127089,123172,118051,110073,127039,123076,111021,123239,118043,110075,118024,113589,110095,123104,113667,127109,127084,127104,118004,123160,113672,113659,118040,113696,110092,113069,118034,110085,123235,123128,113691,110067,123236,113053,127092,123065,113699,118059,123260,113616,123064,127108,123107,113655,123246,118038,113654,118025,127067,127045,123109,113058,127066,123187,118042,127022,128137,113046,127103,118016,123061,113062,111000,123261,127061,127079,113048,113043,113051,127049,118011,123259,123215,113652,123222,111015,110090,127064,110093,127026,127040,127053,123188,113692,128142,123264,118003,111018,127056,127018,118007,123216,123119,123221,123150,127082,128101,118033,123242,113574,110086,113059,127076,123085,123146,118008,113640,118022,123108,110087,128129,113676,123173,110099,127047,123225,123157,127016,113678,123178,118041,123155,123114,113584,127025,111013,127110,123183,113605,111004,123243,128125,113049,123091,113653,118036,113656,113686,113666,113643,123054,123258,128141,123149,110098,127027,123189,127031,113649,113632,123196,123071,127085,111002,127030,113661,127090,113037,111019,127105,110070,127093,110077,127072,127054,127102,127041,113681,123059,118018,123133,128108,113054,127088,113067,123237,123194,118035,127024,113625,113671,113647,113636,123198,113633,127094,123220,113627,113693]
     symbols = []
@@ -835,6 +836,115 @@ def searchWPG():
     avg2 = processor.calculate_wpg("2025-12-31")
     print("=======2025年微盘股β收益=", f"{avg2/avg1*100-100:.2f}%")
 
+def calculate_attention():
+    # 读取attention.json
+    with open('stocks/attention.json', 'r', encoding='utf-8') as f:
+        attention_data = json.load(f)
+    
+    # 读取base数据获取股票名称
+    with open('stocks/all_base.json', 'r', encoding='utf-8') as f:
+        base_data = json.load(f)
+    base_dict = {item['stock_code']: item.get('stock_name', '') for item in base_data}
+    
+    processor = stock_price_processor.StockPirceProcessor()
+    
+    # 获取最近30个交易日的日期
+    end_date = datetime.datetime.now().strftime('%Y-%m-%d')
+    start_date = (datetime.datetime.now() - datetime.timedelta(days=60)).strftime('%Y-%m-%d')
+    index_data = history(symbol="SHSE.000300", frequency='1d', start_time=start_date, end_time=end_date, fields='eob', adjust=ADJUST_PREV, df=False)
+    trading_days = sorted([d['eob'].strftime('%Y-%m-%d') for d in index_data])
+    last_30_days = trading_days[-30:] if len(trading_days) >= 30 else trading_days
+    fetch_start = last_30_days[0]
+    fetch_end = last_30_days[-1]
+    
+    result = {}
+    for group_name, codes in attention_data.items():
+        # 去重
+        unique_codes = list(set(codes))
+        symbols = []
+        code_to_symbol = {}
+        for code in unique_codes:
+            symbol = processor.get_stock_symbol(code)
+            code_to_symbol[code] = symbol
+            symbols.append(symbol)
+        
+        # 获取最近30个交易日的收盘价
+        datas = history(symbol=symbols, frequency='1d', start_time=fetch_start, end_time=fetch_end, fields='symbol, close, eob', adjust=ADJUST_PREV, df=False)
+        
+        # 按symbol汇总收盘价
+        price_dict = {}
+        for data in datas:
+            sym = data['symbol']
+            if sym not in price_dict:
+                price_dict[sym] = []
+            price_dict[sym].append(data['close'])
+        
+        group_result = []
+        for code in unique_codes:
+            symbol = code_to_symbol[code]
+            if symbol not in price_dict or len(price_dict[symbol]) == 0:
+                continue
+            prices = price_dict[symbol]
+            min_price = min(prices)
+            latest_price = prices[-1]
+            group_result.append({"code": code, "name": base_dict.get(code, ''), "min_price": round(min_price, 2), "latest_price": round(latest_price, 2)})
+        
+        result[group_name] = group_result
+        print(f"{group_name}: {len(group_result)}只股票")
+    
+    # 写入文件
+    with open('stocks/attention_detail.json', 'w', encoding='utf-8') as f:
+        json.dump(result, f, ensure_ascii=False, indent=2)
+    print("已保存到 stocks/attention_detail.json")
+
+def calculate_attention_profit():
+    # 读取attention_detail.json
+    with open('stocks/attention_detail.json', 'r', encoding='utf-8') as f:
+        detail_data = json.load(f)
+    
+    processor = stock_price_processor.StockPirceProcessor()
+    
+    # 汇总所有分组的股票并去重
+    all_codes = set()
+    for group_data in detail_data.values():
+        for item in group_data:
+            all_codes.add(item['code'])
+    
+    # 获取所有symbol
+    symbols = []
+    code_to_symbol = {}
+    for code in all_codes:
+        symbol = processor.get_stock_symbol(code)
+        code_to_symbol[code] = symbol
+        symbols.append(symbol)
+    
+    # 调用current接口获取最新价格
+    current_data = current(symbols=symbols, fields='symbol, price')
+    price_info = {}
+    for data in current_data:
+        price_info[data['symbol']] = data['price']
+
+    # 追加数据到原结构
+    for group_name, group_data in detail_data.items():
+        for item in group_data:
+            symbol = code_to_symbol[item['code']]
+            if symbol in price_info:
+                cur_price = price_info[symbol]
+                latest_price = item['latest_price']
+                today_change = round((cur_price - latest_price) / latest_price * 100, 2) if latest_price else 0
+                min_change = round((cur_price - item['min_price']) / item['min_price'] * 100, 2) if item['min_price'] else 0
+                item['current_price'] = round(cur_price, 2)
+                item['today_change'] = today_change
+                item['min_change'] = min_change
+            else:
+                item['current_price'] = None
+                item['today_change'] = None
+                item['min_change'] = None
+    
+    # 保存回文件
+    with open('stocks/attention_detail.json', 'w', encoding='utf-8') as f:
+        json.dump(detail_data, f, ensure_ascii=False, indent=2)
+    print("已更新 stocks/attention_detail.json")
 
 def etfFill():
     # 打开 Excel 文件
@@ -1898,12 +2008,15 @@ def get_all_a(context):
             old_all_stocks.append(datas[i])
     today = datetime.date.today().strftime("%Y-%m-%d")
     find('SHSE.000001', all ,today)
+    print("SHSE.000001", len(all))
     find('SZSE.399106', all ,today)
+    print("add SZSE.399106", len(all))
+
     s1 = set(old_all_stocks)
     s2 = set(all)
     s3 = s1 | s2
     all_new = list(s3)
-    print(len(all_new))
+    print("all_new", len(all_new))
     with open(f, 'w', encoding='utf-8') as file:
         json.dump(all_new, file, indent=4, ensure_ascii=False)
 

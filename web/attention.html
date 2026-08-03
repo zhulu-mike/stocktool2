@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>关注股票</title>
+    <style>
+        body {
+            font-family: "Microsoft YaHei", sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        select, button {
+            padding: 8px 16px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background: #fff;
+            cursor: pointer;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        .nav-links {
+            margin-bottom: 15px;
+        }
+        .nav-links a {
+            margin-right: 10px;
+            color: #2196F3;
+            text-decoration: none;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        th, td {
+            padding: 10px 12px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            user-select: none;
+        }
+        th.sort-asc::after { content: " ↑"; }
+        th.sort-desc::after { content: " ↓"; }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .up { color: #e74c3c; }
+        .down { color: #27ae60; }
+        #status {
+            margin-left: 10px;
+            color: #888;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-links">
+        <a href="index.html">返回首页</a>
+    </div>
+    <div class="header">
+        <h1>关注股票</h1>
+        <label>分组：</label>
+        <select id="group-select"></select>
+        <button id="refresh-btn">刷新</button>
+        <span id="status"></span>
+    </div>
+    <table id="stock-table">
+        <thead>
+            <tr>
+                <th>序号</th>
+                <th>股票代码</th>
+                <th>名称</th>
+                <th data-sort="min_price">最低价</th>
+                <th data-sort="latest_price">上日收盘价</th>
+                <th data-sort="current_price">当前价格</th>
+                <th data-sort="today_change">今日涨幅</th>
+                <th data-sort="min_change">距最低价涨幅</th>
+            </tr>
+        </thead>
+        <tbody id="stock-body"></tbody>
+    </table>
+
+    <script>
+        let allData = {};
+        let currentGroup = '';
+        let sortKey = null;
+        let sortDir = 'asc';
+
+        function renderTable(group) {
+            currentGroup = group;
+            const tbody = document.getElementById('stock-body');
+            tbody.innerHTML = '';
+            let stocks = (allData[group] || []).slice();
+
+            if (sortKey) {
+                stocks.sort((a, b) => {
+                    let va = a[sortKey], vb = b[sortKey];
+                    if (va == null) va = -Infinity;
+                    if (vb == null) vb = -Infinity;
+                    return sortDir === 'asc' ? va - vb : vb - va;
+                });
+            }
+
+            stocks.forEach((stock, i) => {
+                const tr = document.createElement('tr');
+                const todayChange = stock.today_change;
+                const minChange = stock.min_change;
+                const todayClass = todayChange != null ? (todayChange >= 0 ? 'up' : 'down') : '';
+                const minClass = minChange != null ? (minChange >= 0 ? 'up' : 'down') : '';
+                tr.innerHTML = `
+                    <td>${i + 1}</td>
+                    <td>${stock.code}</td>
+                    <td>${stock.name ?? '-'}</td>
+                    <td>${stock.min_price ?? '-'}</td>
+                    <td>${stock.latest_price ?? '-'}</td>
+                    <td>${stock.current_price ?? '-'}</td>
+                    <td class="${todayClass}">${todayChange != null ? todayChange + '%' : '-'}</td>
+                    <td class="${minClass}">${minChange != null ? minChange + '%' : '-'}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            // 更新表头排序标记
+            document.querySelectorAll('th[data-sort]').forEach(th => {
+                th.classList.remove('sort-asc', 'sort-desc');
+                if (th.dataset.sort === sortKey) {
+                    th.classList.add(sortDir === 'asc' ? 'sort-asc' : 'sort-desc');
+                }
+            });
+        }
+
+        document.querySelectorAll('th[data-sort]').forEach(th => {
+            th.addEventListener('click', function() {
+                const key = this.dataset.sort;
+                if (sortKey === key) {
+                    sortDir = sortDir === 'asc' ? 'desc' : 'asc';
+                } else {
+                    sortKey = key;
+                    sortDir = 'asc';
+                }
+                renderTable(currentGroup);
+            });
+        });
+
+        function loadData() {
+            document.getElementById('status').textContent = '加载中...';
+            fetch('../stocks/attention_detail.json?t=' + Date.now())
+                .then(res => res.json())
+                .then(data => {
+                    allData = data;
+                    const select = document.getElementById('group-select');
+                    select.innerHTML = '';
+                    const groups = Object.keys(data);
+                    groups.forEach(g => {
+                        const opt = document.createElement('option');
+                        opt.value = g;
+                        opt.textContent = g;
+                        select.appendChild(opt);
+                    });
+                    if (groups.length > 0) {
+                        renderTable(groups[0]);
+                    }
+                    document.getElementById('status').textContent = '加载完成 ' + new Date().toLocaleTimeString();
+                })
+                .catch(err => {
+                    document.getElementById('status').textContent = '加载失败: ' + err.message;
+                });
+        }
+
+        document.getElementById('group-select').addEventListener('change', function() {
+            renderTable(this.value);
+        });
+
+        document.getElementById('refresh-btn').addEventListener('click', loadData);
+
+        loadData();
+    </script>
+</body>
+</html>

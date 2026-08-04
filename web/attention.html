@@ -93,11 +93,11 @@
                 <th>序号</th>
                 <th>股票代码</th>
                 <th>名称</th>
-                <th data-sort="min_price">最低价</th>
-                <th data-sort="latest_price">上日收盘价</th>
                 <th data-sort="current_price">当前价格</th>
                 <th data-sort="today_change">今日涨幅</th>
                 <th data-sort="min_change">距最低价涨幅</th>
+                <th data-sort="min_price">最低价</th>
+                <th data-sort="latest_price">上日收盘价</th>
             </tr>
         </thead>
         <tbody id="stock-body"></tbody>
@@ -134,11 +134,11 @@
                     <td>${i + 1}</td>
                     <td>${stock.code}</td>
                     <td>${stock.name ?? '-'}</td>
-                    <td>${stock.min_price ?? '-'}</td>
-                    <td>${stock.latest_price ?? '-'}</td>
                     <td>${stock.current_price ?? '-'}</td>
                     <td class="${todayClass}">${todayChange != null ? todayChange + '%' : '-'}</td>
                     <td class="${minClass}">${minChange != null ? minChange + '%' : '-'}</td>
+                    <td>${stock.min_price ?? '-'}</td>
+                    <td>${stock.latest_price ?? '-'}</td>
                 `;
                 tbody.appendChild(tr);
             });
@@ -167,6 +167,10 @@
 
         function loadData() {
             document.getElementById('status').textContent = '加载中...';
+            // 保存当前状态
+            const savedGroup = currentGroup;
+            const savedSortKey = sortKey;
+            const savedSortDir = sortDir;
             fetch('../stocks/attention_detail.json?t=' + Date.now())
                 .then(res => res.json())
                 .then(data => {
@@ -180,7 +184,13 @@
                         opt.textContent = g;
                         select.appendChild(opt);
                     });
-                    if (groups.length > 0) {
+                    // 恢复之前选中的分组，若不存在则选第一个
+                    if (savedGroup && groups.includes(savedGroup)) {
+                        select.value = savedGroup;
+                        sortKey = savedSortKey;
+                        sortDir = savedSortDir;
+                        renderTable(savedGroup);
+                    } else if (groups.length > 0) {
                         renderTable(groups[0]);
                     }
                     document.getElementById('status').textContent = '加载完成 ' + new Date().toLocaleTimeString();

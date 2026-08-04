@@ -253,11 +253,11 @@
     "force_redeem_price": "30.914",
     "left_market_value": "3.000",
     "force_redeem_status": "未满足",
-    "bond_price": null,
-    "stock_price": 20.91,
+    "bond_price": 130.0,
+    "stock_price": 20.97,
     "bond_change": null,
-    "stock_change": 3.51,
-    "premium_rate": null
+    "stock_change": 0.29,
+    "premium_rate": 47.42
   },
   {
     "bond_id": "118073",
@@ -306,9 +306,9 @@
     "left_market_value": "80.000",
     "force_redeem_status": "未满足",
     "bond_price": null,
-    "stock_price": null,
+    "stock_price": 84.91,
     "bond_change": null,
-    "stock_change": null,
+    "stock_change": 1.46,
     "premium_rate": null
   },
   {
@@ -332,9 +332,9 @@
     "left_market_value": "11.850",
     "force_redeem_status": "未满足",
     "bond_price": null,
-    "stock_price": 21.11,
+    "stock_price": 20.85,
     "bond_change": null,
-    "stock_change": -0.14,
+    "stock_change": -1.23,
     "premium_rate": null
   },
   {
@@ -357,11 +357,11 @@
     "force_redeem_price": "43.940",
     "left_market_value": "5.900",
     "force_redeem_status": "未满足",
-    "bond_price": 163.1,
-    "stock_price": 25.1,
-    "bond_change": 1.3,
-    "stock_change": 4.41,
-    "premium_rate": 119.63
+    "bond_price": 163.45,
+    "stock_price": 25.34,
+    "bond_change": 0.21,
+    "stock_change": 0.96,
+    "premium_rate": 118.02
   },
   {
     "bond_id": "113707",
@@ -383,11 +383,11 @@
     "force_redeem_price": "59.228",
     "left_market_value": "14.910",
     "force_redeem_status": "未满足",
-    "bond_price": 188.76,
-    "stock_price": 43.55,
-    "bond_change": 20.0,
-    "stock_change": 2.76,
-    "premium_rate": 97.47
+    "bond_price": 214.32,
+    "stock_price": 43.12,
+    "bond_change": 13.54,
+    "stock_change": -0.99,
+    "premium_rate": 126.45
   },
   {
     "bond_id": "127114",
@@ -409,11 +409,11 @@
     "force_redeem_price": "18.304",
     "left_market_value": "33.000",
     "force_redeem_status": "未满足",
-    "bond_price": 148.31,
-    "stock_price": 13.29,
-    "bond_change": 0.47,
-    "stock_change": 1.22,
-    "premium_rate": 57.13
+    "bond_price": 148.33,
+    "stock_price": 13.32,
+    "bond_change": 0.01,
+    "stock_change": 0.23,
+    "premium_rate": 56.8
   },
   {
     "bond_id": "123274",
@@ -435,11 +435,11 @@
     "force_redeem_price": "46.306",
     "left_market_value": "6.300",
     "force_redeem_status": "未满足",
-    "bond_price": 161.29,
-    "stock_price": 23.21,
-    "bond_change": -5.4,
-    "stock_change": 2.84,
-    "premium_rate": 147.53
+    "bond_price": 165.19,
+    "stock_price": 23.79,
+    "bond_change": 2.42,
+    "stock_change": 2.5,
+    "premium_rate": 147.33
   },
   {
     "bond_id": "111025",
@@ -461,11 +461,11 @@
     "force_redeem_price": "92.040",
     "left_market_value": "25.000",
     "force_redeem_status": "未满足",
-    "bond_price": 153.29,
-    "stock_price": 32.92,
-    "bond_change": -5.91,
-    "stock_change": -3.52,
-    "premium_rate": 229.68
+    "bond_price": 158.95,
+    "stock_price": 36.04,
+    "bond_change": 3.69,
+    "stock_change": 9.48,
+    "premium_rate": 212.25
   },
   {
     "bond_id": "118072",
@@ -487,11 +487,11 @@
     "force_redeem_price": "550.602",
     "left_market_value": "9.300",
     "force_redeem_status": "未满足",
-    "bond_price": 164.44,
-    "stock_price": 184.64,
-    "bond_change": -5.49,
-    "stock_change": -2.96,
-    "premium_rate": 277.19
+    "bond_price": 174.71,
+    "stock_price": 211.79,
+    "bond_change": 6.25,
+    "stock_change": 14.7,
+    "premium_rate": 249.39
   },
   {
     "bond_id": "110101",
@@ -513,11 +513,11 @@
     "force_redeem_price": "40.274",
     "left_market_value": "35.000",
     "force_redeem_status": "未满足",
-    "bond_price": 159.03,
-    "stock_price": 28.75,
-    "bond_change": -1.18,
-    "stock_change": 1.7,
-    "premium_rate": 71.37
+    "bond_price": 158.31,
+    "stock_price": 28.82,
+    "bond_change": -0.45,
+    "stock_change": 0.24,
+    "premium_rate": 70.18
   },
   {
     "bond_id": "118071",
@@ -539,11 +539,11 @@
     "force_redeem_price": "436.618",
     "left_market_value": "7.490",
     "force_redeem_status": "未满足",
-    "bond_price": 234.31,
-    "stock_price": 319.88,
-    "bond_change": -3.75,
-    "stock_change": -10.57,
-    "premium_rate": 146.01
+    "bond_price": 245.92,
+    "stock_price": 343.17,
+    "bond_change": 4.95,
+    "stock_change": 7.28,
+    "premium_rate": 140.68
   },
   {
     "bond_id": "118070",
@@ -565,11 +565,11 @@
     "force_redeem_price": "56.992",
     "left_market_value": "15.869",
     "force_redeem_status": "未满足",
-    "bond_price": 164.71,
-    "stock_price": 33.78,
-    "bond_change": 0.12,
-    "stock_change": -0.82,
-    "premium_rate": 113.76
+    "bond_price": 168.6,
+    "stock_price": 34.83,
+    "bond_change": 2.36,
+    "stock_change": 3.11,
+    "premium_rate": 112.21
   },
   {
     "bond_id": "123273",
@@ -591,11 +591,11 @@
     "force_redeem_price": "18.759",
     "left_market_value": "2.900",
     "force_redeem_status": "未满足",
-    "bond_price": 328.49,
-    "stock_price": 11.18,
-    "bond_change": -1.94,
-    "stock_change": 0.0,
-    "premium_rate": 323.98
+    "bond_price": 335.67,
+    "stock_price": 11.16,
+    "bond_change": 2.19,
+    "stock_change": -0.18,
+    "premium_rate": 334.03
   },
   {
     "bond_id": "113706",
@@ -617,11 +617,11 @@
     "force_redeem_price": "39.806",
     "left_market_value": "9.700",
     "force_redeem_status": "未满足",
-    "bond_price": 149.92,
-    "stock_price": 23.71,
-    "bond_change": -0.95,
-    "stock_change": 0.42,
-    "premium_rate": 93.61
+    "bond_price": 151.31,
+    "stock_price": 24.07,
+    "bond_change": 0.93,
+    "stock_change": 1.52,
+    "premium_rate": 92.48
   },
   {
     "bond_id": "113705",
@@ -643,11 +643,11 @@
     "force_redeem_price": "13.962",
     "left_market_value": "18.000",
     "force_redeem_status": "未满足",
-    "bond_price": 155.91,
-    "stock_price": 9.67,
-    "bond_change": -0.88,
-    "stock_change": 2.11,
-    "premium_rate": 73.17
+    "bond_price": 157.54,
+    "stock_price": 9.57,
+    "bond_change": 1.05,
+    "stock_change": -1.03,
+    "premium_rate": 76.8
   },
   {
     "bond_id": "123272",
@@ -669,11 +669,11 @@
     "force_redeem_price": "7.787",
     "left_market_value": "10.390",
     "force_redeem_status": "未满足",
-    "bond_price": 174.6,
-    "stock_price": 5.43,
-    "bond_change": -3.27,
-    "stock_change": 1.31,
-    "premium_rate": 92.61
+    "bond_price": 173.7,
+    "stock_price": 5.36,
+    "bond_change": -0.52,
+    "stock_change": -1.29,
+    "premium_rate": 94.12
   },
   {
     "bond_id": "118069",
@@ -695,11 +695,11 @@
     "force_redeem_price": "37.089",
     "left_market_value": "2.670",
     "force_redeem_status": "未满足",
-    "bond_price": 179.36,
-    "stock_price": 22.0,
-    "bond_change": -1.49,
-    "stock_change": 4.22,
-    "premium_rate": 132.59
+    "bond_price": 179.44,
+    "stock_price": 22.18,
+    "bond_change": 0.04,
+    "stock_change": 0.82,
+    "premium_rate": 130.81
   },
   {
     "bond_id": "113704",
@@ -721,11 +721,11 @@
     "force_redeem_price": "314.210",
     "left_market_value": "21.790",
     "force_redeem_status": "未满足",
-    "bond_price": 192.17,
-    "stock_price": 306.4,
-    "bond_change": -2.71,
-    "stock_change": 0.06,
-    "premium_rate": 51.59
+    "bond_price": 186.3,
+    "stock_price": 301.1,
+    "bond_change": -3.05,
+    "stock_change": -1.73,
+    "premium_rate": 49.55
   },
   {
     "bond_id": "113703",
@@ -747,11 +747,11 @@
     "force_redeem_price": "28.522",
     "left_market_value": "13.010",
     "force_redeem_status": "未满足",
-    "bond_price": 147.5,
-    "stock_price": 14.52,
-    "bond_change": -1.61,
-    "stock_change": -0.14,
-    "premium_rate": 122.88
+    "bond_price": 147.24,
+    "stock_price": 14.76,
+    "bond_change": -0.18,
+    "stock_change": 1.65,
+    "premium_rate": 118.86
   },
   {
     "bond_id": "118068",
@@ -773,11 +773,11 @@
     "force_redeem_price": "42.237",
     "left_market_value": "9.080",
     "force_redeem_status": "未满足",
-    "bond_price": 140.49,
-    "stock_price": 19.82,
-    "bond_change": 0.07,
-    "stock_change": 6.05,
-    "premium_rate": 130.31
+    "bond_price": 140.83,
+    "stock_price": 20.13,
+    "bond_change": 0.24,
+    "stock_change": 1.56,
+    "premium_rate": 127.3
   },
   {
     "bond_id": "123271",
@@ -799,11 +799,11 @@
     "force_redeem_price": "43.134",
     "left_market_value": "5.219",
     "force_redeem_status": "未满足",
-    "bond_price": 166.3,
-    "stock_price": 24.67,
-    "bond_change": 0.45,
-    "stock_change": 0.98,
-    "premium_rate": 123.66
+    "bond_price": 176.43,
+    "stock_price": 26.89,
+    "bond_change": 6.1,
+    "stock_change": 9.0,
+    "premium_rate": 117.7
   },
   {
     "bond_id": "123270",
@@ -825,11 +825,11 @@
     "force_redeem_price": "69.784",
     "left_market_value": "4.050",
     "force_redeem_status": "未满足",
-    "bond_price": 271.0,
-    "stock_price": 32.77,
-    "bond_change": 3.44,
-    "stock_change": 2.63,
-    "premium_rate": 343.92
+    "bond_price": 271.65,
+    "stock_price": 33.08,
+    "bond_change": 0.24,
+    "stock_change": 0.95,
+    "premium_rate": 340.82
   },
   {
     "bond_id": "123269",
@@ -851,11 +851,11 @@
     "force_redeem_price": "36.712",
     "left_market_value": "9.800",
     "force_redeem_status": "未满足",
-    "bond_price": 154.0,
-    "stock_price": 23.3,
-    "bond_change": -1.66,
-    "stock_change": 3.1,
-    "premium_rate": 86.65
+    "bond_price": 154.71,
+    "stock_price": 23.47,
+    "bond_change": 0.46,
+    "stock_change": 0.73,
+    "premium_rate": 86.16
   },
   {
     "bond_id": "123268",
@@ -877,11 +877,11 @@
     "force_redeem_price": "70.369",
     "left_market_value": "4.690",
     "force_redeem_status": "未满足",
-    "bond_price": 181.9,
-    "stock_price": 45.95,
-    "bond_change": 0.72,
-    "stock_change": -2.63,
-    "premium_rate": 114.28
+    "bond_price": 192.11,
+    "stock_price": 48.68,
+    "bond_change": 5.61,
+    "stock_change": 5.94,
+    "premium_rate": 113.61
   },
   {
     "bond_id": "123267",
@@ -903,11 +903,11 @@
     "force_redeem_price": "126.711",
     "left_market_value": "7.500",
     "force_redeem_status": "未满足",
-    "bond_price": 319.0,
-    "stock_price": 77.45,
-    "bond_change": -2.02,
-    "stock_change": -8.45,
-    "premium_rate": 301.46
+    "bond_price": 330.67,
+    "stock_price": 81.19,
+    "bond_change": 3.66,
+    "stock_change": 4.83,
+    "premium_rate": 296.97
   },
   {
     "bond_id": "113702",
@@ -929,11 +929,11 @@
     "force_redeem_price": "136.227",
     "left_market_value": "15.000",
     "force_redeem_status": "未满足",
-    "bond_price": 173.21,
-    "stock_price": 80.13,
-    "bond_change": 0.62,
-    "stock_change": -0.45,
-    "premium_rate": 126.52
+    "bond_price": 177.0,
+    "stock_price": 81.98,
+    "bond_change": 2.19,
+    "stock_change": 2.31,
+    "premium_rate": 126.25
   },
   {
     "bond_id": "123266",
@@ -955,11 +955,11 @@
     "force_redeem_price": "28.002",
     "left_market_value": "3.750",
     "force_redeem_status": "未满足",
-    "bond_price": 147.6,
-    "stock_price": 15.84,
-    "bond_change": -1.6,
-    "stock_change": -0.94,
-    "premium_rate": 100.71
+    "bond_price": 148.2,
+    "stock_price": 15.94,
+    "bond_change": 0.41,
+    "stock_change": 0.63,
+    "premium_rate": 100.26
   },
   {
     "bond_id": "118067",
@@ -981,11 +981,11 @@
     "force_redeem_price": "41.925",
     "left_market_value": "3.250",
     "force_redeem_status": "未满足",
-    "bond_price": 139.65,
+    "bond_price": 139.82,
     "stock_price": 21.85,
-    "bond_change": 0.67,
-    "stock_change": 2.39,
-    "premium_rate": 106.13
+    "bond_change": 0.12,
+    "stock_change": 0.0,
+    "premium_rate": 106.37
   },
   {
     "bond_id": "127113",
@@ -1007,11 +1007,11 @@
     "force_redeem_price": "14.196",
     "left_market_value": "7.586",
     "force_redeem_status": "未满足",
-    "bond_price": 169.88,
-    "stock_price": 11.15,
-    "bond_change": -0.22,
-    "stock_change": 3.05,
-    "premium_rate": 66.37
+    "bond_price": 172.61,
+    "stock_price": 11.36,
+    "bond_change": 1.61,
+    "stock_change": 1.88,
+    "premium_rate": 65.92
   },
   {
     "bond_id": "113701",
@@ -1033,11 +1033,11 @@
     "force_redeem_price": "17.381",
     "left_market_value": "4.000",
     "force_redeem_status": "未满足",
-    "bond_price": 146.0,
-    "stock_price": 8.71,
-    "bond_change": 0.2,
-    "stock_change": 3.08,
-    "premium_rate": 124.11
+    "bond_price": 146.59,
+    "stock_price": 8.88,
+    "bond_change": 0.41,
+    "stock_change": 1.95,
+    "premium_rate": 120.71
   },
   {
     "bond_id": "118066",
@@ -1059,11 +1059,11 @@
     "force_redeem_price": "73.060",
     "left_market_value": "5.760",
     "force_redeem_status": "未满足",
-    "bond_price": 134.33,
-    "stock_price": 25.17,
-    "bond_change": -1.19,
-    "stock_change": -1.79,
-    "premium_rate": 199.93
+    "bond_price": 134.65,
+    "stock_price": 25.85,
+    "bond_change": 0.24,
+    "stock_change": 2.7,
+    "premium_rate": 192.74
   },
   {
     "bond_id": "113700",
@@ -1085,11 +1085,11 @@
     "force_redeem_price": "16.133",
     "left_market_value": "8.010",
     "force_redeem_status": "未满足",
-    "bond_price": 133.37,
+    "bond_price": 133.57,
     "stock_price": 7.35,
-    "bond_change": 1.04,
-    "stock_change": 2.23,
-    "premium_rate": 125.18
+    "bond_change": 0.16,
+    "stock_change": 0.0,
+    "premium_rate": 125.53
   },
   {
     "bond_id": "118065",
@@ -1111,11 +1111,11 @@
     "force_redeem_price": "103.220",
     "left_market_value": "19.010",
     "force_redeem_status": "未满足",
-    "bond_price": 146.18,
-    "stock_price": 53.92,
-    "bond_change": -0.1,
-    "stock_change": 0.39,
-    "premium_rate": 115.26
+    "bond_price": 147.41,
+    "stock_price": 55.0,
+    "bond_change": 0.84,
+    "stock_change": 2.0,
+    "premium_rate": 112.8
   },
   {
     "bond_id": "110100",
@@ -1137,11 +1137,11 @@
     "force_redeem_price": "5.967",
     "left_market_value": "10.000",
     "force_redeem_status": "未满足",
-    "bond_price": 128.28,
-    "stock_price": 3.29,
-    "bond_change": 0.21,
-    "stock_change": 2.49,
-    "premium_rate": 78.97
+    "bond_price": 127.87,
+    "stock_price": 3.28,
+    "bond_change": -0.32,
+    "stock_change": -0.3,
+    "premium_rate": 78.93
   },
   {
     "bond_id": "127112",
@@ -1163,11 +1163,11 @@
     "force_redeem_price": "78.026",
     "left_market_value": "17.340",
     "force_redeem_status": "未满足",
-    "bond_price": 154.5,
-    "stock_price": 54.46,
-    "bond_change": -1.43,
-    "stock_change": -1.38,
-    "premium_rate": 70.27
+    "bond_price": 155.12,
+    "stock_price": 54.31,
+    "bond_change": 0.4,
+    "stock_change": -0.28,
+    "premium_rate": 71.43
   },
   {
     "bond_id": "123265",
@@ -1189,11 +1189,11 @@
     "force_redeem_price": "38.350",
     "left_market_value": "4.499",
     "force_redeem_status": "未满足",
-    "bond_price": 140.56,
-    "stock_price": 19.46,
-    "bond_change": 0.01,
-    "stock_change": 2.53,
-    "premium_rate": 113.08
+    "bond_price": 140.97,
+    "stock_price": 19.8,
+    "bond_change": 0.29,
+    "stock_change": 1.75,
+    "premium_rate": 110.03
   },
   {
     "bond_id": "118064",
@@ -1215,11 +1215,11 @@
     "force_redeem_price": "81.965",
     "left_market_value": "6.949",
     "force_redeem_status": "计数中",
-    "bond_price": 299.63,
-    "stock_price": 100.2,
-    "bond_change": -2.45,
-    "stock_change": -6.63,
-    "premium_rate": 88.54
+    "bond_price": 326.39,
+    "stock_price": 109.77,
+    "bond_change": 8.93,
+    "stock_change": 9.55,
+    "premium_rate": 87.47
   },
   {
     "bond_id": "123264",
@@ -1241,11 +1241,11 @@
     "force_redeem_price": "47.320",
     "left_market_value": "8.000",
     "force_redeem_status": "未满足",
-    "bond_price": 127.75,
-    "stock_price": 20.66,
-    "bond_change": -0.03,
-    "stock_change": 2.84,
-    "premium_rate": 125.08
+    "bond_price": 128.06,
+    "stock_price": 21.08,
+    "bond_change": 0.24,
+    "stock_change": 2.03,
+    "premium_rate": 121.13
   },
   {
     "bond_id": "118063",
@@ -1267,11 +1267,11 @@
     "force_redeem_price": "115.180",
     "left_market_value": "16.708",
     "force_redeem_status": "未满足",
-    "bond_price": 156.52,
-    "stock_price": 65.78,
-    "bond_change": 0.16,
-    "stock_change": 2.3,
-    "premium_rate": 110.82
+    "bond_price": 157.2,
+    "stock_price": 68.2,
+    "bond_change": 0.43,
+    "stock_change": 3.68,
+    "premium_rate": 104.22
   },
   {
     "bond_id": "123263",
@@ -1293,11 +1293,11 @@
     "force_redeem_price": "56.446",
     "left_market_value": "8.275",
     "force_redeem_status": "未满足",
-    "bond_price": 151.0,
-    "stock_price": 33.49,
-    "bond_change": 0.2,
-    "stock_change": -0.68,
-    "premium_rate": 95.77
+    "bond_price": 157.63,
+    "stock_price": 34.77,
+    "bond_change": 4.39,
+    "stock_change": 3.82,
+    "premium_rate": 96.84
   },
   {
     "bond_id": "118062",
@@ -1319,11 +1319,11 @@
     "force_redeem_price": "66.156",
     "left_market_value": "8.719",
     "force_redeem_status": "暂不强赎",
-    "bond_price": 189.84,
-    "stock_price": 63.66,
-    "bond_change": -2.79,
-    "stock_change": -7.47,
-    "premium_rate": 64.4
+    "bond_price": 200.59,
+    "stock_price": 68.99,
+    "bond_change": 5.67,
+    "stock_change": 8.37,
+    "premium_rate": 60.29
   },
   {
     "bond_id": "123262",
@@ -1345,11 +1345,11 @@
     "force_redeem_price": "50.206",
     "left_market_value": "4.999",
     "force_redeem_status": "未满足",
-    "bond_price": 135.1,
-    "stock_price": 22.7,
-    "bond_change": -0.15,
-    "stock_change": 1.61,
-    "premium_rate": 129.84
+    "bond_price": 135.47,
+    "stock_price": 23.2,
+    "bond_change": 0.27,
+    "stock_change": 2.2,
+    "premium_rate": 125.5
   },
   {
     "bond_id": "111024",
@@ -1371,11 +1371,11 @@
     "force_redeem_price": "43.602",
     "left_market_value": "5.799",
     "force_redeem_status": "未满足",
-    "bond_price": 148.2,
-    "stock_price": 23.87,
-    "bond_change": -0.35,
-    "stock_change": 2.01,
-    "premium_rate": 108.23
+    "bond_price": 150.4,
+    "stock_price": 24.67,
+    "bond_change": 1.48,
+    "stock_change": 3.35,
+    "premium_rate": 104.47
   },
   {
     "bond_id": "123261",
@@ -1397,11 +1397,11 @@
     "force_redeem_price": "16.861",
     "left_market_value": "2.429",
     "force_redeem_status": "计数中",
-    "bond_price": 184.28,
-    "stock_price": 17.09,
-    "bond_change": -8.59,
-    "stock_change": -8.22,
-    "premium_rate": 39.85
+    "bond_price": 196.59,
+    "stock_price": 18.27,
+    "bond_change": 6.68,
+    "stock_change": 6.9,
+    "premium_rate": 39.56
   },
   {
     "bond_id": "118061",
@@ -1423,11 +1423,11 @@
     "force_redeem_price": "473.395",
     "left_market_value": "5.622",
     "force_redeem_status": "暂不强赎",
-    "bond_price": 181.44,
-    "stock_price": 300.41,
-    "bond_change": -1.04,
-    "stock_change": -5.38,
-    "premium_rate": 119.94
+    "bond_price": 187.44,
+    "stock_price": 325.5,
+    "bond_change": 3.31,
+    "stock_change": 8.35,
+    "premium_rate": 109.7
   },
   {
     "bond_id": "118060",
@@ -1449,11 +1449,11 @@
     "force_redeem_price": "68.289",
     "left_market_value": "9.999",
     "force_redeem_status": "暂不强赎",
-    "bond_price": 175.61,
-    "stock_price": 47.0,
-    "bond_change": -1.67,
-    "stock_change": -3.29,
-    "premium_rate": 96.27
+    "bond_price": 186.11,
+    "stock_price": 49.7,
+    "bond_change": 5.98,
+    "stock_change": 5.74,
+    "premium_rate": 96.71
   },
   {
     "bond_id": "123260",
@@ -1475,11 +1475,11 @@
     "force_redeem_price": "67.795",
     "left_market_value": "4.499",
     "force_redeem_status": "未满足",
-    "bond_price": 144.8,
-    "stock_price": 33.03,
-    "bond_change": -0.47,
-    "stock_change": 0.06,
-    "premium_rate": 128.62
+    "bond_price": 145.89,
+    "stock_price": 33.37,
+    "bond_change": 0.75,
+    "stock_change": 1.03,
+    "premium_rate": 127.99
   },
   {
     "bond_id": "118059",
@@ -1501,11 +1501,11 @@
     "force_redeem_price": "17.810",
     "left_market_value": "8.498",
     "force_redeem_status": "暂不强赎",
-    "bond_price": 183.03,
-    "stock_price": 13.31,
-    "bond_change": -0.29,
-    "stock_change": -4.31,
-    "premium_rate": 88.4
+    "bond_price": 193.6,
+    "stock_price": 14.48,
+    "bond_change": 5.77,
+    "stock_change": 8.79,
+    "premium_rate": 83.17
   },
   {
     "bond_id": "123259",
@@ -1527,11 +1527,11 @@
     "force_redeem_price": "94.133",
     "left_market_value": "16.763",
     "force_redeem_status": "暂不强赎",
-    "bond_price": 161.73,
-    "stock_price": 60.95,
-    "bond_change": -0.25,
-    "stock_change": 2.16,
-    "premium_rate": 92.14
+    "bond_price": 163.66,
+    "stock_price": 61.65,
+    "bond_change": 1.19,
+    "stock_change": 1.15,
+    "premium_rate": 92.22
   },
   {
     "bond_id": "110099",
@@ -1553,11 +1553,11 @@
     "force_redeem_price": "12.337",
     "left_market_value": "38.019",
     "force_redeem_status": "未满足",
-    "bond_price": 149.3,
-    "stock_price": 11.07,
-    "bond_change": 0.52,
-    "stock_change": 1.84,
-    "premium_rate": 27.99
+    "bond_price": 148.53,
+    "stock_price": 10.87,
+    "bond_change": -0.52,
+    "stock_change": -1.81,
+    "premium_rate": 29.67
   },
   {
     "bond_id": "113699",
@@ -1579,11 +1579,11 @@
     "force_redeem_price": "81.640",
     "left_market_value": "19.998",
     "force_redeem_status": "未满足",
-    "bond_price": 194.24,
-    "stock_price": 71.56,
-    "bond_change": -2.6,
-    "stock_change": -3.61,
-    "premium_rate": 70.46
+    "bond_price": 195.95,
+    "stock_price": 72.41,
+    "bond_change": 0.88,
+    "stock_change": 1.19,
+    "premium_rate": 69.95
   },
   {
     "bond_id": "113697",
@@ -1605,11 +1605,11 @@
     "force_redeem_price": "39.403",
     "left_market_value": "14.994",
     "force_redeem_status": "计数中",
-    "bond_price": 151.67,
-    "stock_price": 43.22,
-    "bond_change": -0.33,
-    "stock_change": 0.86,
-    "premium_rate": 6.37
+    "bond_price": 154.72,
+    "stock_price": 45.31,
+    "bond_change": 2.01,
+    "stock_change": 4.84,
+    "premium_rate": 3.5
   },
   {
     "bond_id": "123258",
@@ -1631,11 +1631,11 @@
     "force_redeem_price": "70.668",
     "left_market_value": "4.498",
     "force_redeem_status": "暂不强赎",
-    "bond_price": 287.7,
-    "stock_price": 95.48,
-    "bond_change": -5.55,
-    "stock_change": -6.68,
-    "premium_rate": 63.8
+    "bond_price": 319.09,
+    "stock_price": 111.1,
+    "bond_change": 10.91,
+    "stock_change": 16.36,
+    "premium_rate": 56.13
   },
   {
     "bond_id": "127111",
@@ -1657,11 +1657,11 @@
     "force_redeem_price": "24.947",
     "left_market_value": "12.924",
     "force_redeem_status": "未满足",
-    "bond_price": 132.0,
-    "stock_price": 14.31,
-    "bond_change": 0.46,
-    "stock_change": 1.13,
-    "premium_rate": 77.01
+    "bond_price": 132.09,
+    "stock_price": 14.38,
+    "bond_change": 0.07,
+    "stock_change": 0.49,
+    "premium_rate": 76.27
   },
   {
     "bond_id": "113698",
@@ -1683,11 +1683,11 @@
     "force_redeem_price": "16.315",
     "left_market_value": "3.079",
     "force_redeem_status": "未满足",
-    "bond_price": 143.92,
-    "stock_price": 10.07,
-    "bond_change": 0.24,
-    "stock_change": 2.13,
-    "premium_rate": 79.36
+    "bond_price": 143.81,
+    "stock_price": 10.11,
+    "bond_change": -0.08,
+    "stock_change": 0.4,
+    "premium_rate": 78.51
   },
   {
     "bond_id": "118058",
@@ -1709,11 +1709,11 @@
     "force_redeem_price": "43.277",
     "left_market_value": "11.699",
     "force_redeem_status": "暂不强赎",
-    "bond_price": 388.19,
-    "stock_price": 79.55,
-    "bond_change": -4.34,
-    "stock_change": -7.85,
-    "premium_rate": 62.45
+    "bond_price": 414.06,
+    "stock_price": 85.0,
+    "bond_change": 6.66,
+    "stock_change": 6.85,
+    "premium_rate": 62.16
   },
   {
     "bond_id": "127110",
@@ -1735,11 +1735,11 @@
     "force_redeem_price": "4.654",
     "left_market_value": "48.992",
     "force_redeem_status": "未满足",
-    "bond_price": 139.9,
-    "stock_price": 4.16,
-    "bond_change": 0.33,
-    "stock_change": 0.73,
-    "premium_rate": 20.39
+    "bond_price": 139.28,
+    "stock_price": 4.07,
+    "bond_change": -0.44,
+    "stock_change": -2.16,
+    "premium_rate": 22.52
   },
   {
     "bond_id": "113696",
@@ -1761,11 +1761,11 @@
     "force_redeem_price": "45.708",
     "left_market_value": "28.017",
     "force_redeem_status": "未满足",
-    "bond_price": 137.52,
-    "stock_price": 27.05,
-    "bond_change": 0.0,
-    "stock_change": 3.52,
-    "premium_rate": 78.75
+    "bond_price": 138.0,
+    "stock_price": 26.8,
+    "bond_change": 0.35,
+    "stock_change": -0.92,
+    "premium_rate": 81.05
   },
   {
     "bond_id": "113695",
@@ -1787,11 +1787,11 @@
     "force_redeem_price": "21.684",
     "left_market_value": "4.597",
     "force_redeem_status": "未满足",
-    "bond_price": 152.22,
-    "stock_price": 18.77,
-    "bond_change": 0.07,
-    "stock_change": 3.7,
-    "premium_rate": 35.27
+    "bond_price": 155.55,
+    "stock_price": 19.62,
+    "bond_change": 2.19,
+    "stock_change": 4.53,
+    "premium_rate": 32.24
   },
   {
     "bond_id": "111022",
@@ -1813,11 +1813,11 @@
     "force_redeem_price": "29.107",
     "left_market_value": "5.197",
     "force_redeem_status": "未满足",
-    "bond_price": 164.23,
-    "stock_price": 23.14,
-    "bond_change": 0.01,
-    "stock_change": 1.67,
-    "premium_rate": 58.9
+    "bond_price": 166.25,
+    "stock_price": 23.51,
+    "bond_change": 1.23,
+    "stock_change": 1.6,
+    "premium_rate": 58.33
   },
   {
     "bond_id": "127109",
@@ -1839,11 +1839,11 @@
     "force_redeem_price": "12.987",
     "left_market_value": "4.866",
     "force_redeem_status": "暂不强赎",
-    "bond_price": 174.03,
-    "stock_price": 12.57,
-    "bond_change": -0.3,
-    "stock_change": 1.86,
-    "premium_rate": 38.31
+    "bond_price": 176.09,
+    "stock_price": 12.58,
+    "bond_change": 1.19,
+    "stock_change": 0.08,
+    "premium_rate": 39.84
   },
   {
     "bond_id": "123257",
@@ -1865,11 +1865,11 @@
     "force_redeem_price": "138.996",
     "left_market_value": "11.046",
     "force_redeem_status": "未满足",
-    "bond_price": 164.06,
-    "stock_price": 121.43,
-    "bond_change": -1.06,
-    "stock_change": -0.48,
-    "premium_rate": 44.46
+    "bond_price": 162.81,
+    "stock_price": 119.74,
+    "bond_change": -0.77,
+    "stock_change": -1.39,
+    "premium_rate": 45.38
   },
   {
     "bond_id": "118056",
@@ -1891,11 +1891,11 @@
     "force_redeem_price": "45.877",
     "left_market_value": "6.145",
     "force_redeem_status": "计数中",
-    "bond_price": 268.2,
-    "stock_price": 59.42,
-    "bond_change": -1.18,
-    "stock_change": -1.67,
-    "premium_rate": 59.29
+    "bond_price": 284.49,
+    "stock_price": 63.3,
+    "bond_change": 6.07,
+    "stock_change": 6.53,
+    "premium_rate": 58.6
   },
   {
     "bond_id": "113694",
@@ -1917,11 +1917,11 @@
     "force_redeem_price": "16.705",
     "left_market_value": "4.999",
     "force_redeem_status": "未满足",
-    "bond_price": 129.9,
-    "stock_price": 9.68,
-    "bond_change": 1.32,
-    "stock_change": 3.64,
-    "premium_rate": 72.44
+    "bond_price": 130.09,
+    "stock_price": 9.6,
+    "bond_change": 0.14,
+    "stock_change": -0.83,
+    "premium_rate": 74.13
   },
   {
     "bond_id": "123255",
@@ -1943,11 +1943,11 @@
     "force_redeem_price": "36.894",
     "left_market_value": "9.096",
     "force_redeem_status": "暂不强赎",
-    "bond_price": 400.1,
-    "stock_price": 62.9,
-    "bond_change": -4.74,
-    "stock_change": -8.42,
-    "premium_rate": 80.52
+    "bond_price": 425.1,
+    "stock_price": 68.38,
+    "bond_change": 6.25,
+    "stock_change": 8.71,
+    "premium_rate": 76.43
   },
   {
     "bond_id": "127108",
@@ -1969,11 +1969,11 @@
     "force_redeem_price": "7.202",
     "left_market_value": "29.498",
     "force_redeem_status": "未满足",
-    "bond_price": 129.2,
-    "stock_price": 4.61,
-    "bond_change": 0.14,
-    "stock_change": 1.77,
-    "premium_rate": 55.26
+    "bond_price": 128.93,
+    "stock_price": 4.57,
+    "bond_change": -0.21,
+    "stock_change": -0.87,
+    "premium_rate": 56.29
   },
   {
     "bond_id": "118053",
@@ -1995,11 +1995,11 @@
     "force_redeem_price": "50.141",
     "left_market_value": "10.406",
     "force_redeem_status": "强赎中",
-    "bond_price": 115.13,
-    "stock_price": 43.5,
-    "bond_change": -17.77,
-    "stock_change": -12.49,
-    "premium_rate": 2.08
+    "bond_price": 117.4,
+    "stock_price": 45.45,
+    "bond_change": 1.97,
+    "stock_change": 4.48,
+    "premium_rate": -0.37
   },
   {
     "bond_id": "113693",
@@ -2021,11 +2021,11 @@
     "force_redeem_price": "14.469",
     "left_market_value": "6.700",
     "force_redeem_status": "未满足",
-    "bond_price": 126.59,
-    "stock_price": 5.97,
-    "bond_change": 0.35,
-    "stock_change": 2.75,
-    "premium_rate": 136.0
+    "bond_price": 125.84,
+    "stock_price": 5.91,
+    "bond_change": -0.59,
+    "stock_change": -1.01,
+    "premium_rate": 136.99
   },
   {
     "bond_id": "123253",
@@ -2047,11 +2047,11 @@
     "force_redeem_price": "23.647",
     "left_market_value": "9.798",
     "force_redeem_status": "未满足",
-    "bond_price": 136.99,
-    "stock_price": 13.67,
-    "bond_change": -0.3,
-    "stock_change": 0.89,
-    "premium_rate": 82.29
+    "bond_price": 138.49,
+    "stock_price": 14.05,
+    "bond_change": 1.09,
+    "stock_change": 2.78,
+    "premium_rate": 79.3
   },
   {
     "bond_id": "118052",
@@ -2073,11 +2073,11 @@
     "force_redeem_price": "31.460",
     "left_market_value": "3.539",
     "force_redeem_status": "未满足",
-    "bond_price": 138.26,
-    "stock_price": 16.41,
-    "bond_change": -0.96,
-    "stock_change": 0.0,
-    "premium_rate": 103.89
+    "bond_price": 140.8,
+    "stock_price": 17.2,
+    "bond_change": 1.84,
+    "stock_change": 4.81,
+    "premium_rate": 98.1
   },
   {
     "bond_id": "113070",
@@ -2099,11 +2099,11 @@
     "force_redeem_price": "6.136",
     "left_market_value": "18.998",
     "force_redeem_status": "未满足",
-    "bond_price": 130.18,
-    "stock_price": 4.27,
-    "bond_change": 0.58,
-    "stock_change": 1.18,
-    "premium_rate": 43.9
+    "bond_price": 129.78,
+    "stock_price": 4.22,
+    "bond_change": -0.3,
+    "stock_change": -1.17,
+    "premium_rate": 45.16
   },
   {
     "bond_id": "123252",
@@ -2125,11 +2125,11 @@
     "force_redeem_price": "16.250",
     "left_market_value": "7.846",
     "force_redeem_status": "未满足",
-    "bond_price": 139.33,
-    "stock_price": 9.66,
-    "bond_change": 0.5,
-    "stock_change": 3.98,
-    "premium_rate": 80.29
+    "bond_price": 140.34,
+    "stock_price": 9.77,
+    "bond_change": 0.73,
+    "stock_change": 1.14,
+    "premium_rate": 79.56
   },
   {
     "bond_id": "110098",
@@ -2151,11 +2151,11 @@
     "force_redeem_price": "6.435",
     "left_market_value": "10.814",
     "force_redeem_status": "未满足",
-    "bond_price": 139.84,
-    "stock_price": 5.12,
-    "bond_change": 0.03,
-    "stock_change": 0.99,
-    "premium_rate": 35.2
+    "bond_price": 140.04,
+    "stock_price": 5.11,
+    "bond_change": 0.14,
+    "stock_change": -0.2,
+    "premium_rate": 35.65
   },
   {
     "bond_id": "118051",
@@ -2177,11 +2177,11 @@
     "force_redeem_price": "52.286",
     "left_market_value": "8.218",
     "force_redeem_status": "暂不强赎",
-    "bond_price": 273.46,
-    "stock_price": 75.18,
-    "bond_change": -3.3,
-    "stock_change": -3.27,
-    "premium_rate": 46.29
+    "bond_price": 289.71,
+    "stock_price": 80.2,
+    "bond_change": 5.95,
+    "stock_change": 6.68,
+    "premium_rate": 45.29
   },
   {
     "bond_id": "123250",
@@ -2203,11 +2203,11 @@
     "force_redeem_price": "103.558",
     "left_market_value": "3.955",
     "force_redeem_status": "未满足",
-    "bond_price": 128.6,
-    "stock_price": 38.0,
-    "bond_change": -0.32,
-    "stock_change": 1.06,
-    "premium_rate": 169.59
+    "bond_price": 128.42,
+    "stock_price": 37.06,
+    "bond_change": -0.14,
+    "stock_change": -2.47,
+    "premium_rate": 176.03
   },
   {
     "bond_id": "113692",
@@ -2229,11 +2229,11 @@
     "force_redeem_price": "50.908",
     "left_market_value": "13.897",
     "force_redeem_status": "未满足",
-    "bond_price": 133.98,
-    "stock_price": 30.24,
-    "bond_change": 0.74,
-    "stock_change": 4.38,
-    "premium_rate": 73.5
+    "bond_price": 134.1,
+    "stock_price": 30.1,
+    "bond_change": 0.09,
+    "stock_change": -0.46,
+    "premium_rate": 74.46
   },
   {
     "bond_id": "113691",
@@ -2255,11 +2255,11 @@
     "force_redeem_price": "2.600",
     "left_market_value": "45.991",
     "force_redeem_status": "暂不强赎",
-    "bond_price": 153.11,
-    "stock_price": 2.39,
-    "bond_change": -0.41,
-    "stock_change": 0.84,
-    "premium_rate": 28.12
+    "bond_price": 152.82,
+    "stock_price": 2.4,
+    "bond_change": -0.19,
+    "stock_change": 0.42,
+    "premium_rate": 27.35
   },
   {
     "bond_id": "110097",
@@ -2281,11 +2281,11 @@
     "force_redeem_price": "10.647",
     "left_market_value": "9.890",
     "force_redeem_status": "未满足",
-    "bond_price": 147.77,
-    "stock_price": 8.83,
-    "bond_change": 0.53,
-    "stock_change": 2.08,
-    "premium_rate": 37.06
+    "bond_price": 147.09,
+    "stock_price": 8.76,
+    "bond_change": -0.46,
+    "stock_change": -0.79,
+    "premium_rate": 37.52
   },
   {
     "bond_id": "113688",
@@ -2307,11 +2307,11 @@
     "force_redeem_price": "8.385",
     "left_market_value": "7.997",
     "force_redeem_status": "未满足",
-    "bond_price": 139.25,
-    "stock_price": 5.51,
-    "bond_change": -0.55,
-    "stock_change": 2.23,
-    "premium_rate": 63.01
+    "bond_price": 140.21,
+    "stock_price": 5.53,
+    "bond_change": 0.69,
+    "stock_change": 0.36,
+    "premium_rate": 63.53
   },
   {
     "bond_id": "118050",
@@ -2333,11 +2333,11 @@
     "force_redeem_price": "32.253",
     "left_market_value": "6.597",
     "force_redeem_status": "暂不强赎",
-    "bond_price": 250.19,
-    "stock_price": 42.2,
-    "bond_change": 0.38,
-    "stock_change": 3.71,
-    "premium_rate": 47.09
+    "bond_price": 257.99,
+    "stock_price": 42.99,
+    "bond_change": 3.11,
+    "stock_change": 1.87,
+    "premium_rate": 48.89
   },
   {
     "bond_id": "123247",
@@ -2359,11 +2359,11 @@
     "force_redeem_price": "14.495",
     "left_market_value": "19.642",
     "force_redeem_status": "暂不强赎",
-    "bond_price": 183.0,
-    "stock_price": 16.03,
-    "bond_change": -1.91,
-    "stock_change": 1.65,
-    "premium_rate": 27.29
+    "bond_price": 190.08,
+    "stock_price": 16.46,
+    "bond_change": 3.87,
+    "stock_change": 2.68,
+    "premium_rate": 28.76
   },
   {
     "bond_id": "123245",
@@ -2385,11 +2385,11 @@
     "force_redeem_price": "23.478",
     "left_market_value": "1.537",
     "force_redeem_status": "暂不强赎",
-    "bond_price": 301.69,
-    "stock_price": 39.01,
-    "bond_change": 2.97,
-    "stock_change": 5.98,
-    "premium_rate": 39.67
+    "bond_price": 325.85,
+    "stock_price": 41.84,
+    "bond_change": 8.01,
+    "stock_change": 7.25,
+    "premium_rate": 40.65
   },
   {
     "bond_id": "111021",
@@ -2411,11 +2411,11 @@
     "force_redeem_price": "31.980",
     "left_market_value": "8.121",
     "force_redeem_status": "未满足",
-    "bond_price": 138.15,
-    "stock_price": 20.19,
-    "bond_change": 0.04,
-    "stock_change": 3.43,
-    "premium_rate": 68.33
+    "bond_price": 140.08,
+    "stock_price": 20.31,
+    "bond_change": 1.4,
+    "stock_change": 0.59,
+    "premium_rate": 69.67
   },
   {
     "bond_id": "111020",
@@ -2437,11 +2437,11 @@
     "force_redeem_price": "13.689",
     "left_market_value": "3.380",
     "force_redeem_status": "未满足",
-    "bond_price": 137.83,
-    "stock_price": 8.64,
-    "bond_change": 0.43,
-    "stock_change": 2.49,
-    "premium_rate": 67.98
+    "bond_price": 138.26,
+    "stock_price": 8.6,
+    "bond_change": 0.31,
+    "stock_change": -0.46,
+    "premium_rate": 69.28
   },
   {
     "bond_id": "123243",
@@ -2463,11 +2463,11 @@
     "force_redeem_price": "9.386",
     "left_market_value": "2.607",
     "force_redeem_status": "暂不强赎",
-    "bond_price": 189.8,
-    "stock_price": 11.24,
-    "bond_change": 2.48,
-    "stock_change": 4.95,
-    "premium_rate": 21.92
+    "bond_price": 195.2,
+    "stock_price": 11.64,
+    "bond_change": 2.85,
+    "stock_change": 3.56,
+    "premium_rate": 21.08
   },
   {
     "bond_id": "123241",
@@ -2489,11 +2489,11 @@
     "force_redeem_price": "40.040",
     "left_market_value": "2.604",
     "force_redeem_status": "暂不强赎",
-    "bond_price": 841.0,
-    "stock_price": 171.25,
-    "bond_change": -1.52,
-    "stock_change": -3.07,
-    "premium_rate": 51.26
+    "bond_price": 901.07,
+    "stock_price": 186.57,
+    "bond_change": 7.14,
+    "stock_change": 8.95,
+    "premium_rate": 48.75
   },
   {
     "bond_id": "113686",
@@ -2515,11 +2515,11 @@
     "force_redeem_price": "10.400",
     "left_market_value": "3.363",
     "force_redeem_status": "暂不强赎",
-    "bond_price": 152.48,
-    "stock_price": 8.23,
-    "bond_change": 0.01,
-    "stock_change": 3.0,
-    "premium_rate": 48.22
+    "bond_price": 154.17,
+    "stock_price": 8.25,
+    "bond_change": 1.11,
+    "stock_change": 0.24,
+    "premium_rate": 49.5
   },
   {
     "bond_id": "113682",
@@ -2541,11 +2541,11 @@
     "force_redeem_price": "40.872",
     "left_market_value": "17.968",
     "force_redeem_status": "未满足",
-    "bond_price": 131.59,
-    "stock_price": 22.71,
-    "bond_change": 0.52,
-    "stock_change": -0.09,
-    "premium_rate": 82.17
+    "bond_price": 130.75,
+    "stock_price": 22.54,
+    "bond_change": -0.64,
+    "stock_change": -0.75,
+    "premium_rate": 82.37
   },
   {
     "bond_id": "127105",
@@ -2567,11 +2567,11 @@
     "force_redeem_price": "7.540",
     "left_market_value": "7.534",
     "force_redeem_status": "未满足",
-    "bond_price": 132.28,
-    "stock_price": 4.9,
-    "bond_change": 1.04,
-    "stock_change": 2.94,
-    "premium_rate": 56.57
+    "bond_price": 133.46,
+    "stock_price": 4.93,
+    "bond_change": 0.9,
+    "stock_change": 0.61,
+    "premium_rate": 57.01
   },
   {
     "bond_id": "127104",
@@ -2593,11 +2593,11 @@
     "force_redeem_price": "25.454",
     "left_market_value": "5.822",
     "force_redeem_status": "未满足",
-    "bond_price": 152.65,
-    "stock_price": 18.95,
-    "bond_change": -0.22,
-    "stock_change": 2.1,
-    "premium_rate": 57.73
+    "bond_price": 154.45,
+    "stock_price": 19.08,
+    "bond_change": 1.18,
+    "stock_change": 0.69,
+    "premium_rate": 58.5
   },
   {
     "bond_id": "123237",
@@ -2619,11 +2619,11 @@
     "force_redeem_price": "17.498",
     "left_market_value": "4.314",
     "force_redeem_status": "未满足",
-    "bond_price": 138.7,
-    "stock_price": 11.24,
-    "bond_change": 0.59,
-    "stock_change": 2.0,
-    "premium_rate": 66.09
+    "bond_price": 139.28,
+    "stock_price": 11.22,
+    "bond_change": 0.42,
+    "stock_change": -0.18,
+    "premium_rate": 67.08
   },
   {
     "bond_id": "127103",
@@ -2645,11 +2645,11 @@
     "force_redeem_price": "7.267",
     "left_market_value": "19.999",
     "force_redeem_status": "未满足",
-    "bond_price": 147.71,
-    "stock_price": 6.2,
-    "bond_change": -0.45,
-    "stock_change": -0.48,
-    "premium_rate": 33.18
+    "bond_price": 150.4,
+    "stock_price": 6.25,
+    "bond_change": 1.82,
+    "stock_change": 0.81,
+    "premium_rate": 34.52
   },
   {
     "bond_id": "113681",
@@ -2671,11 +2671,11 @@
     "force_redeem_price": "14.235",
     "left_market_value": "5.476",
     "force_redeem_status": "计数中",
-    "bond_price": 139.53,
-    "stock_price": 13.9,
-    "bond_change": 0.18,
-    "stock_change": 0.29,
-    "premium_rate": 9.92
+    "bond_price": 139.9,
+    "stock_price": 13.91,
+    "bond_change": 0.26,
+    "stock_change": 0.07,
+    "premium_rate": 10.13
   },
   {
     "bond_id": "127102",
@@ -2697,11 +2697,11 @@
     "force_redeem_price": "13.221",
     "left_market_value": "9.951",
     "force_redeem_status": "未满足",
-    "bond_price": 127.1,
-    "stock_price": 7.54,
-    "bond_change": 0.71,
-    "stock_change": 1.89,
-    "premium_rate": 71.43
+    "bond_price": 126.85,
+    "stock_price": 7.42,
+    "bond_change": -0.19,
+    "stock_change": -1.59,
+    "premium_rate": 73.87
   },
   {
     "bond_id": "111018",
@@ -2723,11 +2723,11 @@
     "force_redeem_price": "20.748",
     "left_market_value": "13.022",
     "force_redeem_status": "未满足",
-    "bond_price": 128.52,
-    "stock_price": 11.17,
-    "bond_change": 0.35,
-    "stock_change": 1.45,
-    "premium_rate": 83.63
+    "bond_price": 129.41,
+    "stock_price": 11.18,
+    "bond_change": 0.7,
+    "stock_change": 0.09,
+    "premium_rate": 84.74
   },
   {
     "bond_id": "123235",
@@ -2749,11 +2749,11 @@
     "force_redeem_price": "27.703",
     "left_market_value": "4.353",
     "force_redeem_status": "未满足",
-    "bond_price": 159.59,
-    "stock_price": 20.13,
-    "bond_change": -0.88,
-    "stock_change": -5.8,
-    "premium_rate": 68.95
+    "bond_price": 167.99,
+    "stock_price": 21.72,
+    "bond_change": 5.26,
+    "stock_change": 7.9,
+    "premium_rate": 64.82
   },
   {
     "bond_id": "127099",
@@ -2775,11 +2775,11 @@
     "force_redeem_price": "19.929",
     "left_market_value": "4.541",
     "force_redeem_status": "未满足",
-    "bond_price": 136.8,
-    "stock_price": 13.64,
-    "bond_change": 0.69,
-    "stock_change": 2.71,
-    "premium_rate": 53.75
+    "bond_price": 136.24,
+    "stock_price": 13.53,
+    "bond_change": -0.41,
+    "stock_change": -0.81,
+    "premium_rate": 54.36
   },
   {
     "bond_id": "127098",
@@ -2801,11 +2801,11 @@
     "force_redeem_price": "54.600",
     "left_market_value": "4.693",
     "force_redeem_status": "未满足",
-    "bond_price": 127.02,
-    "stock_price": 19.64,
-    "bond_change": 0.19,
-    "stock_change": 3.31,
-    "premium_rate": 171.62
+    "bond_price": 127.29,
+    "stock_price": 19.44,
+    "bond_change": 0.22,
+    "stock_change": -1.02,
+    "premium_rate": 175.01
   },
   {
     "bond_id": "113680",
@@ -2827,11 +2827,11 @@
     "force_redeem_price": "16.783",
     "left_market_value": "2.998",
     "force_redeem_status": "未满足",
-    "bond_price": 136.64,
-    "stock_price": 10.59,
-    "bond_change": -0.02,
-    "stock_change": 3.32,
-    "premium_rate": 66.57
+    "bond_price": 137.63,
+    "stock_price": 10.7,
+    "bond_change": 0.72,
+    "stock_change": 1.04,
+    "premium_rate": 66.05
   },
   {
     "bond_id": "113679",
@@ -2853,11 +2853,11 @@
     "force_redeem_price": "16.315",
     "left_market_value": "8.799",
     "force_redeem_status": "未满足",
-    "bond_price": 128.93,
-    "stock_price": 7.4,
-    "bond_change": 0.54,
-    "stock_change": 2.92,
-    "premium_rate": 118.66
+    "bond_price": 128.97,
+    "stock_price": 7.37,
+    "bond_change": 0.03,
+    "stock_change": -0.41,
+    "premium_rate": 119.62
   },
   {
     "bond_id": "127096",
@@ -2879,11 +2879,11 @@
     "force_redeem_price": "17.160",
     "left_market_value": "2.875",
     "force_redeem_status": "暂不强赎",
-    "bond_price": 452.58,
-    "stock_price": 40.91,
-    "bond_change": -7.26,
-    "stock_change": -9.19,
-    "premium_rate": 46.03
+    "bond_price": 505.17,
+    "stock_price": 45.0,
+    "bond_change": 11.62,
+    "stock_change": 10.0,
+    "premium_rate": 48.18
   },
   {
     "bond_id": "123229",
@@ -2905,11 +2905,11 @@
     "force_redeem_price": "12.935",
     "left_market_value": "1.779",
     "force_redeem_status": "未满足",
-    "bond_price": 131.65,
+    "bond_price": 132.1,
     "stock_price": 6.36,
-    "bond_change": 0.38,
-    "stock_change": 3.41,
-    "premium_rate": 105.95
+    "bond_change": 0.35,
+    "stock_change": 0.0,
+    "premium_rate": 106.67
   },
   {
     "bond_id": "113678",
@@ -2931,11 +2931,11 @@
     "force_redeem_price": "26.611",
     "left_market_value": "5.106",
     "force_redeem_status": "未满足",
-    "bond_price": 147.79,
-    "stock_price": 18.88,
-    "bond_change": 1.02,
-    "stock_change": 3.62,
-    "premium_rate": 60.24
+    "bond_price": 149.4,
+    "stock_price": 18.82,
+    "bond_change": 1.09,
+    "stock_change": -0.32,
+    "premium_rate": 62.5
   },
   {
     "bond_id": "127095",
@@ -2957,11 +2957,11 @@
     "force_redeem_price": "11.479",
     "left_market_value": "6.927",
     "force_redeem_status": "未满足",
-    "bond_price": 151.18,
-    "stock_price": 9.7,
-    "bond_change": -0.51,
-    "stock_change": 1.57,
-    "premium_rate": 37.62
+    "bond_price": 152.36,
+    "stock_price": 9.62,
+    "bond_change": 0.78,
+    "stock_change": -0.82,
+    "premium_rate": 39.85
   },
   {
     "bond_id": "127093",
@@ -2983,11 +2983,11 @@
     "force_redeem_price": "10.790",
     "left_market_value": "2.425",
     "force_redeem_status": "未满足",
-    "bond_price": 132.38,
-    "stock_price": 6.64,
-    "bond_change": 0.6,
-    "stock_change": 2.0,
-    "premium_rate": 65.48
+    "bond_price": 132.93,
+    "stock_price": 6.6,
+    "bond_change": 0.42,
+    "stock_change": -0.6,
+    "premium_rate": 67.17
   },
   {
     "bond_id": "123225",
@@ -3009,11 +3009,11 @@
     "force_redeem_price": "35.542",
     "left_market_value": "5.585",
     "force_redeem_status": "暂不强赎",
-    "bond_price": 143.4,
-    "stock_price": 25.6,
-    "bond_change": -0.01,
-    "stock_change": 1.79,
-    "premium_rate": 53.15
+    "bond_price": 143.95,
+    "stock_price": 25.91,
+    "bond_change": 0.39,
+    "stock_change": 1.21,
+    "premium_rate": 51.9
   },
   {
     "bond_id": "127092",
@@ -3035,11 +3035,11 @@
     "force_redeem_price": "15.483",
     "left_market_value": "5.249",
     "force_redeem_status": "暂不强赎",
-    "bond_price": 290.29,
-    "stock_price": 27.28,
-    "bond_change": 1.64,
-    "stock_change": 7.4,
-    "premium_rate": 26.73
+    "bond_price": 288.0,
+    "stock_price": 26.27,
+    "bond_change": -0.79,
+    "stock_change": -3.7,
+    "premium_rate": 30.57
   },
   {
     "bond_id": "123224",
@@ -3061,11 +3061,11 @@
     "force_redeem_price": "36.621",
     "left_market_value": "2.848",
     "force_redeem_status": "未满足",
-    "bond_price": 135.9,
-    "stock_price": 21.34,
-    "bond_change": 1.83,
-    "stock_change": 7.78,
-    "premium_rate": 79.4
+    "bond_price": 136.26,
+    "stock_price": 21.31,
+    "bond_change": 0.26,
+    "stock_change": -0.14,
+    "premium_rate": 80.12
   },
   {
     "bond_id": "123223",
@@ -3087,11 +3087,11 @@
     "force_redeem_price": "18.915",
     "left_market_value": "2.053",
     "force_redeem_status": "未满足",
-    "bond_price": 138.69,
-    "stock_price": 11.05,
-    "bond_change": 0.08,
-    "stock_change": 0.36,
-    "premium_rate": 82.62
+    "bond_price": 138.44,
+    "stock_price": 11.11,
+    "bond_change": -0.18,
+    "stock_change": 0.54,
+    "premium_rate": 81.31
   },
   {
     "bond_id": "113677",
@@ -3113,11 +3113,11 @@
     "force_redeem_price": "43.758",
     "left_market_value": "10.489",
     "force_redeem_status": "暂不强赎",
-    "bond_price": 247.09,
-    "stock_price": 55.75,
-    "bond_change": -6.55,
-    "stock_change": -3.68,
-    "premium_rate": 49.18
+    "bond_price": 269.3,
+    "stock_price": 61.11,
+    "bond_change": 8.99,
+    "stock_change": 9.61,
+    "premium_rate": 48.33
   },
   {
     "bond_id": "118044",
@@ -3139,11 +3139,11 @@
     "force_redeem_price": "24.505",
     "left_market_value": "4.420",
     "force_redeem_status": "暂不强赎",
-    "bond_price": 153.62,
-    "stock_price": 19.94,
-    "bond_change": 1.89,
-    "stock_change": 6.35,
-    "premium_rate": 45.22
+    "bond_price": 155.23,
+    "stock_price": 20.53,
+    "bond_change": 1.05,
+    "stock_change": 2.96,
+    "premium_rate": 42.53
   },
   {
     "bond_id": "123222",
@@ -3165,11 +3165,11 @@
     "force_redeem_price": "21.398",
     "left_market_value": "2.438",
     "force_redeem_status": "未满足",
-    "bond_price": 159.92,
-    "stock_price": 18.45,
-    "bond_change": -1.44,
-    "stock_change": 0.38,
-    "premium_rate": 42.67
+    "bond_price": 160.39,
+    "stock_price": 18.29,
+    "bond_change": 0.3,
+    "stock_change": -0.87,
+    "premium_rate": 44.34
   },
   {
     "bond_id": "123220",
@@ -3191,11 +3191,11 @@
     "force_redeem_price": "11.505",
     "left_market_value": "2.907",
     "force_redeem_status": "未满足",
-    "bond_price": 133.13,
-    "stock_price": 6.37,
-    "bond_change": 0.7,
-    "stock_change": 2.25,
-    "premium_rate": 84.97
+    "bond_price": 133.59,
+    "stock_price": 6.48,
+    "bond_change": 0.34,
+    "stock_change": 1.73,
+    "premium_rate": 82.45
   },
   {
     "bond_id": "111017",
@@ -3217,11 +3217,11 @@
     "force_redeem_price": "8.736",
     "left_market_value": "6.715",
     "force_redeem_status": "未满足",
-    "bond_price": 136.48,
-    "stock_price": 6.87,
-    "bond_change": 0.93,
-    "stock_change": 1.48,
-    "premium_rate": 33.5
+    "bond_price": 136.18,
+    "stock_price": 6.85,
+    "bond_change": -0.22,
+    "stock_change": -0.29,
+    "premium_rate": 33.59
   },
   {
     "bond_id": "118042",
@@ -3243,11 +3243,11 @@
     "force_redeem_price": "108.797",
     "left_market_value": "11.399",
     "force_redeem_status": "未满足",
-    "bond_price": 129.79,
-    "stock_price": 38.99,
-    "bond_change": 0.28,
-    "stock_change": 2.88,
-    "premium_rate": 178.59
+    "bond_price": 130.72,
+    "stock_price": 40.17,
+    "bond_change": 0.72,
+    "stock_change": 3.03,
+    "premium_rate": 172.35
   },
   {
     "bond_id": "110095",
@@ -3269,11 +3269,11 @@
     "force_redeem_price": "8.034",
     "left_market_value": "14.006",
     "force_redeem_status": "未满足",
-    "bond_price": 124.94,
-    "stock_price": 4.29,
-    "bond_change": 1.27,
-    "stock_change": 5.67,
-    "premium_rate": 79.98
+    "bond_price": 125.11,
+    "stock_price": 4.33,
+    "bond_change": 0.14,
+    "stock_change": 0.93,
+    "premium_rate": 78.56
   },
   {
     "bond_id": "123216",
@@ -3295,11 +3295,11 @@
     "force_redeem_price": "8.593",
     "left_market_value": "21.959",
     "force_redeem_status": "未满足",
-    "bond_price": 127.06,
-    "stock_price": 4.98,
-    "bond_change": 0.09,
-    "stock_change": 2.05,
-    "premium_rate": 68.65
+    "bond_price": 126.5,
+    "stock_price": 5.01,
+    "bond_change": -0.44,
+    "stock_change": 0.6,
+    "premium_rate": 66.91
   },
   {
     "bond_id": "123215",
@@ -3321,11 +3321,11 @@
     "force_redeem_price": "24.947",
     "left_market_value": "8.555",
     "force_redeem_status": "未满足",
-    "bond_price": 127.93,
-    "stock_price": 13.23,
-    "bond_change": -0.44,
-    "stock_change": 3.6,
-    "premium_rate": 85.57
+    "bond_price": 128.6,
+    "stock_price": 13.47,
+    "bond_change": 0.52,
+    "stock_change": 1.81,
+    "premium_rate": 83.21
   },
   {
     "bond_id": "123214",
@@ -3347,11 +3347,11 @@
     "force_redeem_price": "8.606",
     "left_market_value": "4.549",
     "force_redeem_status": "未满足",
-    "bond_price": 129.78,
-    "stock_price": 4.84,
-    "bond_change": 0.12,
-    "stock_change": 1.47,
-    "premium_rate": 77.51
+    "bond_price": 130.2,
+    "stock_price": 4.88,
+    "bond_change": 0.32,
+    "stock_change": 0.83,
+    "premium_rate": 76.62
   },
   {
     "bond_id": "123213",
@@ -3373,11 +3373,11 @@
     "force_redeem_price": "9.230",
     "left_market_value": "3.260",
     "force_redeem_status": "暂不强赎",
-    "bond_price": 240.0,
-    "stock_price": 13.6,
-    "bond_change": 5.61,
-    "stock_change": 14.0,
-    "premium_rate": 25.29
+    "bond_price": 249.05,
+    "stock_price": 14.13,
+    "bond_change": 3.77,
+    "stock_change": 3.9,
+    "premium_rate": 25.14
   },
   {
     "bond_id": "123211",
@@ -3399,11 +3399,11 @@
     "force_redeem_price": "11.960",
     "left_market_value": "3.070",
     "force_redeem_status": "计数中",
-    "bond_price": 158.56,
-    "stock_price": 9.44,
-    "bond_change": -0.71,
-    "stock_change": 1.07,
-    "premium_rate": 54.53
+    "bond_price": 160.26,
+    "stock_price": 9.48,
+    "bond_change": 1.07,
+    "stock_change": 0.42,
+    "premium_rate": 55.52
   },
   {
     "bond_id": "113067",
@@ -3425,11 +3425,11 @@
     "force_redeem_price": "9.412",
     "left_market_value": "29.999",
     "force_redeem_status": "未满足",
-    "bond_price": 131.53,
-    "stock_price": 6.64,
-    "bond_change": -0.06,
-    "stock_change": 1.37,
-    "premium_rate": 43.41
+    "bond_price": 131.16,
+    "stock_price": 6.54,
+    "bond_change": -0.28,
+    "stock_change": -1.51,
+    "premium_rate": 45.19
   },
   {
     "bond_id": "123209",
@@ -3451,11 +3451,11 @@
     "force_redeem_price": "22.776",
     "left_market_value": "1.672",
     "force_redeem_status": "暂不强赎",
-    "bond_price": 172.9,
-    "stock_price": 20.95,
-    "bond_change": 0.77,
-    "stock_change": 3.3,
-    "premium_rate": 44.59
+    "bond_price": 174.89,
+    "stock_price": 21.25,
+    "bond_change": 1.15,
+    "stock_change": 1.43,
+    "premium_rate": 44.19
   },
   {
     "bond_id": "123207",
@@ -3477,11 +3477,11 @@
     "force_redeem_price": "13.572",
     "left_market_value": "1.455",
     "force_redeem_status": "暂不强赎",
-    "bond_price": 201.67,
-    "stock_price": 16.87,
-    "bond_change": 0.01,
-    "stock_change": -0.53,
-    "premium_rate": 24.8
+    "bond_price": 205.86,
+    "stock_price": 17.49,
+    "bond_change": 2.08,
+    "stock_change": 3.68,
+    "premium_rate": 22.88
   },
   {
     "bond_id": "113674",
@@ -3503,11 +3503,11 @@
     "force_redeem_price": "9.035",
     "left_market_value": "3.999",
     "force_redeem_status": "未满足",
-    "bond_price": 133.4,
-    "stock_price": 5.45,
-    "bond_change": 0.02,
-    "stock_change": 2.25,
-    "premium_rate": 70.12
+    "bond_price": 133.39,
+    "stock_price": 5.4,
+    "bond_change": -0.01,
+    "stock_change": -0.92,
+    "premium_rate": 71.68
   },
   {
     "bond_id": "118039",
@@ -3529,11 +3529,11 @@
     "force_redeem_price": "9.490",
     "left_market_value": "4.104",
     "force_redeem_status": "暂不强赎",
-    "bond_price": 138.13,
-    "stock_price": 6.32,
-    "bond_change": 0.81,
-    "stock_change": 4.98,
-    "premium_rate": 59.55
+    "bond_price": 139.89,
+    "stock_price": 6.52,
+    "bond_change": 1.28,
+    "stock_change": 3.16,
+    "premium_rate": 56.63
   },
   {
     "bond_id": "127089",
@@ -3555,11 +3555,11 @@
     "force_redeem_price": "11.570",
     "left_market_value": "89.588",
     "force_redeem_status": "未满足",
-    "bond_price": 125.78,
-    "stock_price": 7.89,
-    "bond_change": 0.62,
-    "stock_change": 5.06,
-    "premium_rate": 41.88
+    "bond_price": 125.2,
+    "stock_price": 7.82,
+    "bond_change": -0.46,
+    "stock_change": -0.89,
+    "premium_rate": 42.49
   },
   {
     "bond_id": "113673",
@@ -3581,11 +3581,11 @@
     "force_redeem_price": "9.256",
     "left_market_value": "9.078",
     "force_redeem_status": "暂不强赎",
-    "bond_price": 188.76,
-    "stock_price": 9.42,
-    "bond_change": -4.53,
-    "stock_change": -1.87,
-    "premium_rate": 42.68
+    "bond_price": 194.83,
+    "stock_price": 9.72,
+    "bond_change": 3.21,
+    "stock_change": 3.18,
+    "premium_rate": 42.71
   },
   {
     "bond_id": "113671",
@@ -3607,11 +3607,11 @@
     "force_redeem_price": "10.244",
     "left_market_value": "3.093",
     "force_redeem_status": "未满足",
-    "bond_price": 130.81,
-    "stock_price": 4.99,
-    "bond_change": 0.75,
-    "stock_change": 5.27,
-    "premium_rate": 106.57
+    "bond_price": 131.5,
+    "stock_price": 5.01,
+    "bond_change": 0.52,
+    "stock_change": 0.4,
+    "premium_rate": 106.82
   },
   {
     "bond_id": "118037",
@@ -3633,11 +3633,11 @@
     "force_redeem_price": "37.232",
     "left_market_value": "4.679",
     "force_redeem_status": "未满足",
-    "bond_price": 131.21,
+    "bond_price": 131.76,
     "stock_price": 21.85,
-    "bond_change": 0.34,
-    "stock_change": 2.39,
-    "premium_rate": 71.98
+    "bond_change": 0.42,
+    "stock_change": 0.0,
+    "premium_rate": 72.7
   },
   {
     "bond_id": "111015",
@@ -3659,11 +3659,11 @@
     "force_redeem_price": "26.364",
     "left_market_value": "6.662",
     "force_redeem_status": "未满足",
-    "bond_price": 128.32,
-    "stock_price": 16.36,
-    "bond_change": 0.28,
-    "stock_change": 4.54,
-    "premium_rate": 59.07
+    "bond_price": 129.34,
+    "stock_price": 16.47,
+    "bond_change": 0.79,
+    "stock_change": 0.67,
+    "premium_rate": 59.27
   },
   {
     "bond_id": "127088",
@@ -3685,11 +3685,11 @@
     "force_redeem_price": "21.593",
     "left_market_value": "5.996",
     "force_redeem_status": "暂不强赎",
-    "bond_price": 177.66,
-    "stock_price": 19.99,
-    "bond_change": -1.07,
-    "stock_change": 3.25,
-    "premium_rate": 47.62
+    "bond_price": 181.69,
+    "stock_price": 20.29,
+    "bond_change": 2.27,
+    "stock_change": 1.5,
+    "premium_rate": 48.74
   },
   {
     "bond_id": "118036",
@@ -3711,11 +3711,11 @@
     "force_redeem_price": "30.979",
     "left_market_value": "3.800",
     "force_redeem_status": "未满足",
-    "bond_price": 138.71,
-    "stock_price": 17.25,
-    "bond_change": 0.15,
-    "stock_change": 0.88,
-    "premium_rate": 91.62
+    "bond_price": 139.34,
+    "stock_price": 17.53,
+    "bond_change": 0.45,
+    "stock_change": 1.62,
+    "premium_rate": 89.42
   },
   {
     "bond_id": "111014",
@@ -3737,11 +3737,11 @@
     "force_redeem_price": "23.582",
     "left_market_value": "5.999",
     "force_redeem_status": "未满足",
-    "bond_price": 126.83,
+    "bond_price": 126.81,
     "stock_price": 9.56,
-    "bond_change": -0.1,
-    "stock_change": -1.04,
-    "premium_rate": 140.65
+    "bond_change": -0.01,
+    "stock_change": 0.0,
+    "premium_rate": 140.63
   },
   {
     "bond_id": "123199",
@@ -3763,11 +3763,11 @@
     "force_redeem_price": "16.900",
     "left_market_value": "3.197",
     "force_redeem_status": "未满足",
-    "bond_price": 142.0,
-    "stock_price": 12.32,
-    "bond_change": 0.04,
-    "stock_change": 1.48,
-    "premium_rate": 49.84
+    "bond_price": 142.13,
+    "stock_price": 12.34,
+    "bond_change": 0.09,
+    "stock_change": 0.16,
+    "premium_rate": 49.73
   },
   {
     "bond_id": "118035",
@@ -3789,11 +3789,11 @@
     "force_redeem_price": "81.003",
     "left_market_value": "4.799",
     "force_redeem_status": "计数中",
-    "bond_price": 159.8,
-    "stock_price": 62.64,
-    "bond_change": -2.13,
-    "stock_change": 2.4,
-    "premium_rate": 58.95
+    "bond_price": 165.88,
+    "stock_price": 65.15,
+    "bond_change": 3.81,
+    "stock_change": 4.01,
+    "premium_rate": 58.65
   },
   {
     "bond_id": "118034",
@@ -3815,11 +3815,11 @@
     "force_redeem_price": "7.620",
     "left_market_value": "83.220",
     "force_redeem_status": "未满足",
-    "bond_price": 118.8,
-    "stock_price": 4.55,
-    "bond_change": 0.26,
-    "stock_change": 4.84,
-    "premium_rate": 65.8
+    "bond_price": 118.67,
+    "stock_price": 4.53,
+    "bond_change": -0.1,
+    "stock_change": -0.44,
+    "premium_rate": 66.35
   },
   {
     "bond_id": "123196",
@@ -3841,11 +3841,11 @@
     "force_redeem_price": "28.483",
     "left_market_value": "3.501",
     "force_redeem_status": "未满足",
-    "bond_price": 128.49,
-    "stock_price": 12.76,
-    "bond_change": -0.38,
-    "stock_change": 0.31,
-    "premium_rate": 120.63
+    "bond_price": 129.19,
+    "stock_price": 12.97,
+    "bond_change": 0.55,
+    "stock_change": 1.65,
+    "premium_rate": 118.24
   },
   {
     "bond_id": "123195",
@@ -3867,11 +3867,11 @@
     "force_redeem_price": "76.973",
     "left_market_value": "5.458",
     "force_redeem_status": "计数中",
-    "bond_price": 169.66,
-    "stock_price": 56.45,
-    "bond_change": -2.97,
-    "stock_change": -3.62,
-    "premium_rate": 77.95
+    "bond_price": 176.3,
+    "stock_price": 61.39,
+    "bond_change": 3.92,
+    "stock_change": 8.75,
+    "premium_rate": 70.04
   },
   {
     "bond_id": "113670",
@@ -3893,11 +3893,11 @@
     "force_redeem_price": "48.802",
     "left_market_value": "7.700",
     "force_redeem_status": "未满足",
-    "bond_price": 125.27,
-    "stock_price": 14.94,
-    "bond_change": 0.35,
-    "stock_change": 1.84,
-    "premium_rate": 214.77
+    "bond_price": 125.68,
+    "stock_price": 14.87,
+    "bond_change": 0.33,
+    "stock_change": -0.47,
+    "premium_rate": 217.29
   },
   {
     "bond_id": "123194",
@@ -3919,11 +3919,11 @@
     "force_redeem_price": "32.227",
     "left_market_value": "8.459",
     "force_redeem_status": "未满足",
-    "bond_price": 136.7,
-    "stock_price": 22.56,
-    "bond_change": -0.2,
-    "stock_change": 0.94,
-    "premium_rate": 50.21
+    "bond_price": 138.37,
+    "stock_price": 23.28,
+    "bond_change": 1.22,
+    "stock_change": 3.19,
+    "premium_rate": 47.34
   },
   {
     "bond_id": "123193",
@@ -3945,11 +3945,11 @@
     "force_redeem_price": "18.850",
     "left_market_value": "5.997",
     "force_redeem_status": "未满足",
-    "bond_price": 128.27,
-    "stock_price": 8.53,
-    "bond_change": -0.09,
-    "stock_change": 0.47,
-    "premium_rate": 118.04
+    "bond_price": 128.65,
+    "stock_price": 8.62,
+    "bond_change": 0.3,
+    "stock_change": 1.06,
+    "premium_rate": 116.41
   },
   {
     "bond_id": "123192",
@@ -3971,11 +3971,11 @@
     "force_redeem_price": "22.516",
     "left_market_value": "7.187",
     "force_redeem_status": "未满足",
-    "bond_price": 129.02,
-    "stock_price": 11.09,
-    "bond_change": -0.24,
-    "stock_change": -0.45,
-    "premium_rate": 101.5
+    "bond_price": 128.35,
+    "stock_price": 11.14,
+    "bond_change": -0.52,
+    "stock_change": 0.45,
+    "premium_rate": 99.56
   },
   {
     "bond_id": "127085",
@@ -3997,11 +3997,11 @@
     "force_redeem_price": "14.989",
     "left_market_value": "24.499",
     "force_redeem_status": "未满足",
-    "bond_price": 125.9,
-    "stock_price": 6.97,
-    "bond_change": 0.36,
-    "stock_change": 0.72,
-    "premium_rate": 108.26
+    "bond_price": 125.16,
+    "stock_price": 6.87,
+    "bond_change": -0.59,
+    "stock_change": -1.43,
+    "premium_rate": 110.06
   },
   {
     "bond_id": "123189",
@@ -4023,11 +4023,11 @@
     "force_redeem_price": "19.734",
     "left_market_value": "3.286",
     "force_redeem_status": "未满足",
-    "bond_price": 141.75,
-    "stock_price": 14.98,
-    "bond_change": 2.19,
-    "stock_change": 2.11,
-    "premium_rate": 43.64
+    "bond_price": 141.36,
+    "stock_price": 14.93,
+    "bond_change": -0.28,
+    "stock_change": -0.33,
+    "premium_rate": 43.73
   },
   {
     "bond_id": "123188",
@@ -4050,10 +4050,10 @@
     "left_market_value": "0.022",
     "force_redeem_status": "-",
     "bond_price": 142.81,
-    "stock_price": 20.52,
+    "stock_price": 20.97,
     "bond_change": 0.0,
-    "stock_change": 1.48,
-    "premium_rate": -6.47
+    "stock_change": 2.19,
+    "premium_rate": -8.47
   },
   {
     "bond_id": "123187",
@@ -4075,11 +4075,11 @@
     "force_redeem_price": "28.301",
     "left_market_value": "2.242",
     "force_redeem_status": "未满足",
-    "bond_price": 174.8,
-    "stock_price": 31.1,
-    "bond_change": 0.56,
-    "stock_change": 6.14,
-    "premium_rate": 22.36
+    "bond_price": 184.33,
+    "stock_price": 33.2,
+    "bond_change": 5.45,
+    "stock_change": 6.75,
+    "premium_rate": 20.87
   },
   {
     "bond_id": "127084",
@@ -4101,11 +4101,11 @@
     "force_redeem_price": "9.074",
     "left_market_value": "24.809",
     "force_redeem_status": "未满足",
-    "bond_price": 148.85,
-    "stock_price": 8.74,
-    "bond_change": -0.19,
-    "stock_change": -0.46,
-    "premium_rate": 18.88
+    "bond_price": 148.1,
+    "stock_price": 8.54,
+    "bond_change": -0.5,
+    "stock_change": -2.29,
+    "premium_rate": 21.05
   },
   {
     "bond_id": "127083",
@@ -4127,11 +4127,11 @@
     "force_redeem_price": "9.646",
     "left_market_value": "48.359",
     "force_redeem_status": "未满足",
-    "bond_price": 124.2,
-    "stock_price": 5.22,
-    "bond_change": -0.1,
-    "stock_change": 2.35,
-    "premium_rate": 76.55
+    "bond_price": 124.22,
+    "stock_price": 5.14,
+    "bond_change": 0.01,
+    "stock_change": -1.53,
+    "premium_rate": 79.31
   },
   {
     "bond_id": "123183",
@@ -4153,11 +4153,11 @@
     "force_redeem_price": "15.119",
     "left_market_value": "6.329",
     "force_redeem_status": "未满足",
-    "bond_price": 134.0,
-    "stock_price": 9.9,
-    "bond_change": -0.44,
-    "stock_change": 2.06,
-    "premium_rate": 57.41
+    "bond_price": 135.0,
+    "stock_price": 10.21,
+    "bond_change": 0.75,
+    "stock_change": 3.13,
+    "premium_rate": 53.78
   },
   {
     "bond_id": "113667",
@@ -4179,11 +4179,11 @@
     "force_redeem_price": "12.935",
     "left_market_value": "5.696",
     "force_redeem_status": "计数中",
-    "bond_price": 175.25,
-    "stock_price": 16.85,
-    "bond_change": -4.7,
-    "stock_change": -2.32,
-    "premium_rate": 3.48
+    "bond_price": 183.78,
+    "stock_price": 17.48,
+    "bond_change": 4.87,
+    "stock_change": 3.74,
+    "premium_rate": 4.61
   },
   {
     "bond_id": "113066",
@@ -4205,11 +4205,11 @@
     "force_redeem_price": "9.698",
     "left_market_value": "14.274",
     "force_redeem_status": "未满足",
-    "bond_price": 150.47,
-    "stock_price": 7.88,
-    "bond_change": -0.89,
-    "stock_change": -1.38,
-    "premium_rate": 42.45
+    "bond_price": 150.82,
+    "stock_price": 7.93,
+    "bond_change": 0.23,
+    "stock_change": 0.63,
+    "premium_rate": 41.88
   },
   {
     "bond_id": "110093",
@@ -4231,11 +4231,11 @@
     "force_redeem_price": "10.504",
     "left_market_value": "22.199",
     "force_redeem_status": "未满足",
-    "bond_price": 124.95,
-    "stock_price": 6.46,
-    "bond_change": 0.25,
-    "stock_change": 1.73,
-    "premium_rate": 56.29
+    "bond_price": 124.67,
+    "stock_price": 6.37,
+    "bond_change": -0.22,
+    "stock_change": -1.39,
+    "premium_rate": 58.14
   },
   {
     "bond_id": "127082",
@@ -4257,11 +4257,11 @@
     "force_redeem_price": "6.786",
     "left_market_value": "11.585",
     "force_redeem_status": "未满足",
-    "bond_price": 140.68,
-    "stock_price": 5.23,
-    "bond_change": 0.63,
-    "stock_change": 4.39,
-    "premium_rate": 40.42
+    "bond_price": 142.04,
+    "stock_price": 5.26,
+    "bond_change": 0.96,
+    "stock_change": 0.57,
+    "premium_rate": 40.96
   },
   {
     "bond_id": "123180",
@@ -4283,11 +4283,11 @@
     "force_redeem_price": "61.867",
     "left_market_value": "3.197",
     "force_redeem_status": "未满足",
-    "bond_price": 130.92,
-    "stock_price": 22.02,
-    "bond_change": 0.6,
-    "stock_change": 3.72,
-    "premium_rate": 182.95
+    "bond_price": 131.24,
+    "stock_price": 22.26,
+    "bond_change": 0.25,
+    "stock_change": 1.09,
+    "premium_rate": 180.59
   },
   {
     "bond_id": "118032",
@@ -4309,11 +4309,11 @@
     "force_redeem_price": "92.833",
     "left_market_value": "6.999",
     "force_redeem_status": "未满足",
-    "bond_price": 126.01,
-    "stock_price": 26.36,
-    "bond_change": 0.17,
-    "stock_change": 1.89,
-    "premium_rate": 241.36
+    "bond_price": 126.23,
+    "stock_price": 26.84,
+    "bond_change": 0.18,
+    "stock_change": 1.82,
+    "premium_rate": 235.85
   },
   {
     "bond_id": "123179",
@@ -4335,11 +4335,11 @@
     "force_redeem_price": "123.032",
     "left_market_value": "9.499",
     "force_redeem_status": "未满足",
-    "bond_price": 125.89,
-    "stock_price": 25.65,
-    "bond_change": 0.93,
-    "stock_change": -1.35,
-    "premium_rate": 364.49
+    "bond_price": 125.06,
+    "stock_price": 25.28,
+    "bond_change": -0.66,
+    "stock_change": -1.44,
+    "premium_rate": 368.19
   },
   {
     "bond_id": "123178",
@@ -4361,11 +4361,11 @@
     "force_redeem_price": "17.342",
     "left_market_value": "11.580",
     "force_redeem_status": "计数中",
-    "bond_price": 140.15,
-    "stock_price": 12.55,
-    "bond_change": 0.25,
-    "stock_change": 1.05,
-    "premium_rate": 48.97
+    "bond_price": 141.28,
+    "stock_price": 12.83,
+    "bond_change": 0.81,
+    "stock_change": 2.23,
+    "premium_rate": 46.9
   },
   {
     "bond_id": "123176",
@@ -4387,11 +4387,11 @@
     "force_redeem_price": "83.863",
     "left_market_value": "12.753",
     "force_redeem_status": "计数中",
-    "bond_price": 375.5,
-    "stock_price": 167.0,
-    "bond_change": -11.33,
-    "stock_change": -12.57,
-    "premium_rate": 45.05
+    "bond_price": 405.38,
+    "stock_price": 180.26,
+    "bond_change": 7.96,
+    "stock_change": 7.94,
+    "premium_rate": 45.08
   },
   {
     "bond_id": "113666",
@@ -4413,11 +4413,11 @@
     "force_redeem_price": "48.178",
     "left_market_value": "19.994",
     "force_redeem_status": "未满足",
-    "bond_price": 126.2,
-    "stock_price": 22.14,
-    "bond_change": 0.52,
-    "stock_change": 1.65,
-    "premium_rate": 111.25
+    "bond_price": 127.34,
+    "stock_price": 21.54,
+    "bond_change": 0.9,
+    "stock_change": -2.71,
+    "premium_rate": 119.1
   },
   {
     "bond_id": "123175",
@@ -4439,11 +4439,11 @@
     "force_redeem_price": "26.520",
     "left_market_value": "4.199",
     "force_redeem_status": "未满足",
-    "bond_price": 118.3,
-    "stock_price": 9.98,
-    "bond_change": 0.6,
-    "stock_change": 5.05,
-    "premium_rate": 141.81
+    "bond_price": 117.31,
+    "stock_price": 10.35,
+    "bond_change": -0.83,
+    "stock_change": 3.71,
+    "premium_rate": 131.23
   },
   {
     "bond_id": "118031",
@@ -4465,11 +4465,11 @@
     "force_redeem_price": "20.800",
     "left_market_value": "58.512",
     "force_redeem_status": "未满足",
-    "bond_price": 127.31,
-    "stock_price": 14.28,
-    "bond_change": 1.1,
-    "stock_change": 5.23,
-    "premium_rate": 42.64
+    "bond_price": 126.83,
+    "stock_price": 14.25,
+    "bond_change": -0.38,
+    "stock_change": -0.21,
+    "premium_rate": 42.4
   },
   {
     "bond_id": "110092",
@@ -4491,11 +4491,11 @@
     "force_redeem_price": "3.926",
     "left_market_value": "21.185",
     "force_redeem_status": "未满足",
-    "bond_price": 72.45,
-    "stock_price": 1.53,
-    "bond_change": -2.52,
-    "stock_change": -3.16,
-    "premium_rate": 43.02
+    "bond_price": 72.58,
+    "stock_price": 1.49,
+    "bond_change": 0.17,
+    "stock_change": -2.61,
+    "premium_rate": 47.1
   },
   {
     "bond_id": "111012",
@@ -4517,11 +4517,11 @@
     "force_redeem_price": "14.443",
     "left_market_value": "1.016",
     "force_redeem_status": "暂不强赎",
-    "bond_price": 376.42,
-    "stock_price": 26.98,
-    "bond_change": 14.32,
-    "stock_change": 9.99,
-    "premium_rate": 55.0
+    "bond_price": 373.83,
+    "stock_price": 26.7,
+    "bond_change": -0.69,
+    "stock_change": -1.04,
+    "premium_rate": 55.55
   },
   {
     "bond_id": "127080",
@@ -4543,11 +4543,11 @@
     "force_redeem_price": "37.622",
     "left_market_value": "2.793",
     "force_redeem_status": "暂不强赎",
-    "bond_price": 255.49,
-    "stock_price": 59.42,
-    "bond_change": 2.88,
-    "stock_change": 6.49,
-    "premium_rate": 24.44
+    "bond_price": 266.64,
+    "stock_price": 62.2,
+    "bond_change": 4.36,
+    "stock_change": 4.68,
+    "premium_rate": 24.06
   },
   {
     "bond_id": "123173",
@@ -4569,11 +4569,11 @@
     "force_redeem_price": "13.000",
     "left_market_value": "2.330",
     "force_redeem_status": "未满足",
-    "bond_price": 143.05,
-    "stock_price": 10.72,
-    "bond_change": -1.0,
-    "stock_change": -2.55,
-    "premium_rate": 33.44
+    "bond_price": 147.32,
+    "stock_price": 11.27,
+    "bond_change": 2.99,
+    "stock_change": 5.13,
+    "premium_rate": 30.72
   },
   {
     "bond_id": "118030",
@@ -4595,11 +4595,11 @@
     "force_redeem_price": "50.232",
     "left_market_value": "12.622",
     "force_redeem_status": "暂不强赎",
-    "bond_price": 510.01,
-    "stock_price": 137.63,
-    "bond_change": -3.53,
-    "stock_change": -2.84,
-    "premium_rate": 43.19
+    "bond_price": 534.23,
+    "stock_price": 141.2,
+    "bond_change": 4.75,
+    "stock_change": 2.59,
+    "premium_rate": 46.19
   },
   {
     "bond_id": "123172",
@@ -4621,11 +4621,11 @@
     "force_redeem_price": "19.383",
     "left_market_value": "7.960",
     "force_redeem_status": "未满足",
-    "bond_price": 135.72,
-    "stock_price": 13.7,
-    "bond_change": 0.52,
-    "stock_change": 3.87,
-    "premium_rate": 47.71
+    "bond_price": 135.64,
+    "stock_price": 13.57,
+    "bond_change": -0.06,
+    "stock_change": -0.95,
+    "premium_rate": 49.03
   },
   {
     "bond_id": "113665",
@@ -4647,11 +4647,11 @@
     "force_redeem_price": "8.164",
     "left_market_value": "3.596",
     "force_redeem_status": "未满足",
-    "bond_price": 125.91,
-    "stock_price": 4.45,
-    "bond_change": 0.9,
-    "stock_change": 4.46,
-    "premium_rate": 77.69
+    "bond_price": 126.44,
+    "stock_price": 4.49,
+    "bond_change": 0.42,
+    "stock_change": 0.9,
+    "premium_rate": 76.85
   },
   {
     "bond_id": "127078",
@@ -4673,11 +4673,11 @@
     "force_redeem_price": "7.943",
     "left_market_value": "4.158",
     "force_redeem_status": "未满足",
-    "bond_price": 153.7,
-    "stock_price": 7.36,
-    "bond_change": 0.91,
-    "stock_change": 3.08,
-    "premium_rate": 27.6
+    "bond_price": 153.87,
+    "stock_price": 7.26,
+    "bond_change": 0.11,
+    "stock_change": -1.36,
+    "premium_rate": 29.5
   },
   {
     "bond_id": "123171",
@@ -4699,11 +4699,11 @@
     "force_redeem_price": "35.204",
     "left_market_value": "3.799",
     "force_redeem_status": "未满足",
-    "bond_price": 134.32,
-    "stock_price": 24.5,
-    "bond_change": 1.72,
-    "stock_change": 7.93,
-    "premium_rate": 48.46
+    "bond_price": 134.6,
+    "stock_price": 24.59,
+    "bond_change": 0.21,
+    "stock_change": 0.37,
+    "premium_rate": 48.23
   },
   {
     "bond_id": "118027",
@@ -4725,11 +4725,11 @@
     "force_redeem_price": "17.056",
     "left_market_value": "9.475",
     "force_redeem_status": "未满足",
-    "bond_price": 85.78,
-    "stock_price": 9.68,
-    "bond_change": 6.43,
-    "stock_change": 19.95,
-    "premium_rate": 16.27
+    "bond_price": 83.76,
+    "stock_price": 9.64,
+    "bond_change": -2.36,
+    "stock_change": -0.41,
+    "premium_rate": 13.99
   },
   {
     "bond_id": "123168",
@@ -4751,11 +4751,11 @@
     "force_redeem_price": "13.962",
     "left_market_value": "4.899",
     "force_redeem_status": "未满足",
-    "bond_price": 130.39,
+    "bond_price": 130.15,
     "stock_price": 6.84,
-    "bond_change": 0.86,
-    "stock_change": 2.86,
-    "premium_rate": 104.73
+    "bond_change": -0.18,
+    "stock_change": 0.0,
+    "premium_rate": 104.36
   },
   {
     "bond_id": "113661",
@@ -4777,11 +4777,11 @@
     "force_redeem_price": "18.967",
     "left_market_value": "30.297",
     "force_redeem_status": "未满足",
-    "bond_price": 140.63,
-    "stock_price": 14.94,
-    "bond_change": 0.1,
-    "stock_change": 1.84,
-    "premium_rate": 37.34
+    "bond_price": 141.65,
+    "stock_price": 15.09,
+    "bond_change": 0.73,
+    "stock_change": 1.0,
+    "premium_rate": 36.96
   },
   {
     "bond_id": "113660",
@@ -4803,11 +4803,11 @@
     "force_redeem_price": "47.892",
     "left_market_value": "3.977",
     "force_redeem_status": "未满足",
-    "bond_price": 126.51,
-    "stock_price": 14.95,
-    "bond_change": 0.07,
-    "stock_change": 0.88,
-    "premium_rate": 211.74
+    "bond_price": 126.93,
+    "stock_price": 14.86,
+    "bond_change": 0.34,
+    "stock_change": -0.6,
+    "premium_rate": 214.68
   },
   {
     "bond_id": "111009",
@@ -4829,11 +4829,11 @@
     "force_redeem_price": "13.663",
     "left_market_value": "7.011",
     "force_redeem_status": "未满足",
-    "bond_price": 126.57,
-    "stock_price": 5.71,
+    "bond_price": 126.85,
+    "stock_price": 5.66,
     "bond_change": 0.22,
-    "stock_change": 2.51,
-    "premium_rate": 132.97
+    "stock_change": -0.88,
+    "premium_rate": 135.54
   },
   {
     "bond_id": "123165",
@@ -4855,11 +4855,11 @@
     "force_redeem_price": "19.565",
     "left_market_value": "8.496",
     "force_redeem_status": "未满足",
-    "bond_price": 133.93,
-    "stock_price": 10.46,
-    "bond_change": -0.06,
-    "stock_change": 1.36,
-    "premium_rate": 92.7
+    "bond_price": 135.25,
+    "stock_price": 10.62,
+    "bond_change": 0.99,
+    "stock_change": 1.53,
+    "premium_rate": 91.67
   },
   {
     "bond_id": "118024",
@@ -4881,11 +4881,11 @@
     "force_redeem_price": "27.012",
     "left_market_value": "30.889",
     "force_redeem_status": "未满足",
-    "bond_price": 127.81,
-    "stock_price": 14.64,
-    "bond_change": 0.3,
-    "stock_change": -0.07,
-    "premium_rate": 96.51
+    "bond_price": 128.94,
+    "stock_price": 14.74,
+    "bond_change": 0.89,
+    "stock_change": 0.68,
+    "premium_rate": 96.91
   },
   {
     "bond_id": "113659",
@@ -4907,11 +4907,11 @@
     "force_redeem_price": "41.236",
     "left_market_value": "11.998",
     "force_redeem_status": "未满足",
-    "bond_price": 136.22,
-    "stock_price": 28.35,
-    "bond_change": -0.09,
-    "stock_change": 1.61,
-    "premium_rate": 52.41
+    "bond_price": 137.37,
+    "stock_price": 27.93,
+    "bond_change": 0.84,
+    "stock_change": -1.48,
+    "premium_rate": 56.01
   },
   {
     "bond_id": "118022",
@@ -4933,11 +4933,11 @@
     "force_redeem_price": "20.137",
     "left_market_value": "32.497",
     "force_redeem_status": "未满足",
-    "bond_price": 124.04,
-    "stock_price": 7.86,
-    "bond_change": 0.72,
-    "stock_change": 3.15,
-    "premium_rate": 144.45
+    "bond_price": 124.68,
+    "stock_price": 7.93,
+    "bond_change": 0.51,
+    "stock_change": 0.89,
+    "premium_rate": 143.54
   },
   {
     "bond_id": "123160",
@@ -4959,11 +4959,11 @@
     "force_redeem_price": "25.610",
     "left_market_value": "2.315",
     "force_redeem_status": "暂不强赎",
-    "bond_price": 158.6,
-    "stock_price": 21.93,
-    "bond_change": 0.4,
-    "stock_change": 3.1,
-    "premium_rate": 42.47
+    "bond_price": 159.96,
+    "stock_price": 22.17,
+    "bond_change": 0.86,
+    "stock_change": 1.09,
+    "premium_rate": 42.14
   },
   {
     "bond_id": "123158",
@@ -4985,11 +4985,11 @@
     "force_redeem_price": "52.637",
     "left_market_value": "18.046",
     "force_redeem_status": "计数中",
-    "bond_price": 229.19,
-    "stock_price": 60.97,
-    "bond_change": -5.44,
-    "stock_change": -2.6,
-    "premium_rate": 52.2
+    "bond_price": 242.7,
+    "stock_price": 63.17,
+    "bond_change": 5.9,
+    "stock_change": 3.61,
+    "premium_rate": 55.56
   },
   {
     "bond_id": "118020",
@@ -5011,11 +5011,11 @@
     "force_redeem_price": "18.200",
     "left_market_value": "6.417",
     "force_redeem_status": "未满足",
-    "bond_price": 126.28,
-    "stock_price": 6.74,
-    "bond_change": 0.59,
-    "stock_change": 1.2,
-    "premium_rate": 162.31
+    "bond_price": 126.3,
+    "stock_price": 6.86,
+    "bond_change": 0.01,
+    "stock_change": 1.78,
+    "premium_rate": 157.75
   },
   {
     "bond_id": "110090",
@@ -5037,11 +5037,11 @@
     "force_redeem_price": "22.295",
     "left_market_value": "15.695",
     "force_redeem_status": "未满足",
-    "bond_price": 135.27,
-    "stock_price": 14.0,
-    "bond_change": 0.31,
-    "stock_change": 2.94,
-    "premium_rate": 65.71
+    "bond_price": 136.78,
+    "stock_price": 13.97,
+    "bond_change": 1.12,
+    "stock_change": -0.21,
+    "premium_rate": 67.92
   },
   {
     "bond_id": "127072",
@@ -5063,11 +5063,11 @@
     "force_redeem_price": "19.253",
     "left_market_value": "4.498",
     "force_redeem_status": "未满足",
-    "bond_price": 143.4,
-    "stock_price": 13.28,
-    "bond_change": -1.42,
-    "stock_change": -0.9,
-    "premium_rate": 59.92
+    "bond_price": 144.26,
+    "stock_price": 13.33,
+    "bond_change": 0.6,
+    "stock_change": 0.38,
+    "premium_rate": 60.28
   },
   {
     "bond_id": "113658",
@@ -5089,11 +5089,11 @@
     "force_redeem_price": "71.136",
     "left_market_value": "4.092",
     "force_redeem_status": "强赎中",
-    "bond_price": 108.79,
-    "stock_price": 59.48,
-    "bond_change": 0.73,
-    "stock_change": 1.59,
-    "premium_rate": 0.08
+    "bond_price": 111.47,
+    "stock_price": 61.02,
+    "bond_change": 2.46,
+    "stock_change": 2.59,
+    "premium_rate": -0.04
   },
   {
     "bond_id": "113062",
@@ -5115,11 +5115,11 @@
     "force_redeem_price": "6.825",
     "left_market_value": "59.994",
     "force_redeem_status": "未满足",
-    "bond_price": 130.34,
-    "stock_price": 6.46,
-    "bond_change": 0.1,
-    "stock_change": 0.47,
-    "premium_rate": 5.92
+    "bond_price": 129.75,
+    "stock_price": 6.32,
+    "bond_change": -0.45,
+    "stock_change": -2.17,
+    "premium_rate": 7.79
   },
   {
     "bond_id": "113656",
@@ -5141,11 +5141,11 @@
     "force_redeem_price": "13.455",
     "left_market_value": "7.998",
     "force_redeem_status": "未满足",
-    "bond_price": 125.14,
+    "bond_price": 125.43,
     "stock_price": 6.5,
-    "bond_change": 0.41,
-    "stock_change": 2.52,
-    "premium_rate": 99.27
+    "bond_change": 0.23,
+    "stock_change": 0.0,
+    "premium_rate": 99.73
   },
   {
     "bond_id": "123157",
@@ -5167,11 +5167,11 @@
     "force_redeem_price": "11.440",
     "left_market_value": "2.340",
     "force_redeem_status": "未满足",
-    "bond_price": 153.31,
-    "stock_price": 10.37,
-    "bond_change": -2.64,
-    "stock_change": -2.35,
-    "premium_rate": 30.1
+    "bond_price": 155.44,
+    "stock_price": 10.65,
+    "bond_change": 1.39,
+    "stock_change": 2.7,
+    "premium_rate": 28.44
   },
   {
     "bond_id": "127070",
@@ -5193,11 +5193,11 @@
     "force_redeem_price": "13.728",
     "left_market_value": "9.342",
     "force_redeem_status": "暂不强赎",
-    "bond_price": 363.0,
-    "stock_price": 26.95,
-    "bond_change": 0.83,
-    "stock_change": 3.93,
-    "premium_rate": 42.24
+    "bond_price": 368.9,
+    "stock_price": 27.42,
+    "bond_change": 1.63,
+    "stock_change": 1.74,
+    "premium_rate": 42.07
   },
   {
     "bond_id": "127069",
@@ -5219,11 +5219,11 @@
     "force_redeem_price": "56.823",
     "left_market_value": "5.041",
     "force_redeem_status": "未满足",
-    "bond_price": 134.07,
-    "stock_price": 34.65,
-    "bond_change": -0.11,
-    "stock_change": 0.38,
-    "premium_rate": 69.13
+    "bond_price": 133.47,
+    "stock_price": 34.36,
+    "bond_change": -0.45,
+    "stock_change": -0.84,
+    "premium_rate": 69.79
   },
   {
     "bond_id": "127068",
@@ -5245,11 +5245,11 @@
     "force_redeem_price": "13.000",
     "left_market_value": "8.300",
     "force_redeem_status": "未满足",
-    "bond_price": 126.97,
-    "stock_price": 6.26,
-    "bond_change": -0.2,
-    "stock_change": 1.29,
-    "premium_rate": 102.83
+    "bond_price": 127.49,
+    "stock_price": 6.27,
+    "bond_change": 0.41,
+    "stock_change": 0.16,
+    "premium_rate": 103.33
   },
   {
     "bond_id": "123155",
@@ -5271,11 +5271,11 @@
     "force_redeem_price": "41.288",
     "left_market_value": "3.600",
     "force_redeem_status": "未满足",
-    "bond_price": 133.7,
-    "stock_price": 25.0,
-    "bond_change": 2.02,
-    "stock_change": 11.31,
-    "premium_rate": 69.85
+    "bond_price": 135.2,
+    "stock_price": 25.48,
+    "bond_change": 1.12,
+    "stock_change": 1.92,
+    "premium_rate": 68.52
   },
   {
     "bond_id": "123154",
@@ -5297,11 +5297,11 @@
     "force_redeem_price": "43.030",
     "left_market_value": "5.289",
     "force_redeem_status": "未满足",
-    "bond_price": 131.0,
-    "stock_price": 11.25,
-    "bond_change": -0.09,
-    "stock_change": -2.43,
-    "premium_rate": 285.43
+    "bond_price": 130.75,
+    "stock_price": 11.33,
+    "bond_change": -0.19,
+    "stock_change": 0.71,
+    "premium_rate": 281.99
   },
   {
     "bond_id": "118016",
@@ -5323,11 +5323,11 @@
     "force_redeem_price": "8.983",
     "left_market_value": "1.675",
     "force_redeem_status": "暂不强赎",
-    "bond_price": 162.23,
-    "stock_price": 8.07,
-    "bond_change": -0.76,
-    "stock_change": 2.8,
-    "premium_rate": 38.91
+    "bond_price": 167.22,
+    "stock_price": 8.35,
+    "bond_change": 3.07,
+    "stock_change": 3.47,
+    "premium_rate": 38.38
   },
   {
     "bond_id": "113655",
@@ -5349,11 +5349,11 @@
     "force_redeem_price": "67.002",
     "left_market_value": "19.999",
     "force_redeem_status": "未满足",
-    "bond_price": 125.99,
-    "stock_price": 33.76,
+    "bond_price": 125.66,
+    "stock_price": 33.54,
     "bond_change": -0.26,
-    "stock_change": -2.99,
-    "premium_rate": 92.34
+    "stock_change": -0.65,
+    "premium_rate": 93.09
   },
   {
     "bond_id": "113652",
@@ -5375,11 +5375,11 @@
     "force_redeem_price": "24.726",
     "left_market_value": "14.766",
     "force_redeem_status": "未满足",
-    "bond_price": 131.99,
-    "stock_price": 16.0,
-    "bond_change": 1.01,
-    "stock_change": 4.58,
-    "premium_rate": 56.91
+    "bond_price": 131.45,
+    "stock_price": 15.58,
+    "bond_change": -0.41,
+    "stock_change": -2.62,
+    "premium_rate": 60.48
   },
   {
     "bond_id": "127067",
@@ -5401,11 +5401,11 @@
     "force_redeem_price": "13.416",
     "left_market_value": "25.933",
     "force_redeem_status": "计数中",
-    "bond_price": 157.08,
-    "stock_price": 16.2,
-    "bond_change": 0.58,
-    "stock_change": 0.68,
-    "premium_rate": 0.07
+    "bond_price": 154.31,
+    "stock_price": 15.92,
+    "bond_change": -1.76,
+    "stock_change": -1.73,
+    "premium_rate": 0.03
   },
   {
     "bond_id": "118015",
@@ -5427,11 +5427,11 @@
     "force_redeem_price": "71.786",
     "left_market_value": "4.100",
     "force_redeem_status": "未满足",
-    "bond_price": 130.11,
-    "stock_price": 26.75,
-    "bond_change": -0.61,
-    "stock_change": 0.34,
-    "premium_rate": 168.58
+    "bond_price": 131.31,
+    "stock_price": 27.49,
+    "bond_change": 0.92,
+    "stock_change": 2.77,
+    "premium_rate": 163.76
   },
   {
     "bond_id": "118013",
@@ -5453,11 +5453,11 @@
     "force_redeem_price": "27.924",
     "left_market_value": "12.796",
     "force_redeem_status": "计数中",
-    "bond_price": 193.73,
-    "stock_price": 28.91,
-    "bond_change": -2.59,
-    "stock_change": -1.43,
-    "premium_rate": 43.94
+    "bond_price": 200.83,
+    "stock_price": 29.21,
+    "bond_change": 3.66,
+    "stock_change": 1.04,
+    "premium_rate": 47.68
   },
   {
     "bond_id": "118012",
@@ -5479,11 +5479,11 @@
     "force_redeem_price": "32.942",
     "left_market_value": "4.996",
     "force_redeem_status": "未满足",
-    "bond_price": 161.24,
-    "stock_price": 25.91,
-    "bond_change": -1.84,
-    "stock_change": -2.08,
-    "premium_rate": 57.69
+    "bond_price": 165.81,
+    "stock_price": 26.82,
+    "bond_change": 2.84,
+    "stock_change": 3.51,
+    "premium_rate": 56.66
   },
   {
     "bond_id": "123151",
@@ -5505,11 +5505,11 @@
     "force_redeem_price": "35.815",
     "left_market_value": "6.998",
     "force_redeem_status": "未满足",
-    "bond_price": 121.25,
-    "stock_price": 11.2,
-    "bond_change": -0.03,
-    "stock_change": 1.73,
-    "premium_rate": 198.26
+    "bond_price": 121.33,
+    "stock_price": 11.24,
+    "bond_change": 0.07,
+    "stock_change": 0.36,
+    "premium_rate": 197.4
   },
   {
     "bond_id": "113650",
@@ -5531,11 +5531,11 @@
     "force_redeem_price": "30.251",
     "left_market_value": "7.996",
     "force_redeem_status": "未满足",
-    "bond_price": 127.27,
-    "stock_price": 10.21,
-    "bond_change": 0.5,
-    "stock_change": 2.1,
-    "premium_rate": 190.06
+    "bond_price": 127.84,
+    "stock_price": 10.25,
+    "bond_change": 0.45,
+    "stock_change": 0.39,
+    "premium_rate": 190.23
   },
   {
     "bond_id": "123150",
@@ -5557,11 +5557,11 @@
     "force_redeem_price": "15.080",
     "left_market_value": "11.210",
     "force_redeem_status": "未满足",
-    "bond_price": 137.73,
-    "stock_price": 11.75,
-    "bond_change": -0.0,
-    "stock_change": 0.95,
-    "premium_rate": 35.97
+    "bond_price": 137.82,
+    "stock_price": 11.73,
+    "bond_change": 0.07,
+    "stock_change": -0.17,
+    "premium_rate": 36.3
   },
   {
     "bond_id": "118010",
@@ -5583,11 +5583,11 @@
     "force_redeem_price": "62.244",
     "left_market_value": "4.399",
     "force_redeem_status": "未满足",
-    "bond_price": 124.82,
-    "stock_price": 13.07,
-    "bond_change": 0.31,
-    "stock_change": 3.4,
-    "premium_rate": 357.26
+    "bond_price": 125.7,
+    "stock_price": 13.46,
+    "bond_change": 0.71,
+    "stock_change": 2.98,
+    "premium_rate": 347.16
   },
   {
     "bond_id": "113649",
@@ -5609,11 +5609,11 @@
     "force_redeem_price": "17.693",
     "left_market_value": "4.577",
     "force_redeem_status": "未满足",
-    "bond_price": 134.98,
-    "stock_price": 11.44,
-    "bond_change": 0.68,
-    "stock_change": 4.47,
-    "premium_rate": 60.58
+    "bond_price": 135.59,
+    "stock_price": 11.54,
+    "bond_change": 0.45,
+    "stock_change": 0.87,
+    "premium_rate": 59.91
   },
   {
     "bond_id": "110087",
@@ -5635,11 +5635,11 @@
     "force_redeem_price": "7.280",
     "left_market_value": "29.975",
     "force_redeem_status": "未满足",
-    "bond_price": 127.78,
-    "stock_price": 4.65,
-    "bond_change": 0.64,
-    "stock_change": 1.97,
-    "premium_rate": 53.89
+    "bond_price": 128.21,
+    "stock_price": 4.63,
+    "bond_change": 0.34,
+    "stock_change": -0.43,
+    "premium_rate": 55.07
   },
   {
     "bond_id": "123149",
@@ -5661,11 +5661,11 @@
     "force_redeem_price": "3.523",
     "left_market_value": "11.069",
     "force_redeem_status": "未满足",
-    "bond_price": 137.84,
-    "stock_price": 2.91,
-    "bond_change": 0.4,
-    "stock_change": 3.19,
-    "premium_rate": 28.37
+    "bond_price": 138.19,
+    "stock_price": 2.89,
+    "bond_change": 0.25,
+    "stock_change": -0.69,
+    "premium_rate": 29.58
   },
   {
     "bond_id": "113059",
@@ -5687,11 +5687,11 @@
     "force_redeem_price": "54.028",
     "left_market_value": "39.999",
     "force_redeem_status": "未满足",
-    "bond_price": 122.75,
-    "stock_price": 11.09,
-    "bond_change": 0.76,
-    "stock_change": 10.02,
-    "premium_rate": 360.01
+    "bond_price": 123.1,
+    "stock_price": 11.08,
+    "bond_change": 0.28,
+    "stock_change": -0.09,
+    "premium_rate": 361.73
   },
   {
     "bond_id": "127064",
@@ -5713,11 +5713,11 @@
     "force_redeem_price": "33.371",
     "left_market_value": "11.364",
     "force_redeem_status": "未满足",
-    "bond_price": 143.52,
-    "stock_price": 23.29,
-    "bond_change": -0.49,
-    "stock_change": 1.3,
-    "premium_rate": 58.18
+    "bond_price": 144.9,
+    "stock_price": 23.72,
+    "bond_change": 0.97,
+    "stock_change": 1.85,
+    "premium_rate": 56.81
   },
   {
     "bond_id": "113648",
@@ -5739,11 +5739,11 @@
     "force_redeem_price": "32.292",
     "left_market_value": "8.997",
     "force_redeem_status": "未满足",
-    "bond_price": 123.17,
-    "stock_price": 14.48,
-    "bond_change": -0.15,
-    "stock_change": -0.75,
-    "premium_rate": 111.29
+    "bond_price": 123.39,
+    "stock_price": 14.47,
+    "bond_change": 0.18,
+    "stock_change": -0.07,
+    "premium_rate": 111.82
   },
   {
     "bond_id": "113647",
@@ -5765,11 +5765,11 @@
     "force_redeem_price": "13.117",
     "left_market_value": "14.669",
     "force_redeem_status": "未满足",
-    "bond_price": 121.88,
-    "stock_price": 6.3,
-    "bond_change": -0.09,
-    "stock_change": 0.48,
-    "premium_rate": 95.2
+    "bond_price": 121.78,
+    "stock_price": 6.21,
+    "bond_change": -0.08,
+    "stock_change": -1.43,
+    "premium_rate": 97.87
   },
   {
     "bond_id": "110086",
@@ -5791,11 +5791,11 @@
     "force_redeem_price": "5.941",
     "left_market_value": "19.999",
     "force_redeem_status": "未满足",
-    "bond_price": 126.82,
-    "stock_price": 3.37,
-    "bond_change": 0.27,
-    "stock_change": 2.43,
-    "premium_rate": 71.98
+    "bond_price": 126.56,
+    "stock_price": 3.34,
+    "bond_change": -0.21,
+    "stock_change": -0.89,
+    "premium_rate": 73.17
   },
   {
     "bond_id": "127062",
@@ -5817,11 +5817,11 @@
     "force_redeem_price": "9.828",
     "left_market_value": "3.957",
     "force_redeem_status": "未满足",
-    "bond_price": 127.05,
-    "stock_price": 4.07,
-    "bond_change": 0.25,
-    "stock_change": 2.78,
-    "premium_rate": 135.99
+    "bond_price": 127.13,
+    "stock_price": 4.11,
+    "bond_change": 0.06,
+    "stock_change": 0.98,
+    "premium_rate": 133.85
   },
   {
     "bond_id": "127061",
@@ -5843,11 +5843,11 @@
     "force_redeem_price": "4.511",
     "left_market_value": "27.890",
     "force_redeem_status": "未满足",
-    "bond_price": 110.98,
-    "stock_price": 3.7,
-    "bond_change": 1.72,
-    "stock_change": 2.49,
-    "premium_rate": 4.08
+    "bond_price": 110.78,
+    "stock_price": 3.66,
+    "bond_change": -0.18,
+    "stock_change": -1.08,
+    "premium_rate": 5.03
   },
   {
     "bond_id": "127060",
@@ -5869,11 +5869,11 @@
     "force_redeem_price": "17.940",
     "left_market_value": "6.399",
     "force_redeem_status": "未满足",
-    "bond_price": 129.74,
-    "stock_price": 11.81,
-    "bond_change": 0.85,
-    "stock_change": 1.9,
-    "premium_rate": 51.6
+    "bond_price": 129.94,
+    "stock_price": 11.7,
+    "bond_change": 0.16,
+    "stock_change": -0.93,
+    "premium_rate": 53.27
   },
   {
     "bond_id": "113646",
@@ -5895,11 +5895,11 @@
     "force_redeem_price": "10.465",
     "left_market_value": "1.372",
     "force_redeem_status": "未满足",
-    "bond_price": 159.91,
-    "stock_price": 8.92,
-    "bond_change": -1.27,
-    "stock_change": 0.9,
-    "premium_rate": 44.31
+    "bond_price": 177.91,
+    "stock_price": 9.81,
+    "bond_change": 11.26,
+    "stock_change": 9.98,
+    "premium_rate": 45.99
   },
   {
     "bond_id": "123144",
@@ -5921,11 +5921,11 @@
     "force_redeem_price": "11.050",
     "left_market_value": "5.997",
     "force_redeem_status": "未满足",
-    "bond_price": 131.3,
-    "stock_price": 6.06,
-    "bond_change": 1.85,
-    "stock_change": 20.0,
-    "premium_rate": 84.17
+    "bond_price": 130.72,
+    "stock_price": 5.91,
+    "bond_change": -0.44,
+    "stock_change": -2.48,
+    "premium_rate": 88.0
   },
   {
     "bond_id": "127059",
@@ -5947,11 +5947,11 @@
     "force_redeem_price": "10.543",
     "left_market_value": "3.790",
     "force_redeem_status": "未满足",
-    "bond_price": 130.41,
-    "stock_price": 6.12,
-    "bond_change": 0.17,
-    "stock_change": 2.0,
-    "premium_rate": 72.81
+    "bond_price": 130.98,
+    "stock_price": 6.16,
+    "bond_change": 0.44,
+    "stock_change": 0.65,
+    "premium_rate": 72.44
   },
   {
     "bond_id": "113058",
@@ -5973,11 +5973,11 @@
     "force_redeem_price": "5.824",
     "left_market_value": "18.638",
     "force_redeem_status": "未满足",
-    "bond_price": 139.64,
-    "stock_price": 5.33,
-    "bond_change": 0.68,
-    "stock_change": 2.5,
-    "premium_rate": 17.37
+    "bond_price": 139.35,
+    "stock_price": 5.27,
+    "bond_change": -0.21,
+    "stock_change": -1.13,
+    "premium_rate": 18.46
   },
   {
     "bond_id": "111004",
@@ -5999,11 +5999,11 @@
     "force_redeem_price": "31.681",
     "left_market_value": "6.715",
     "force_redeem_status": "未满足",
-    "bond_price": 132.11,
-    "stock_price": 19.52,
-    "bond_change": -1.75,
-    "stock_change": -10.0,
-    "premium_rate": 64.93
+    "bond_price": 135.54,
+    "stock_price": 20.98,
+    "bond_change": 2.6,
+    "stock_change": 7.48,
+    "premium_rate": 57.45
   },
   {
     "bond_id": "113643",
@@ -6025,11 +6025,11 @@
     "force_redeem_price": "15.340",
     "left_market_value": "4.992",
     "force_redeem_status": "未满足",
-    "bond_price": 140.72,
-    "stock_price": 10.12,
-    "bond_change": -1.63,
-    "stock_change": -0.88,
-    "premium_rate": 64.08
+    "bond_price": 143.4,
+    "stock_price": 10.51,
+    "bond_change": 1.91,
+    "stock_change": 3.85,
+    "premium_rate": 61.01
   },
   {
     "bond_id": "113056",
@@ -6051,11 +6051,11 @@
     "force_redeem_price": "11.986",
     "left_market_value": "115.622",
     "force_redeem_status": "未满足",
-    "bond_price": 129.3,
-    "stock_price": 11.47,
-    "bond_change": 0.36,
-    "stock_change": 0.44,
-    "premium_rate": 3.94
+    "bond_price": 128.71,
+    "stock_price": 11.21,
+    "bond_change": -0.46,
+    "stock_change": -2.27,
+    "premium_rate": 5.86
   },
   {
     "bond_id": "118007",
@@ -6077,11 +6077,11 @@
     "force_redeem_price": "21.450",
     "left_market_value": "2.671",
     "force_redeem_status": "未满足",
-    "bond_price": 140.06,
-    "stock_price": 15.68,
-    "bond_change": -1.21,
-    "stock_change": -0.7,
-    "premium_rate": 47.38
+    "bond_price": 145.25,
+    "stock_price": 17.01,
+    "bond_change": 3.7,
+    "stock_change": 8.48,
+    "premium_rate": 40.89
   },
   {
     "bond_id": "123142",
@@ -6103,11 +6103,11 @@
     "force_redeem_price": "43.823",
     "left_market_value": "5.494",
     "force_redeem_status": "未满足",
-    "bond_price": 125.66,
-    "stock_price": 23.33,
-    "bond_change": 0.76,
-    "stock_change": 5.95,
-    "premium_rate": 81.57
+    "bond_price": 126.81,
+    "stock_price": 25.01,
+    "bond_change": 0.91,
+    "stock_change": 7.2,
+    "premium_rate": 70.92
   },
   {
     "bond_id": "111003",
@@ -6129,11 +6129,11 @@
     "force_redeem_price": "14.703",
     "left_market_value": "2.035",
     "force_redeem_status": "未满足",
-    "bond_price": 138.94,
-    "stock_price": 8.64,
-    "bond_change": -0.31,
-    "stock_change": 2.49,
-    "premium_rate": 81.88
+    "bond_price": 140.0,
+    "stock_price": 8.6,
+    "bond_change": 0.76,
+    "stock_change": -0.46,
+    "premium_rate": 84.12
   },
   {
     "bond_id": "123138",
@@ -6155,11 +6155,11 @@
     "force_redeem_price": "34.489",
     "left_market_value": "2.393",
     "force_redeem_status": "未满足",
-    "bond_price": 129.95,
-    "stock_price": 15.85,
-    "bond_change": 0.04,
-    "stock_change": 2.79,
-    "premium_rate": 117.51
+    "bond_price": 130.4,
+    "stock_price": 16.2,
+    "bond_change": 0.34,
+    "stock_change": 2.21,
+    "premium_rate": 113.54
   },
   {
     "bond_id": "127056",
@@ -6181,11 +6181,11 @@
     "force_redeem_price": "18.057",
     "left_market_value": "49.996",
     "force_redeem_status": "未满足",
-    "bond_price": 132.19,
-    "stock_price": 14.69,
-    "bond_change": -0.07,
-    "stock_change": -1.94,
-    "premium_rate": 24.99
+    "bond_price": 132.06,
+    "stock_price": 14.39,
+    "bond_change": -0.1,
+    "stock_change": -2.04,
+    "premium_rate": 27.47
   },
   {
     "bond_id": "113054",
@@ -6207,11 +6207,11 @@
     "force_redeem_price": "11.271",
     "left_market_value": "23.598",
     "force_redeem_status": "未满足",
-    "bond_price": 128.57,
-    "stock_price": 7.39,
-    "bond_change": 0.57,
-    "stock_change": 1.51,
-    "premium_rate": 50.84
+    "bond_price": 128.29,
+    "stock_price": 7.34,
+    "bond_change": -0.22,
+    "stock_change": -0.68,
+    "premium_rate": 51.54
   },
   {
     "bond_id": "110085",
@@ -6233,11 +6233,11 @@
     "force_redeem_price": "44.980",
     "left_market_value": "119.831",
     "force_redeem_status": "未满足",
-    "bond_price": 117.72,
-    "stock_price": 12.85,
-    "bond_change": 1.39,
-    "stock_change": 10.02,
-    "premium_rate": 216.98
+    "bond_price": 118.0,
+    "stock_price": 12.86,
+    "bond_change": 0.23,
+    "stock_change": 0.08,
+    "premium_rate": 217.48
   },
   {
     "bond_id": "127055",
@@ -6259,11 +6259,11 @@
     "force_redeem_price": "24.050",
     "left_market_value": "2.081",
     "force_redeem_status": "暂不强赎",
-    "bond_price": 181.33,
-    "stock_price": 19.82,
-    "bond_change": 0.45,
-    "stock_change": 0.2,
-    "premium_rate": 69.26
+    "bond_price": 198.5,
+    "stock_price": 21.8,
+    "bond_change": 9.47,
+    "stock_change": 9.99,
+    "premium_rate": 68.45
   },
   {
     "bond_id": "113640",
@@ -6285,11 +6285,11 @@
     "force_redeem_price": "15.652",
     "left_market_value": "7.390",
     "force_redeem_status": "未满足",
-    "bond_price": 134.38,
-    "stock_price": 10.16,
-    "bond_change": -0.34,
-    "stock_change": 2.32,
-    "premium_rate": 59.25
+    "bond_price": 135.07,
+    "stock_price": 10.07,
+    "bond_change": 0.51,
+    "stock_change": -0.89,
+    "premium_rate": 61.49
   },
   {
     "bond_id": "127054",
@@ -6311,11 +6311,11 @@
     "force_redeem_price": "9.048",
     "left_market_value": "5.136",
     "force_redeem_status": "未满足",
-    "bond_price": 127.15,
-    "stock_price": 5.39,
-    "bond_change": 0.67,
-    "stock_change": 4.05,
-    "premium_rate": 64.19
+    "bond_price": 127.26,
+    "stock_price": 5.37,
+    "bond_change": 0.09,
+    "stock_change": -0.37,
+    "premium_rate": 64.94
   },
   {
     "bond_id": "118005",
@@ -6337,11 +6337,11 @@
     "force_redeem_price": "128.713",
     "left_market_value": "8.299",
     "force_redeem_status": "未满足",
-    "bond_price": 125.29,
-    "stock_price": 34.25,
-    "bond_change": 0.07,
-    "stock_change": 0.15,
-    "premium_rate": 262.18
+    "bond_price": 126.38,
+    "stock_price": 34.52,
+    "bond_change": 0.87,
+    "stock_change": 0.79,
+    "premium_rate": 262.47
   },
   {
     "bond_id": "127053",
@@ -6363,11 +6363,11 @@
     "force_redeem_price": "22.399",
     "left_market_value": "2.575",
     "force_redeem_status": "暂不强赎",
-    "bond_price": 173.0,
-    "stock_price": 20.57,
-    "bond_change": 0.64,
-    "stock_change": 1.53,
-    "premium_rate": 44.91
+    "bond_price": 175.4,
+    "stock_price": 20.81,
+    "bond_change": 1.39,
+    "stock_change": 1.17,
+    "premium_rate": 45.23
   },
   {
     "bond_id": "113053",
@@ -6389,11 +6389,11 @@
     "force_redeem_price": "22.750",
     "left_market_value": "69.951",
     "force_redeem_status": "未满足",
-    "bond_price": 124.0,
-    "stock_price": 13.28,
-    "bond_change": -0.89,
-    "stock_change": 2.23,
-    "premium_rate": 63.4
+    "bond_price": 124.4,
+    "stock_price": 13.12,
+    "bond_change": 0.33,
+    "stock_change": -1.2,
+    "premium_rate": 65.93
   },
   {
     "bond_id": "113638",
@@ -6415,11 +6415,11 @@
     "force_redeem_price": "20.813",
     "left_market_value": "5.997",
     "force_redeem_status": "未满足",
-    "bond_price": 127.24,
-    "stock_price": 8.67,
-    "bond_change": -0.0,
-    "stock_change": 0.7,
-    "premium_rate": 134.96
+    "bond_price": 127.26,
+    "stock_price": 8.59,
+    "bond_change": 0.01,
+    "stock_change": -0.92,
+    "premium_rate": 137.18
   },
   {
     "bond_id": "113052",
@@ -6441,11 +6441,11 @@
     "force_redeem_price": "26.169",
     "left_market_value": "413.500",
     "force_redeem_status": "未满足",
-    "bond_price": 118.44,
-    "stock_price": 19.1,
-    "bond_change": 0.33,
-    "stock_change": 1.06,
-    "premium_rate": 24.83
+    "bond_price": 117.97,
+    "stock_price": 18.61,
+    "bond_change": -0.39,
+    "stock_change": -2.57,
+    "premium_rate": 27.61
   },
   {
     "bond_id": "110084",
@@ -6467,11 +6467,11 @@
     "force_redeem_price": "9.230",
     "left_market_value": "8.157",
     "force_redeem_status": "未满足",
-    "bond_price": 134.55,
-    "stock_price": 6.34,
-    "bond_change": 0.66,
-    "stock_change": 2.76,
-    "premium_rate": 50.68
+    "bond_price": 134.88,
+    "stock_price": 6.4,
+    "bond_change": 0.24,
+    "stock_change": 0.95,
+    "premium_rate": 49.63
   },
   {
     "bond_id": "123133",
@@ -6493,11 +6493,11 @@
     "force_redeem_price": "19.500",
     "left_market_value": "7.198",
     "force_redeem_status": "未满足",
-    "bond_price": 133.16,
-    "stock_price": 12.76,
-    "bond_change": -0.0,
-    "stock_change": -0.47,
-    "premium_rate": 56.54
+    "bond_price": 133.83,
+    "stock_price": 13.02,
+    "bond_change": 0.5,
+    "stock_change": 2.04,
+    "premium_rate": 54.18
   },
   {
     "bond_id": "113636",
@@ -6519,11 +6519,11 @@
     "force_redeem_price": "34.086",
     "left_market_value": "9.995",
     "force_redeem_status": "未满足",
-    "bond_price": 130.44,
-    "stock_price": 20.55,
-    "bond_change": 0.08,
-    "stock_change": 1.38,
-    "premium_rate": 66.43
+    "bond_price": 130.53,
+    "stock_price": 20.46,
+    "bond_change": 0.07,
+    "stock_change": -0.44,
+    "premium_rate": 67.27
   },
   {
     "bond_id": "113634",
@@ -6545,11 +6545,11 @@
     "force_redeem_price": "122.551",
     "left_market_value": "7.507",
     "force_redeem_status": "未满足",
-    "bond_price": 128.59,
-    "stock_price": 60.8,
-    "bond_change": -0.51,
-    "stock_change": -0.8,
-    "premium_rate": 99.38
+    "bond_price": 128.51,
+    "stock_price": 60.06,
+    "bond_change": -0.06,
+    "stock_change": -1.22,
+    "premium_rate": 101.72
   },
   {
     "bond_id": "111002",
@@ -6571,11 +6571,11 @@
     "force_redeem_price": "17.537",
     "left_market_value": "6.619",
     "force_redeem_status": "未满足",
-    "bond_price": 149.18,
-    "stock_price": 16.22,
-    "bond_change": 1.08,
-    "stock_change": 3.44,
-    "premium_rate": 24.07
+    "bond_price": 147.41,
+    "stock_price": 15.77,
+    "bond_change": -1.19,
+    "stock_change": -2.77,
+    "premium_rate": 26.1
   },
   {
     "bond_id": "123131",
@@ -6597,11 +6597,11 @@
     "force_redeem_price": "13.065",
     "left_market_value": "3.159",
     "force_redeem_status": "暂不强赎",
-    "bond_price": 313.5,
-    "stock_price": 22.21,
-    "bond_change": -0.66,
-    "stock_change": -0.67,
-    "premium_rate": 41.86
+    "bond_price": 325.6,
+    "stock_price": 23.11,
+    "bond_change": 3.86,
+    "stock_change": 4.05,
+    "premium_rate": 41.6
   },
   {
     "bond_id": "113633",
@@ -6623,11 +6623,11 @@
     "force_redeem_price": "224.861",
     "left_market_value": "10.396",
     "force_redeem_status": "未满足",
-    "bond_price": 122.45,
-    "stock_price": 60.91,
-    "bond_change": -0.01,
-    "stock_change": 0.4,
-    "premium_rate": 247.72
+    "bond_price": 122.21,
+    "stock_price": 60.15,
+    "bond_change": -0.2,
+    "stock_change": -1.25,
+    "premium_rate": 251.43
   },
   {
     "bond_id": "127050",
@@ -6649,11 +6649,11 @@
     "force_redeem_price": "19.591",
     "left_market_value": "20.860",
     "force_redeem_status": "未满足",
-    "bond_price": 137.8,
-    "stock_price": 15.09,
-    "bond_change": 0.15,
-    "stock_change": 2.24,
-    "premium_rate": 37.62
+    "bond_price": 137.13,
+    "stock_price": 14.82,
+    "bond_change": -0.49,
+    "stock_change": -1.79,
+    "premium_rate": 39.44
   },
   {
     "bond_id": "113631",
@@ -6675,11 +6675,11 @@
     "force_redeem_price": "8.463",
     "left_market_value": "5.958",
     "force_redeem_status": "未满足",
-    "bond_price": 138.79,
-    "stock_price": 7.65,
-    "bond_change": -0.02,
-    "stock_change": 0.92,
-    "premium_rate": 18.11
+    "bond_price": 138.78,
+    "stock_price": 7.56,
+    "bond_change": -0.01,
+    "stock_change": -1.18,
+    "premium_rate": 19.51
   },
   {
     "bond_id": "127049",
@@ -6701,11 +6701,11 @@
     "force_redeem_price": "13.767",
     "left_market_value": "81.434",
     "force_redeem_status": "未满足",
-    "bond_price": 117.12,
-    "stock_price": 7.06,
-    "bond_change": 0.1,
-    "stock_change": 0.86,
-    "premium_rate": 75.68
+    "bond_price": 115.99,
+    "stock_price": 6.93,
+    "bond_change": -0.96,
+    "stock_change": -1.84,
+    "premium_rate": 77.25
   },
   {
     "bond_id": "127047",
@@ -6727,11 +6727,11 @@
     "force_redeem_price": "6.630",
     "left_market_value": "4.654",
     "force_redeem_status": "暂不强赎",
-    "bond_price": 139.86,
-    "stock_price": 5.23,
-    "bond_change": -0.64,
-    "stock_change": -1.32,
-    "premium_rate": 36.38
+    "bond_price": 141.03,
+    "stock_price": 5.41,
+    "bond_change": 0.83,
+    "stock_change": 3.44,
+    "premium_rate": 32.94
   },
   {
     "bond_id": "127046",
@@ -6753,11 +6753,11 @@
     "force_redeem_price": "26.429",
     "left_market_value": "11.274",
     "force_redeem_status": "未满足",
-    "bond_price": 136.69,
-    "stock_price": 19.95,
-    "bond_change": -1.18,
-    "stock_change": -3.16,
-    "premium_rate": 39.29
+    "bond_price": 135.97,
+    "stock_price": 19.53,
+    "bond_change": -0.53,
+    "stock_change": -2.11,
+    "premium_rate": 41.54
   },
   {
     "bond_id": "127045",
@@ -6779,11 +6779,11 @@
     "force_redeem_price": "56.316",
     "left_market_value": "95.429",
     "force_redeem_status": "未满足",
-    "bond_price": 123.66,
-    "stock_price": 38.93,
-    "bond_change": 0.19,
-    "stock_change": -0.84,
-    "premium_rate": 37.6
+    "bond_price": 122.98,
+    "stock_price": 38.0,
+    "bond_change": -0.55,
+    "stock_change": -2.39,
+    "premium_rate": 40.19
   },
   {
     "bond_id": "127044",
@@ -6805,11 +6805,11 @@
     "force_redeem_price": "25.688",
     "left_market_value": "3.368",
     "force_redeem_status": "未满足",
-    "bond_price": 122.84,
-    "stock_price": 9.53,
-    "bond_change": -0.39,
-    "stock_change": 3.93,
-    "premium_rate": 154.69
+    "bond_price": 123.6,
+    "stock_price": 9.6,
+    "bond_change": 0.62,
+    "stock_change": 0.73,
+    "premium_rate": 154.41
   },
   {
     "bond_id": "123124",
@@ -6831,11 +6831,11 @@
     "force_redeem_price": "20.644",
     "left_market_value": "5.224",
     "force_redeem_status": "计数中",
-    "bond_price": 135.77,
-    "stock_price": 11.57,
-    "bond_change": -2.02,
-    "stock_change": -1.62,
-    "premium_rate": 86.35
+    "bond_price": 137.05,
+    "stock_price": 11.96,
+    "bond_change": 0.94,
+    "stock_change": 3.37,
+    "premium_rate": 81.97
   },
   {
     "bond_id": "123122",
@@ -6857,11 +6857,11 @@
     "force_redeem_price": "118.950",
     "left_market_value": "5.801",
     "force_redeem_status": "未满足",
-    "bond_price": 134.15,
-    "stock_price": 67.48,
-    "bond_change": 4.97,
-    "stock_change": 20.01,
-    "premium_rate": 81.9
+    "bond_price": 133.08,
+    "stock_price": 68.86,
+    "bond_change": -0.8,
+    "stock_change": 2.05,
+    "premium_rate": 76.83
   },
   {
     "bond_id": "110081",
@@ -6883,11 +6883,11 @@
     "force_redeem_price": "23.868",
     "left_market_value": "72.068",
     "force_redeem_status": "未满足",
-    "bond_price": 102.49,
-    "stock_price": 16.42,
-    "bond_change": 0.85,
-    "stock_change": -1.02,
-    "premium_rate": 14.6
+    "bond_price": 102.74,
+    "stock_price": 16.58,
+    "bond_change": 0.24,
+    "stock_change": 0.97,
+    "premium_rate": 13.77
   },
   {
     "bond_id": "123119",
@@ -6909,11 +6909,11 @@
     "force_redeem_price": "20.397",
     "left_market_value": "19.990",
     "force_redeem_status": "未满足",
-    "bond_price": 125.5,
-    "stock_price": 12.55,
-    "bond_change": -0.2,
-    "stock_change": 0.0,
-    "premium_rate": 56.89
+    "bond_price": 125.37,
+    "stock_price": 12.51,
+    "bond_change": -0.1,
+    "stock_change": -0.32,
+    "premium_rate": 57.24
   },
   {
     "bond_id": "113627",
@@ -6935,11 +6935,11 @@
     "force_redeem_price": "26.793",
     "left_market_value": "7.997",
     "force_redeem_status": "未满足",
-    "bond_price": 118.95,
-    "stock_price": 13.04,
-    "bond_change": -0.84,
-    "stock_change": -2.83,
-    "premium_rate": 88.0
+    "bond_price": 119.34,
+    "stock_price": 12.97,
+    "bond_change": 0.33,
+    "stock_change": -0.54,
+    "premium_rate": 89.63
   },
   {
     "bond_id": "127040",
@@ -6961,11 +6961,11 @@
     "force_redeem_price": "9.555",
     "left_market_value": "39.863",
     "force_redeem_status": "未满足",
-    "bond_price": 128.72,
-    "stock_price": 8.02,
-    "bond_change": 0.41,
-    "stock_change": 0.88,
-    "premium_rate": 17.97
+    "bond_price": 128.0,
+    "stock_price": 7.89,
+    "bond_change": -0.56,
+    "stock_change": -1.62,
+    "premium_rate": 19.24
   },
   {
     "bond_id": "123118",
@@ -6987,11 +6987,11 @@
     "force_redeem_price": "13.429",
     "left_market_value": "0.654",
     "force_redeem_status": "暂不强赎",
-    "bond_price": 1080.0,
-    "stock_price": 82.43,
-    "bond_change": 3.79,
-    "stock_change": 3.84,
-    "premium_rate": 35.34
+    "bond_price": 1088.2,
+    "stock_price": 83.99,
+    "bond_change": 0.76,
+    "stock_change": 1.89,
+    "premium_rate": 33.84
   },
   {
     "bond_id": "123117",
@@ -7013,11 +7013,11 @@
     "force_redeem_price": "49.595",
     "left_market_value": "9.998",
     "force_redeem_status": "未满足",
-    "bond_price": 118.0,
-    "stock_price": 18.89,
-    "bond_change": -0.01,
-    "stock_change": 1.56,
-    "premium_rate": 138.31
+    "bond_price": 118.06,
+    "stock_price": 18.6,
+    "bond_change": 0.05,
+    "stock_change": -1.54,
+    "premium_rate": 142.14
   },
   {
     "bond_id": "113051",
@@ -7039,11 +7039,11 @@
     "force_redeem_price": "4.329",
     "left_market_value": "26.519",
     "force_redeem_status": "暂不强赎",
-    "bond_price": 133.29,
-    "stock_price": 3.64,
-    "bond_change": 1.05,
-    "stock_change": 2.82,
-    "premium_rate": 21.94
+    "bond_price": 133.55,
+    "stock_price": 3.65,
+    "bond_change": 0.19,
+    "stock_change": 0.27,
+    "premium_rate": 21.84
   },
   {
     "bond_id": "113625",
@@ -7065,11 +7065,11 @@
     "force_redeem_price": "25.792",
     "left_market_value": "5.825",
     "force_redeem_status": "未满足",
-    "bond_price": 117.06,
-    "stock_price": 10.89,
-    "bond_change": 0.32,
-    "stock_change": 4.11,
-    "premium_rate": 113.26
+    "bond_price": 116.82,
+    "stock_price": 10.87,
+    "bond_change": -0.21,
+    "stock_change": -0.18,
+    "premium_rate": 113.22
   },
   {
     "bond_id": "127038",
@@ -7091,11 +7091,11 @@
     "force_redeem_price": "126.113",
     "left_market_value": "14.915",
     "force_redeem_status": "未满足",
-    "bond_price": 125.7,
-    "stock_price": 64.1,
-    "bond_change": -2.42,
-    "stock_change": -1.41,
-    "premium_rate": 90.24
+    "bond_price": 128.0,
+    "stock_price": 64.91,
+    "bond_change": 1.83,
+    "stock_change": 1.26,
+    "premium_rate": 91.3
   },
   {
     "bond_id": "113049",
@@ -7117,11 +7117,11 @@
     "force_redeem_price": "50.479",
     "left_market_value": "34.950",
     "force_redeem_status": "未满足",
-    "bond_price": 109.65,
-    "stock_price": 16.69,
-    "bond_change": -0.71,
-    "stock_change": -0.71,
-    "premium_rate": 155.11
+    "bond_price": 109.2,
+    "stock_price": 16.24,
+    "bond_change": -0.41,
+    "stock_change": -2.7,
+    "premium_rate": 161.09
   },
   {
     "bond_id": "127037",
@@ -7143,11 +7143,11 @@
     "force_redeem_price": "13.351",
     "left_market_value": "5.055",
     "force_redeem_status": "暂不强赎",
-    "bond_price": 542.5,
-    "stock_price": 37.89,
-    "bond_change": -1.57,
-    "stock_change": -1.43,
-    "premium_rate": 47.04
+    "bond_price": 571.13,
+    "stock_price": 40.05,
+    "bond_change": 5.28,
+    "stock_change": 5.7,
+    "premium_rate": 46.45
   },
   {
     "bond_id": "123114",
@@ -7169,11 +7169,11 @@
     "force_redeem_price": "29.497",
     "left_market_value": "8.999",
     "force_redeem_status": "未满足",
-    "bond_price": 133.7,
-    "stock_price": 21.64,
-    "bond_change": 0.45,
-    "stock_change": 1.84,
-    "premium_rate": 40.19
+    "bond_price": 134.55,
+    "stock_price": 21.93,
+    "bond_change": 0.64,
+    "stock_change": 1.34,
+    "premium_rate": 39.21
   },
   {
     "bond_id": "111000",
@@ -7195,11 +7195,11 @@
     "force_redeem_price": "22.477",
     "left_market_value": "9.991",
     "force_redeem_status": "暂不强赎",
-    "bond_price": 144.53,
-    "stock_price": 18.96,
-    "bond_change": 0.93,
-    "stock_change": 3.66,
-    "premium_rate": 31.8
+    "bond_price": 146.29,
+    "stock_price": 19.32,
+    "bond_change": 1.21,
+    "stock_change": 1.9,
+    "premium_rate": 30.92
   },
   {
     "bond_id": "127034",
@@ -7221,11 +7221,11 @@
     "force_redeem_price": "14.573",
     "left_market_value": "4.279",
     "force_redeem_status": "未满足",
-    "bond_price": 125.81,
-    "stock_price": 9.56,
-    "bond_change": -0.03,
-    "stock_change": 1.16,
-    "premium_rate": 47.52
+    "bond_price": 127.62,
+    "stock_price": 9.89,
+    "bond_change": 1.44,
+    "stock_change": 3.45,
+    "premium_rate": 44.65
   },
   {
     "bond_id": "113048",
@@ -7247,11 +7247,11 @@
     "force_redeem_price": "5.811",
     "left_market_value": "15.453",
     "force_redeem_status": "暂不强赎",
-    "bond_price": 123.76,
-    "stock_price": 3.79,
-    "bond_change": 1.19,
-    "stock_change": 5.28,
-    "premium_rate": 45.97
+    "bond_price": 125.02,
+    "stock_price": 3.85,
+    "bond_change": 1.02,
+    "stock_change": 1.58,
+    "premium_rate": 45.15
   },
   {
     "bond_id": "123113",
@@ -7273,11 +7273,11 @@
     "force_redeem_price": "41.158",
     "left_market_value": "10.248",
     "force_redeem_status": "未满足",
-    "bond_price": 117.5,
-    "stock_price": 17.46,
-    "bond_change": 0.03,
-    "stock_change": 1.69,
-    "premium_rate": 113.06
+    "bond_price": 117.39,
+    "stock_price": 17.17,
+    "bond_change": -0.09,
+    "stock_change": -1.66,
+    "premium_rate": 116.46
   },
   {
     "bond_id": "127033",
@@ -7302,7 +7302,7 @@
     "bond_price": 89.73,
     "stock_price": 3.11,
     "bond_change": null,
-    "stock_change": 1.97,
+    "stock_change": 0.0,
     "premium_rate": 9.34
   },
   {
@@ -7325,11 +7325,11 @@
     "force_redeem_price": "8.359",
     "left_market_value": "2.264",
     "force_redeem_status": "未满足",
-    "bond_price": 147.12,
-    "stock_price": 8.09,
-    "bond_change": 3.36,
-    "stock_change": 12.67,
-    "premium_rate": 16.93
+    "bond_price": 148.11,
+    "stock_price": 8.32,
+    "bond_change": 0.67,
+    "stock_change": 2.84,
+    "premium_rate": 14.46
   },
   {
     "bond_id": "123109",
@@ -7351,11 +7351,11 @@
     "force_redeem_price": "34.632",
     "left_market_value": "4.595",
     "force_redeem_status": "未满足",
-    "bond_price": 125.88,
-    "stock_price": 13.41,
-    "bond_change": -0.86,
-    "stock_change": -1.61,
-    "premium_rate": 150.07
+    "bond_price": 126.86,
+    "stock_price": 14.01,
+    "bond_change": 0.78,
+    "stock_change": 4.47,
+    "premium_rate": 141.23
   },
   {
     "bond_id": "123107",
@@ -7377,11 +7377,11 @@
     "force_redeem_price": "20.917",
     "left_market_value": "77.063",
     "force_redeem_status": "未满足",
-    "bond_price": 114.28,
-    "stock_price": 13.94,
-    "bond_change": -0.37,
-    "stock_change": -1.06,
-    "premium_rate": 31.91
+    "bond_price": 113.0,
+    "stock_price": 13.55,
+    "bond_change": -1.12,
+    "stock_change": -2.8,
+    "premium_rate": 34.18
   },
   {
     "bond_id": "127031",
@@ -7403,11 +7403,11 @@
     "force_redeem_price": "21.957",
     "left_market_value": "9.999",
     "force_redeem_status": "未满足",
-    "bond_price": 124.6,
-    "stock_price": 13.85,
-    "bond_change": -0.99,
-    "stock_change": -1.07,
-    "premium_rate": 51.95
+    "bond_price": 124.92,
+    "stock_price": 13.65,
+    "bond_change": 0.26,
+    "stock_change": -1.44,
+    "premium_rate": 54.57
   },
   {
     "bond_id": "127030",
@@ -7429,11 +7429,11 @@
     "force_redeem_price": "17.173",
     "left_market_value": "49.974",
     "force_redeem_status": "未满足",
-    "bond_price": 119.37,
-    "stock_price": 12.14,
-    "bond_change": -0.01,
-    "stock_change": 3.14,
-    "premium_rate": 29.89
+    "bond_price": 119.97,
+    "stock_price": 12.22,
+    "bond_change": 0.5,
+    "stock_change": 0.66,
+    "premium_rate": 29.69
   },
   {
     "bond_id": "113046",
@@ -7455,11 +7455,11 @@
     "force_redeem_price": "13.234",
     "left_market_value": "14.992",
     "force_redeem_status": "未满足",
-    "bond_price": 131.07,
-    "stock_price": 9.94,
-    "bond_change": -0.4,
-    "stock_change": 1.02,
-    "premium_rate": 34.24
+    "bond_price": 133.07,
+    "stock_price": 10.15,
+    "bond_change": 1.52,
+    "stock_change": 2.11,
+    "premium_rate": 33.46
   },
   {
     "bond_id": "123104",
@@ -7481,11 +7481,11 @@
     "force_redeem_price": "9.126",
     "left_market_value": "9.699",
     "force_redeem_status": "未满足",
-    "bond_price": 137.53,
-    "stock_price": 7.54,
-    "bond_change": 0.12,
-    "stock_change": -0.66,
-    "premium_rate": 28.05
+    "bond_price": 139.97,
+    "stock_price": 7.73,
+    "bond_change": 1.77,
+    "stock_change": 2.52,
+    "premium_rate": 27.12
   },
   {
     "bond_id": "113042",
@@ -7507,11 +7507,11 @@
     "force_redeem_price": "10.855",
     "left_market_value": "199.775",
     "force_redeem_status": "未满足",
-    "bond_price": 119.61,
-    "stock_price": 9.58,
-    "bond_change": 0.47,
-    "stock_change": 1.38,
-    "premium_rate": 4.25
+    "bond_price": 118.4,
+    "stock_price": 9.39,
+    "bond_change": -1.01,
+    "stock_change": -1.98,
+    "premium_rate": 5.29
   },
   {
     "bond_id": "113616",
@@ -7533,11 +7533,11 @@
     "force_redeem_price": "206.726",
     "left_market_value": "24.324",
     "force_redeem_status": "未满足",
-    "bond_price": 114.0,
-    "stock_price": 88.22,
-    "bond_change": -0.05,
-    "stock_change": -0.54,
-    "premium_rate": 105.49
+    "bond_price": 112.67,
+    "stock_price": 87.66,
+    "bond_change": -1.17,
+    "stock_change": -0.63,
+    "premium_rate": 104.38
   },
   {
     "bond_id": "123092",
@@ -7559,11 +7559,11 @@
     "force_redeem_price": "6.461",
     "left_market_value": "3.416",
     "force_redeem_status": "未满足",
-    "bond_price": 122.71,
-    "stock_price": 4.78,
-    "bond_change": 0.46,
-    "stock_change": 1.7,
-    "premium_rate": 27.59
+    "bond_price": 122.69,
+    "stock_price": 4.82,
+    "bond_change": -0.02,
+    "stock_change": 0.84,
+    "premium_rate": 26.5
   },
   {
     "bond_id": "123091",
@@ -7585,11 +7585,11 @@
     "force_redeem_price": "19.487",
     "left_market_value": "5.480",
     "force_redeem_status": "暂不强赎",
-    "bond_price": 141.1,
-    "stock_price": 15.57,
-    "bond_change": -1.12,
-    "stock_change": -2.01,
-    "premium_rate": 35.84
+    "bond_price": 145.76,
+    "stock_price": 16.33,
+    "bond_change": 3.3,
+    "stock_change": 4.88,
+    "premium_rate": 33.8
   },
   {
     "bond_id": "113615",
@@ -7611,11 +7611,11 @@
     "force_redeem_price": "14.456",
     "left_market_value": "4.958",
     "force_redeem_status": "存续期内不强赎",
-    "bond_price": 764.2,
-    "stock_price": 71.56,
-    "bond_change": -2.3,
-    "stock_change": -3.61,
-    "premium_rate": 18.75
+    "bond_price": 781.02,
+    "stock_price": 72.41,
+    "bond_change": 2.2,
+    "stock_change": 1.19,
+    "premium_rate": 19.94
   },
   {
     "bond_id": "123090",
@@ -7637,11 +7637,11 @@
     "force_redeem_price": "44.876",
     "left_market_value": "4.984",
     "force_redeem_status": "未满足",
-    "bond_price": 113.4,
-    "stock_price": 16.55,
-    "bond_change": -1.3,
-    "stock_change": 1.22,
-    "premium_rate": 136.53
+    "bond_price": 112.0,
+    "stock_price": 16.15,
+    "bond_change": -1.24,
+    "stock_change": -2.42,
+    "premium_rate": 139.39
   },
   {
     "bond_id": "128142",
@@ -7663,11 +7663,11 @@
     "force_redeem_price": "22.750",
     "left_market_value": "7.178",
     "force_redeem_status": "未满足",
-    "bond_price": 120.79,
-    "stock_price": 17.73,
-    "bond_change": -0.47,
-    "stock_change": -2.8,
-    "premium_rate": 19.22
+    "bond_price": 119.58,
+    "stock_price": 17.39,
+    "bond_change": -1.0,
+    "stock_change": -1.92,
+    "premium_rate": 20.33
   },
   {
     "bond_id": "123088",
@@ -7689,11 +7689,11 @@
     "force_redeem_price": "19.435",
     "left_market_value": "3.004",
     "force_redeem_status": "未满足",
-    "bond_price": 118.2,
-    "stock_price": 12.15,
-    "bond_change": 0.42,
-    "stock_change": 6.11,
-    "premium_rate": 45.44
+    "bond_price": 118.48,
+    "stock_price": 12.09,
+    "bond_change": 0.24,
+    "stock_change": -0.49,
+    "premium_rate": 46.51
   },
   {
     "bond_id": "127027",
@@ -7715,11 +7715,11 @@
     "force_redeem_price": "3.809",
     "left_market_value": "19.463",
     "force_redeem_status": "未满足",
-    "bond_price": 112.79,
-    "stock_price": 2.61,
-    "bond_change": -0.29,
-    "stock_change": 0.77,
-    "premium_rate": 26.62
+    "bond_price": 112.48,
+    "stock_price": 2.57,
+    "bond_change": -0.28,
+    "stock_change": -1.53,
+    "premium_rate": 28.23
   },
   {
     "bond_id": "113043",
@@ -7741,11 +7741,11 @@
     "force_redeem_price": "10.374",
     "left_market_value": "37.992",
     "force_redeem_status": "未满足",
-    "bond_price": 128.3,
-    "stock_price": 8.5,
-    "bond_change": -2.02,
-    "stock_change": 1.43,
-    "premium_rate": 20.45
+    "bond_price": 128.53,
+    "stock_price": 8.53,
+    "bond_change": 0.17,
+    "stock_change": 0.35,
+    "premium_rate": 20.24
   },
   {
     "bond_id": "123080",
@@ -7767,11 +7767,11 @@
     "force_redeem_price": "14.664",
     "left_market_value": "1.485",
     "force_redeem_status": "未满足",
-    "bond_price": 127.53,
-    "stock_price": 9.38,
-    "bond_change": -0.11,
-    "stock_change": 3.76,
-    "premium_rate": 53.37
+    "bond_price": 128.24,
+    "stock_price": 9.41,
+    "bond_change": 0.56,
+    "stock_change": 0.32,
+    "premium_rate": 53.73
   },
   {
     "bond_id": "113610",
@@ -7793,11 +7793,11 @@
     "force_redeem_price": "8.450",
     "left_market_value": "2.528",
     "force_redeem_status": "未满足",
-    "bond_price": 122.78,
-    "stock_price": 5.46,
-    "bond_change": -0.29,
-    "stock_change": 1.3,
-    "premium_rate": 46.16
+    "bond_price": 122.65,
+    "stock_price": 5.55,
+    "bond_change": -0.1,
+    "stock_change": 1.65,
+    "premium_rate": 43.64
   },
   {
     "bond_id": "110077",
@@ -7819,11 +7819,11 @@
     "force_redeem_price": "5.733",
     "left_market_value": "5.839",
     "force_redeem_status": "存续期内不强赎",
-    "bond_price": 211.39,
-    "stock_price": 9.24,
-    "bond_change": -0.67,
-    "stock_change": -0.96,
-    "premium_rate": 0.89
+    "bond_price": 209.36,
+    "stock_price": 9.08,
+    "bond_change": -0.96,
+    "stock_change": -1.73,
+    "premium_rate": 1.68
   },
   {
     "bond_id": "123076",
@@ -7845,11 +7845,11 @@
     "force_redeem_price": "16.510",
     "left_market_value": "3.393",
     "force_redeem_status": "计数中",
-    "bond_price": 122.89,
-    "stock_price": 9.4,
-    "bond_change": 0.65,
-    "stock_change": 1.51,
-    "premium_rate": 66.03
+    "bond_price": 124.75,
+    "stock_price": 9.73,
+    "bond_change": 1.51,
+    "stock_change": 3.51,
+    "premium_rate": 62.82
   },
   {
     "bond_id": "128138",
@@ -7871,11 +7871,11 @@
     "force_redeem_price": "13.780",
     "left_market_value": "4.199",
     "force_redeem_status": "未满足",
-    "bond_price": 130.0,
-    "stock_price": 9.34,
-    "bond_change": -0.05,
-    "stock_change": 4.01,
-    "premium_rate": 47.54
+    "bond_price": 130.14,
+    "stock_price": 9.63,
+    "bond_change": 0.11,
+    "stock_change": 3.1,
+    "premium_rate": 43.25
   },
   {
     "bond_id": "127025",
@@ -7897,11 +7897,11 @@
     "force_redeem_price": "16.796",
     "left_market_value": "17.764",
     "force_redeem_status": "未满足",
-    "bond_price": 105.61,
-    "stock_price": 3.71,
-    "bond_change": -0.01,
-    "stock_change": 1.37,
-    "premium_rate": 267.78
+    "bond_price": 105.63,
+    "stock_price": 3.66,
+    "bond_change": 0.02,
+    "stock_change": -1.35,
+    "premium_rate": 272.88
   },
   {
     "bond_id": "128136",
@@ -7923,11 +7923,11 @@
     "force_redeem_price": "72.371",
     "left_market_value": "29.848",
     "force_redeem_status": "计数中",
-    "bond_price": 123.5,
-    "stock_price": 53.71,
-    "bond_change": -3.3,
-    "stock_change": -6.56,
-    "premium_rate": 28.01
+    "bond_price": 125.4,
+    "stock_price": 55.17,
+    "bond_change": 1.54,
+    "stock_change": 2.72,
+    "premium_rate": 26.54
   },
   {
     "bond_id": "110076",
@@ -7949,11 +7949,11 @@
     "force_redeem_price": "21.450",
     "left_market_value": "18.424",
     "force_redeem_status": "未满足",
-    "bond_price": 120.2,
-    "stock_price": 16.77,
-    "bond_change": -0.59,
-    "stock_change": 0.3,
-    "premium_rate": 18.26
+    "bond_price": 120.47,
+    "stock_price": 16.88,
+    "bond_change": 0.22,
+    "stock_change": 0.66,
+    "premium_rate": 17.76
   },
   {
     "bond_id": "113605",
@@ -7975,11 +7975,11 @@
     "force_redeem_price": "21.918",
     "left_market_value": "14.045",
     "force_redeem_status": "未满足",
-    "bond_price": 117.3,
-    "stock_price": 18.5,
-    "bond_change": -1.8,
-    "stock_change": -1.86,
-    "premium_rate": 6.9
+    "bond_price": 116.77,
+    "stock_price": 18.6,
+    "bond_change": -0.45,
+    "stock_change": 0.54,
+    "premium_rate": 5.85
   },
   {
     "bond_id": "123072",
@@ -8001,11 +8001,11 @@
     "force_redeem_price": "42.393",
     "left_market_value": "1.418",
     "force_redeem_status": "未满足",
-    "bond_price": 120.02,
-    "stock_price": 10.37,
-    "bond_change": -0.1,
-    "stock_change": 1.17,
-    "premium_rate": 277.42
+    "bond_price": 119.97,
+    "stock_price": 10.3,
+    "bond_change": -0.04,
+    "stock_change": -0.68,
+    "premium_rate": 279.83
   },
   {
     "bond_id": "123071",
@@ -8027,11 +8027,11 @@
     "force_redeem_price": "8.684",
     "left_market_value": "6.937",
     "force_redeem_status": "未满足",
-    "bond_price": 115.57,
-    "stock_price": 4.99,
-    "bond_change": -0.04,
-    "stock_change": 2.04,
-    "premium_rate": 54.72
+    "bond_price": 115.52,
+    "stock_price": 4.96,
+    "bond_change": -0.05,
+    "stock_change": -0.6,
+    "premium_rate": 55.58
   },
   {
     "bond_id": "128135",
@@ -8053,11 +8053,11 @@
     "force_redeem_price": "71.435",
     "left_market_value": "13.398",
     "force_redeem_status": "未满足",
-    "bond_price": 114.64,
-    "stock_price": 20.25,
-    "bond_change": -0.05,
-    "stock_change": -0.88,
-    "premium_rate": 211.1
+    "bond_price": 114.66,
+    "stock_price": 19.85,
+    "bond_change": 0.01,
+    "stock_change": -1.98,
+    "premium_rate": 217.4
   },
   {
     "bond_id": "110075",
@@ -8079,11 +8079,11 @@
     "force_redeem_price": "8.021",
     "left_market_value": "58.959",
     "force_redeem_status": "未满足",
-    "bond_price": 107.61,
-    "stock_price": 5.26,
-    "bond_change": 0.0,
-    "stock_change": 0.19,
-    "premium_rate": 26.23
+    "bond_price": 107.14,
+    "stock_price": 5.18,
+    "bond_change": -0.43,
+    "stock_change": -1.52,
+    "premium_rate": 27.62
   },
   {
     "bond_id": "128134",
@@ -8105,11 +8105,11 @@
     "force_redeem_price": "22.737",
     "left_market_value": "15.678",
     "force_redeem_status": "未满足",
-    "bond_price": 121.95,
-    "stock_price": 20.58,
-    "bond_change": -0.86,
-    "stock_change": 0.83,
-    "premium_rate": 3.64
+    "bond_price": 116.9,
+    "stock_price": 19.38,
+    "bond_change": -4.14,
+    "stock_change": -5.83,
+    "premium_rate": 5.5
   },
   {
     "bond_id": "123065",
@@ -8157,11 +8157,11 @@
     "force_redeem_price": "27.144",
     "left_market_value": "5.974",
     "force_redeem_status": "未满足",
-    "bond_price": 110.09,
-    "stock_price": 17.64,
-    "bond_change": -0.02,
-    "stock_change": 1.15,
-    "premium_rate": 30.31
+    "bond_price": 110.0,
+    "stock_price": 17.52,
+    "bond_change": -0.08,
+    "stock_change": -0.68,
+    "premium_rate": 31.1
   },
   {
     "bond_id": "128129",
@@ -8183,11 +8183,11 @@
     "force_redeem_price": "5.044",
     "left_market_value": "49.996",
     "force_redeem_status": "未满足",
-    "bond_price": 107.89,
-    "stock_price": 3.24,
-    "bond_change": -0.01,
-    "stock_change": 2.21,
-    "premium_rate": 29.2
+    "bond_price": 107.9,
+    "stock_price": 3.13,
+    "bond_change": 0.01,
+    "stock_change": -3.4,
+    "premium_rate": 33.75
   },
   {
     "bond_id": "113039",
@@ -8209,11 +8209,11 @@
     "force_redeem_price": "3.757",
     "left_market_value": "2.854",
     "force_redeem_status": "存续期内不强赎",
-    "bond_price": 167.87,
-    "stock_price": 4.8,
-    "bond_change": 2.65,
-    "stock_change": 3.67,
-    "premium_rate": 1.07
+    "bond_price": 165.56,
+    "stock_price": 4.78,
+    "bond_change": -1.37,
+    "stock_change": -0.42,
+    "premium_rate": 0.1
   },
   {
     "bond_id": "128128",
@@ -8235,11 +8235,11 @@
     "force_redeem_price": "6.981",
     "left_market_value": "6.788",
     "force_redeem_status": "未满足",
-    "bond_price": 110.15,
-    "stock_price": 5.14,
-    "bond_change": 0.04,
-    "stock_change": 1.58,
-    "premium_rate": 15.08
+    "bond_price": 110.04,
+    "stock_price": 5.12,
+    "bond_change": -0.11,
+    "stock_change": -0.39,
+    "premium_rate": 15.41
   },
   {
     "bond_id": "128127",
@@ -8261,10 +8261,10 @@
     "force_redeem_price": "5.096",
     "left_market_value": "7.522",
     "force_redeem_status": "未满足",
-    "bond_price": 114.78,
-    "stock_price": 3.87,
-    "bond_change": -0.14,
-    "stock_change": -2.27,
-    "premium_rate": 16.26
+    "bond_price": 114.65,
+    "stock_price": 3.83,
+    "bond_change": -0.11,
+    "stock_change": -1.03,
+    "premium_rate": 17.35
   }
 ]

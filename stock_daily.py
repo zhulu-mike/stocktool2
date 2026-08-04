@@ -28,10 +28,11 @@ else:
     dt = datetime.now()
 
 # 参数变量
-target_date = dt.strftime('%m%d')
+target_date = dt.strftime('%Y%m%d')
 month_str = dt.strftime('%Y%m')
-month = int(target_date[:2])
-day = int(target_date[2:])
+year = int(target_date[:4])
+month = int(target_date[4:6])
+day = int(target_date[6:])
 jisilu_url = 'https://www.jisilu.cn/data/cbnew/cb_index/'
 session = requests.Session()
 session.headers.update({
@@ -190,6 +191,7 @@ print(f"\n=== 提取{target_date}日收益数据 ===")
 march_6_data = None
 # 方式1：按日期格式筛选（{month}月{day}日）
 march_6_data = df_profit[
+    (pd.to_datetime(df_profit['日期'], errors='coerce').dt.year == year) & 
     (pd.to_datetime(df_profit['日期'], errors='coerce').dt.month == month) & 
     (pd.to_datetime(df_profit['日期'], errors='coerce').dt.day == day)
 ]

@@ -25,6 +25,7 @@ import getopt
 from kzz_processor import fetch_all_convert_bonds
 from fetch_stock_base_info import FetchStockBaseInfo
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from fetch_all_a_stocks import FetchAllAStocks
 
 
 #获取新三板股票列表
@@ -313,8 +314,8 @@ def init(context):
         time_orders = [
             [
                 ["2024-09-23", "2026-06-30", "牛市全段"],
-                ["2026-07-30", "2026-07-31", "牛市后期"],
-                ["2026-06-30", "2026-07-31", "牛市后期"],
+                ["2026-08-04", "2026-08-05", "牛市后期"],
+                ["2026-06-30", "2026-08-05", "牛市后期"],
             ],
             [
                 ["2026-01-05", "2026-06-10", "牛市后段"]
@@ -635,7 +636,14 @@ def init(context):
         cal_wpg_mk()
         pass
     elif flag==55555:
-        calculate_my_profit('202605', "2026-07-31")
+        calculate_my_profit('202608', "2026-08-14")
+    elif flag==666:
+        calculate_attention()
+    elif flag==777:
+        #get_all_a(context)
+        p = FetchStockBaseInfo()
+        p.process_all_stocks(force_update=False)
+    
 
 
 
@@ -797,7 +805,7 @@ def cal_wpg_mk(start_date="2017-01-03", end_date=None):
 def searchWPG():
     processor = stock_price_processor.StockPirceProcessor()
     avg1 = processor.calculate_wpg("2025-12-31")
-    avg2 = processor.calculate_wpg("2026-07-22")
+    avg2 = processor.calculate_wpg("2026-08-10")
     print("=======2026年微盘股β收益=", f"{avg2/avg1*100-100:.2f}%")
     avg1 = processor.calculate_wpg("2013-12-31")
     avg2 = processor.calculate_wpg("2014-12-31")
@@ -848,14 +856,14 @@ def calculate_attention():
     
     processor = stock_price_processor.StockPirceProcessor()
     
-    # 获取最近30个交易日的日期
+    # 获取最近N个交易日的日期
     end_date = datetime.datetime.now().strftime('%Y-%m-%d')
-    start_date = (datetime.datetime.now() - datetime.timedelta(days=60)).strftime('%Y-%m-%d')
+    start_date = (datetime.datetime.now() - datetime.timedelta(days=100)).strftime('%Y-%m-%d')
     index_data = history(symbol="SHSE.000300", frequency='1d', start_time=start_date, end_time=end_date, fields='eob', adjust=ADJUST_PREV, df=False)
     trading_days = sorted([d['eob'].strftime('%Y-%m-%d') for d in index_data])
-    last_30_days = trading_days[-30:] if len(trading_days) >= 30 else trading_days
-    fetch_start = last_30_days[0]
-    fetch_end = last_30_days[-1]
+    last_80_days = trading_days[-80:] if len(trading_days) >= 80 else trading_days
+    fetch_start = last_80_days[0]
+    fetch_end = last_80_days[-1]
     
     result = {}
     for group_name, codes in attention_data.items():
@@ -868,7 +876,7 @@ def calculate_attention():
             code_to_symbol[code] = symbol
             symbols.append(symbol)
         
-        # 获取最近30个交易日的收盘价
+        # 获取最近80个交易日的收盘价
         datas = history(symbol=symbols, frequency='1d', start_time=fetch_start, end_time=fetch_end, fields='symbol, close, eob', adjust=ADJUST_PREV, df=False)
         
         # 按symbol汇总收盘价
@@ -887,7 +895,8 @@ def calculate_attention():
             prices = price_dict[symbol]
             min_price = min(prices)
             latest_price = prices[-1]
-            group_result.append({"code": code, "name": base_dict.get(code, ''), "min_price": round(min_price, 2), "latest_price": round(latest_price, 2)})
+            min_change = round((latest_price - min_price) / min_price * 100, 2) if min_price else 0
+            group_result.append({"code": code, "name": base_dict.get(code, ''), "min_price": round(min_price, 2), "latest_price": round(latest_price, 2), "min_change": min_change})
         
         result[group_name] = group_result
         print(f"{group_name}: {len(group_result)}只股票")
@@ -2007,16 +2016,16 @@ def get_all_a(context):
         for i in range(stock_num):
             old_all_stocks.append(datas[i])
     today = datetime.date.today().strftime("%Y-%m-%d")
-    find('SHSE.000001', all ,today)
-    print("SHSE.000001", len(all))
-    find('SZSE.399106', all ,today)
-    print("add SZSE.399106", len(all))
+    
+    processor = FetchAllAStocks()
+    all_codes = processor.fetch_all()
 
     s1 = set(old_all_stocks)
-    s2 = set(all)
+    s2 = set(all_codes)
     s3 = s1 | s2
     all_new = list(s3)
     print("all_new", len(all_new))
+    
     with open(f, 'w', encoding='utf-8') as file:
         json.dump(all_new, file, indent=4, ensure_ascii=False)
 

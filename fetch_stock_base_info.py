@@ -151,7 +151,33 @@ class FetchStockBaseInfo:
                 print(f"已获取 {len(delisted_date_map)} 只股票的退市日期")
             except Exception as e:
                 print(f"获取退市日期失败: {e}")
-        
+        # 读取ETF数据并追加到结果中
+        etf_file = os.path.join(self.stocks_dir, 'etf.json')
+        if os.path.exists(etf_file):
+            try:
+                with open(etf_file, 'r', encoding='utf-8') as f:
+                    etf_data = json.load(f)
+                
+                etf_count = 0
+                for etf_code, etf_name in etf_data.items():
+                    etf_entry = {
+                        'stock_code': str(etf_code).zfill(6),
+                        'stock_name': etf_name,
+                        'listed_date': '',
+                        'industry_level1': '',
+                        'industry_level2': '',
+                        'industry_level3': '',
+                        'industry_level4': '',
+                        'delisted_date': ''
+                    }
+                    result.append(etf_entry)
+                    etf_count += 1
+                
+                print(f"已追加 {etf_count} 只ETF数据到结果中")
+            except Exception as e:
+                print(f"读取ETF数据失败: {e}")
+        else:
+            print(f"未找到ETF数据文件: {etf_file}")
         # 保存到文件
         output_file = os.path.join(self.stocks_dir, 'all_base.json')
         with open(output_file, 'w', encoding='utf-8') as f:

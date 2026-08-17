@@ -1,6 +1,6 @@
 let stockLabels = {};
 
-const DATA_FILE = '/stocks/stock_label.json';
+const DATA_FILE = '../stocks/stock_label.json';
 
 function showToast(message, type = 'info') {
   const toast = document.getElementById('toast');
@@ -25,6 +25,7 @@ function loadStockLabels() {
     .catch(error => {
       console.error('加载股票标签数据失败:', error);
       stockLabels = {};
+      showToast('标签数据加载失败: ' + error.message, 'error');
     });
 }
 

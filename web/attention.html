@@ -84,6 +84,13 @@
         <h1>关注股票</h1>
         <label>分组：</label>
         <select id="group-select"></select>
+        <label>自动刷新：</label>
+        <select id="auto-refresh-select">
+            <option value="0">关闭</option>
+            <option value="2">2秒</option>
+            <option value="5" selected>5秒</option>
+            <option value="10">10秒</option>
+        </select>
         <button id="refresh-btn">刷新</button>
         <span id="status"></span>
     </div>
@@ -108,6 +115,19 @@
         let currentGroup = '';
         let sortKey = null;
         let sortDir = 'asc';
+        let autoRefreshTimer = null;
+
+        function setAutoRefresh(seconds) {
+            if (autoRefreshTimer) {
+                clearInterval(autoRefreshTimer);
+                autoRefreshTimer = null;
+            }
+            if (seconds > 0) {
+                autoRefreshTimer = setInterval(() => {
+                    loadData();
+                }, seconds * 1000);
+            }
+        }
 
         function renderTable(group) {
             currentGroup = group;
@@ -206,7 +226,13 @@
 
         document.getElementById('refresh-btn').addEventListener('click', loadData);
 
+        document.getElementById('auto-refresh-select').addEventListener('change', function() {
+            const seconds = parseInt(this.value, 10) || 0;
+            setAutoRefresh(seconds);
+        });
+
         loadData();
+        setAutoRefresh(5);
     </script>
 </body>
 </html>

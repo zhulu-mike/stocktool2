@@ -26,7 +26,7 @@ from kzz_processor import fetch_all_convert_bonds
 from fetch_stock_base_info import FetchStockBaseInfo
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from fetch_all_a_stocks import FetchAllAStocks
-from domain import doinit
+from domain import doinit,ontimer_3
 
 
 

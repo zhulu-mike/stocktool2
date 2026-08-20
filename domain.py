@@ -640,7 +640,7 @@ def doinit(context):
         cal_wpg_mk()
         pass
     elif flag==55555:
-        calculate_my_profit('202608', "2026-08-14")
+        calculate_my_profit('202608')
     elif flag==666:
         calculate_attention()
     elif flag==777:
@@ -852,45 +852,78 @@ def calculate_attention():
     # 读取attention.json
     with open('stocks/attention.json', 'r', encoding='utf-8') as f:
         attention_data = json.load(f)
-    
+
     # 读取base数据获取股票名称
     with open('stocks/all_base.json', 'r', encoding='utf-8') as f:
         base_data = json.load(f)
     base_dict = {item['stock_code']: item.get('stock_name', '') for item in base_data}
-    
+
     processor = stock_price_processor.StockPirceProcessor()
-    
-    # 获取最近N个交易日的日期
-    end_date = datetime.datetime.now().strftime('%Y-%m-%d')
+
+    # 只做一次遍历：按分组去重，同时建立（去重后）code -> symbol 的全局映射
+    unique_by_group = {}   # group -> [codes after dedup]
+    code_to_symbol = {}
+    for group_name, codes in attention_data.items():
+        unique_codes = list(dict.fromkeys(codes))  # 按原顺序去重（保序）
+        unique_by_group[group_name] = unique_codes
+        for code in unique_codes:
+            if code not in code_to_symbol:
+                code_to_symbol[code] = processor.get_stock_symbol(code)
+
+    all_symbols = list(code_to_symbol.values())
+
+    today_str = datetime.datetime.now().strftime('%Y-%m-%d')
+    bull_start_start = '2024-09-23'
+    bull_start_end = '2024-10-30'
+
+    # 第一次获取：2024-09-23 到 2024-10-30，取每个 symbol 最早一天的收盘价
+    bull_start_datas = history(symbol=all_symbols, frequency='1d',
+                               start_time=bull_start_start, end_time=bull_start_end,
+                               fields='symbol, close, eob', adjust=ADJUST_PREV, df=False)
+    bull_first_price = {}  # symbol -> close
+    for data in bull_start_datas:
+        sym = data['symbol']
+        if sym not in bull_first_price:
+            bull_first_price[sym] = data['close']
+
+    # 2024-09-23 ~ 2024-10-30 没有数据的股票（后面才上市），再取 2024-10-30 到今天的第一条收盘价
+    missing_symbols = [sym for sym in all_symbols if sym not in bull_first_price]
+    if missing_symbols:
+        print(f"牛市起始区间内无数据的股票数：{len(missing_symbols)}，取2024-10-30到今日第一条")
+        late_datas = history(symbol=missing_symbols, frequency='1d',
+                             start_time=bull_start_end, end_time=today_str,
+                             fields='symbol, close, eob', adjust=ADJUST_PREV, df=False)
+        for data in late_datas:
+            sym = data['symbol']
+            if sym not in bull_first_price:
+                bull_first_price[sym] = data['close']
+
+    # 获取最近N个交易日的日期（原逻辑）
+    end_date = today_str
     start_date = (datetime.datetime.now() - datetime.timedelta(days=100)).strftime('%Y-%m-%d')
-    index_data = history(symbol="SHSE.000300", frequency='1d', start_time=start_date, end_time=end_date, fields='eob', adjust=ADJUST_PREV, df=False)
+    index_data = history(symbol="SHSE.000300", frequency='1d', start_time=start_date, end_time=end_date,
+                         fields='eob', adjust=ADJUST_PREV, df=False)
     trading_days = sorted([d['eob'].strftime('%Y-%m-%d') for d in index_data])
     last_80_days = trading_days[-80:] if len(trading_days) >= 80 else trading_days
     fetch_start = last_80_days[0]
     fetch_end = last_80_days[-1]
-    
+
     result = {}
-    for group_name, codes in attention_data.items():
-        # 去重
-        unique_codes = list(set(codes))
-        symbols = []
-        code_to_symbol = {}
-        for code in unique_codes:
-            symbol = processor.get_stock_symbol(code)
-            code_to_symbol[code] = symbol
-            symbols.append(symbol)
-        
+    for group_name, unique_codes in unique_by_group.items():
+        symbols = [code_to_symbol[c] for c in unique_codes]
+
         # 获取最近80个交易日的收盘价
-        datas = history(symbol=symbols, frequency='1d', start_time=fetch_start, end_time=fetch_end, fields='symbol, close, eob', adjust=ADJUST_PREV, df=False)
-        
-        # 按symbol汇总收盘价
+        datas = history(symbol=symbols, frequency='1d', start_time=fetch_start, end_time=fetch_end,
+                        fields='symbol, close, eob', adjust=ADJUST_PREV, df=False)
+
+        # 按symbol汇总收盘价（eob升序遍历，append后自然是按时间顺序）
         price_dict = {}
         for data in datas:
             sym = data['symbol']
             if sym not in price_dict:
                 price_dict[sym] = []
             price_dict[sym].append(data['close'])
-        
+
         group_result = []
         for code in unique_codes:
             symbol = code_to_symbol[code]
@@ -900,11 +933,31 @@ def calculate_attention():
             min_price = min(prices)
             latest_price = prices[-1]
             min_change = round((latest_price - min_price) / min_price * 100, 2) if min_price else 0
-            group_result.append({"code": code, "name": base_dict.get(code, ''), "min_price": round(min_price, 2), "latest_price": round(latest_price, 2), "min_change": min_change})
-        
+
+            # 牛市起点相关字段
+            bull_start_price = bull_first_price.get(symbol)
+            if bull_start_price is not None:
+                bull_start_price_r = round(bull_start_price, 2)
+                bull_change = round((latest_price - bull_start_price) / bull_start_price * 100, 2)
+            else:
+                bull_start_price_r = None
+                bull_change = None
+
+            item = {
+                "code": code,
+                "name": base_dict.get(code, ''),
+                "min_price": round(min_price, 2),
+                "latest_price": round(latest_price, 2),
+                "min_change": min_change,
+                "bull_start_price": bull_start_price_r,
+                "bull_change": bull_change,
+            }
+            group_result.append(item)
+
         result[group_name] = group_result
-        print(f"{group_name}: {len(group_result)}只股票")
-    
+        bull_count = sum(1 for r in group_result if r.get('bull_start_price') is not None)
+        print(f"{group_name}: {len(group_result)}只股票，含牛市起点价格: {bull_count}只")
+
     # 写入文件
     with open('stocks/attention_detail.json', 'w', encoding='utf-8') as f:
         json.dump(result, f, ensure_ascii=False, indent=2)

@@ -102,6 +102,8 @@
                 <th>名称</th>
                 <th data-sort="current_price">当前价格</th>
                 <th data-sort="today_change">今日涨幅</th>
+                <th data-sort="bull_start_price">牛市起点价</th>
+                <th data-sort="bull_change">牛市起点涨幅</th>
                 <th data-sort="min_change">距最低价涨幅</th>
                 <th data-sort="min_price">最低价</th>
                 <th data-sort="latest_price">上日收盘价</th>
@@ -148,14 +150,18 @@
                 const tr = document.createElement('tr');
                 const todayChange = stock.today_change;
                 const minChange = stock.min_change;
+                const bullChange = stock.bull_change;
                 const todayClass = todayChange != null ? (todayChange >= 0 ? 'up' : 'down') : '';
                 const minClass = minChange != null ? (minChange >= 0 ? 'up' : 'down') : '';
+                const bullClass = bullChange != null ? (bullChange >= 0 ? 'up' : 'down') : '';
                 tr.innerHTML = `
                     <td>${i + 1}</td>
                     <td>${stock.code}</td>
                     <td>${stock.name ?? '-'}</td>
                     <td>${stock.current_price ?? '-'}</td>
                     <td class="${todayClass}">${todayChange != null ? todayChange + '%' : '-'}</td>
+                    <td>${stock.bull_start_price ?? '-'}</td>
+                    <td class="${bullClass}">${bullChange != null ? bullChange + '%' : '-'}</td>
                     <td class="${minClass}">${minChange != null ? minChange + '%' : '-'}</td>
                     <td>${stock.min_price ?? '-'}</td>
                     <td>${stock.latest_price ?? '-'}</td>

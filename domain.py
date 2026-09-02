@@ -82,6 +82,7 @@ def doinit(context):
     next_year = 1
     count = 6
     start_year = 2025
+    today_str = datetime.datetime.now().strftime("%Y-%m-%d")
     if flag ==0:
         pass
     elif flag==1:
@@ -314,12 +315,13 @@ def doinit(context):
         time_orders = [
             [
                 ["2026-07-01", "2026-07-21", "牛市全段"],
-                ["2026-07-21", "2026-08-18", "牛市后期"],
+                ["2026-07-21", today_str, "牛市后期"],
             ],
             [
                 ["2024-09-23", "2026-06-30", "牛市全段"],
-                ["2026-08-04", "2026-08-05", "牛市后期"],
-                ["2026-07-21", "2026-08-18", "牛市后期"],
+                ["2026-08-31", "2026-09-01", "牛市后期"],
+                ["2026-06-30", today_str, "牛市后期"],
+                ["2026-07-31", today_str, "科技反弹"],
             ],
             [
                 ["2026-01-05", "2026-06-10", "牛市后段"]
@@ -640,7 +642,7 @@ def doinit(context):
         cal_wpg_mk()
         pass
     elif flag==55555:
-        calculate_my_profit('202608')
+        calculate_my_profit('202609')
     elif flag==666:
         calculate_attention()
     elif flag==777:

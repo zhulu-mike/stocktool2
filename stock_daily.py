@@ -34,7 +34,17 @@ year = int(target_date[:4])
 month = int(target_date[4:6])
 day = int(target_date[6:])
 jisilu_url = 'https://www.jisilu.cn/data/cbnew/cb_index/'
+# 集思录登录 cookies（从浏览器获取，过期后需更新）
+jisilu_cookies = {
+    'kbzw__Session': '4h97n5eoauhnel30r713n7b852',
+    'HMACCOUNT': 'D32E2B5AC5A841B3',
+    'kbz_newcookie': '1',
+    'Hm_lvt_164fe01b1433a19b507595a43bf58262': '1786521406',
+    'kbzw__user_login': '7Obd08_P1ebax9aX7sPkyK6vq66ZqIKvpuXK7N_u0ejF1dSeqJihxqWpp6GqpK6X15Gv26Oxxtaa2t-rm6qjsJPZx66YrqXW2cXS1qCasp6olqiCsqS0zL_NjKWwraGsoKiap5eYsqC9tc6-n6qsobGlq5iskq2YrqW0xL_RpKrOqp_ck6qV3KmnsZKjmKSxrqKvjbKPy6LV1J7F0OrK4OXWmK6ap4KeuODl1-fY44HCzZWaqZqnnZa44OWprJyQ2aqtnom63OfO27jc2b7h1Z-Wp7CjnK-Mn62-tcTDn5jN2czZmbzO3Nfmi5ak3-ni5cafkqmqo5mnnKWSlrTY3dTqyp-Wp7CjnK8.',
+    'Hm_lpvt_164fe01b1433a19b507595a43bf58262': '1788342464',
+}
 session = requests.Session()
+session.cookies.update(jisilu_cookies)
 session.headers.update({
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
             'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
@@ -65,7 +75,11 @@ def crawl_jisilu_data():
             data_match = re.search(r'var __data\s*=\s*({[\s\S]*?});', response.text)
             if not data_match:
                 print("❌ 未找到__data字段！")
-                return
+                return {
+                    'price_median': 'none',
+                    'value_median': 'none',
+                    'premium_median': 'none'
+                }
             # 修复JSON格式
             raw_json = data_match.group(1)
             fixed_json = fix_json_string(raw_json)

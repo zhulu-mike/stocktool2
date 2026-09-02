@@ -539,7 +539,10 @@ class StockPirceProcessor:
             
             # 计算转股溢价率
             try:
-                convert_price = float(kzz.get('convert_price', '0'))
+                convert_price = kzz.get('convert_price', '0')
+                if convert_price == '':
+                    convert_price = 0
+                convert_price = float(convert_price)
             except Exception as e:
                 print(f"Error converting convert_price: {e}")
                 print(f"convert_price: {kzz}")

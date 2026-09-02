@@ -297,6 +297,13 @@
               let result = params[0].axisValue + '<br/>';
               params.forEach(param => {
                 result += param.marker + param.seriesName + ': ' + param.value.toFixed(2) + '<br/>';
+                const currentVal = param.value;
+                const lastVal = avgMvValues[avgMvValues.length - 1];
+                if (currentVal !== 0 && lastVal !== currentVal) {
+                  const pct = ((lastVal - currentVal) / currentVal * 100);
+                  const sign = pct > 0 ? '+' : '';
+                  result += `&nbsp;&nbsp;&nbsp;距最新涨跌幅: ${sign}${pct.toFixed(2)}%<br/>`;
+                }
               });
               return result;
             }

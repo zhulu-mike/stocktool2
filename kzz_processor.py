@@ -40,6 +40,7 @@ class ConvertBondDetailFetcher:
             "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
             "Referer": "https://www.jisilu.cn/",
             "Connection": "keep-alive",
+            "Cookie": "compare_dish=show; kbzw__Session=4h97n5eoauhnel30r713n7b852; HMACCOUNT=D32E2B5AC5A841B3; kbz_newcookie=1; Hm_lvt_164fe01b1433a19b507595a43bf58262=1786521406; kbzw__user_login=7Obd08_P1ebax9aX7sPkyK6vq66ZqIKvpuXK7N_u0ejF1dSeqJihxqWpp6GqpK6X15Gv26Oxxtaa2t-rm6qjsJPZx66YrqXW2cXS1qCasp6olqiCsqS0zL_NjKWwraGsoa-XppqYsqC9tc6-n6mWpKa_y8DTjKnZ1qyS0cXVrarMrKSrla3DqbClmZydtrXX0pTG2_HL4s3YpqimkZCJy-Ljzejj6oLEtZeoo6aRq4HL4uOfraeX2qyVoJe06NHcxsve17Ti4KaXqZilqqmYibupyMbBlZnY4M3bgb7c1uPQmYG34efY5tGmk6uTpaehqI-ggcfa28rr1aaXqZilqqk.; Hm_lpvt_164fe01b1433a19b507595a43bf58262=1788358580",
         }
         request = urllib.request.Request(url, headers=headers)
         

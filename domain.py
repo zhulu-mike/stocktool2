@@ -303,8 +303,8 @@ def doinit(context):
         end_date = "2026-04-30"
         plot_etf_cumulative_profit(start_date, end_date)
     elif flag==22:
-        start_date = "2026-03-11"
-        end_date = "2026-03-23"
+        start_date = "2026-06-01"
+        end_date = "2026-09-02"
         plot_etf_cumulative_profit(start_date, end_date)
     elif flag==23:
         fetch_all_convert_bonds()

@@ -902,11 +902,11 @@ def calculate_attention():
 
     # 获取最近N个交易日的日期（原逻辑）
     end_date = today_str
-    start_date = (datetime.datetime.now() - datetime.timedelta(days=100)).strftime('%Y-%m-%d')
+    start_date = (datetime.datetime.now() - datetime.timedelta(days=150)).strftime('%Y-%m-%d')
     index_data = history(symbol="SHSE.000300", frequency='1d', start_time=start_date, end_time=end_date,
                          fields='eob', adjust=ADJUST_PREV, df=False)
     trading_days = sorted([d['eob'].strftime('%Y-%m-%d') for d in index_data])
-    last_80_days = trading_days[-80:] if len(trading_days) >= 80 else trading_days
+    last_80_days = trading_days[-100:] if len(trading_days) >= 100 else trading_days
     fetch_start = last_80_days[0]
     fetch_end = last_80_days[-1]
 

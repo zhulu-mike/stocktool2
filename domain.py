@@ -1016,7 +1016,7 @@ def calculate_attention_profit():
 
 def etfFill():
     # 打开 Excel 文件
-    file_path = r'D:\\my\\投资\\仓位结构.xlsx'
+    file_path = r'D:\.goldminer3\projects\fe28bb3f-a453-11ee-b878-14755b767e75\仓位结构.xlsx'
     wb = load_workbook(file_path)
     if True:
         # ========== 原有的 ETF 涨幅写入逻辑 ==========
@@ -1322,12 +1322,14 @@ def calculate_my_profit(file, e_date=None):
         print(f"\n初始时间各股票资产（{prev_last_day}）：")
         start_asset_list = sorted(profit_list, key=lambda x: x[6], reverse=True)
         for code, symbol, quantity, start_close, end_close, profit, start_asset in start_asset_list:
-            print(f"  {code} {symbol}: 持仓{quantity}股, 价格{start_close:.2f}, 资产{start_asset:.2f}")
+            stock_name = a_stock_base.get(code, {}).get('stock_name', symbol)
+            print(f"  {code} {stock_name}: 持仓{quantity}股, 价格{start_close:.2f}, 资产{start_asset:.2f}")
 
         print(f"\n盈利明细（按盈利从大到小）：")
         profit_list.sort(key=lambda x: x[5], reverse=True)
         for code, symbol, quantity, start_close, end_close, profit, start_asset in profit_list:
-            print(f"  {code} {symbol}: 持仓{quantity}股, 买入价{start_close:.2f}, 卖出价{end_close:.2f}, 盈利{profit:.2f}, 初始资产{start_asset:.2f}")
+            stock_name = a_stock_base.get(code, {}).get('stock_name', symbol)
+            print(f"  {code} {stock_name}: 持仓{quantity}股, 买入价{start_close:.2f}, 卖出价{end_close:.2f}, 盈利{profit:.2f}, 初始资产{start_asset:.2f}")
         
         print(f"\n{portfolio_name} {prev_last_day} 总资产: {total_start_asset:.2f}")
         print(f"{portfolio_name} {cur_last_day} 总资产: {total_end_asset:.2f}")

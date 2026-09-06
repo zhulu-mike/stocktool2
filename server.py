@@ -8,6 +8,8 @@ import time
 import traceback
 import json
 import os
+import subprocess
+import sys
 
 # 公告处理器（延迟导入）
 stock_announce_processor = None
@@ -110,6 +112,8 @@ class RealtimeProxyHandler(SimpleHTTPRequestHandler):
             self.handle_search_announce(parsed.query)
         elif parsed.path == "/stocks/stock_label.json":
             self.handle_get_stock_labels()
+        elif parsed.path == "/update-canzhai":
+            self.handle_update_canzhai()
         else:
             super().do_GET()
     
@@ -337,6 +341,40 @@ class RealtimeProxyHandler(SimpleHTTPRequestHandler):
                 except Exception:
                     pass
                 return
+
+    def handle_update_canzhai(self):
+        """处理更新可转债数据请求"""
+        try:
+            print("开始更新可转债数据...", flush=True)
+            result = subprocess.run(
+                [sys.executable, 'update_canzhai.py'],
+                capture_output=True, text=True, timeout=120,
+                cwd=os.path.dirname(os.path.abspath(__file__))
+            )
+            output = result.stdout
+            if result.stderr:
+                output += '\n' + result.stderr
+            success = result.returncode == 0
+            print(f"更新可转债数据完成, success={success}", flush=True)
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": success, "output": output}).encode("utf-8"))
+        except subprocess.TimeoutExpired:
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": False, "output": "更新超时（120秒）"}).encode("utf-8"))
+        except Exception as exc:
+            print(f"更新可转债数据失败: {exc}", flush=True)
+            traceback.print_exc()
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": False, "output": str(exc)}).encode("utf-8"))
 
     def log_message(self, format, *args):
         return

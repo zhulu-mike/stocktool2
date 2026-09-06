@@ -180,7 +180,7 @@ def get_data_before_first_empty_row(df, key_columns):
     return final_valid_data, first_empty_row_idx
 
 # 1. 读取Excel文件
-file_path = 'D:\\my\\投资\\仓位结构.xlsx'
+file_path = r'D:\.goldminer3\projects\fe28bb3f-a453-11ee-b878-14755b767e75\仓位结构.xlsx'
 df_bond = pd.read_excel(file_path, sheet_name='转债')  # 转债sheet（假设数据结构不变，空行位置仍为第12行）
 df_profit = pd.read_excel(file_path, sheet_name='收益日记')  # 收益日记sheet
 

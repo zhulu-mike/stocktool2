@@ -16,13 +16,13 @@ ASSETS_DIR = r'web\canzhai-trend\assets'
 
 # 集思录 cookies（从浏览器获取，过期后需更新）
 JISILU_COOKIES = {
-    'kbzw__Session': '7jcf9f5b78v516f6tuj9ondet4',
-    'Hm_lvt_164fe01b1433a19b507595a43bf58262': '1788696539',
-    'HMACCOUNT': 'D0A4965A530C1314',
-    'kbz_newcookie': '1',
-    'kbzw__user_login': '7Obd08_P1ebax9aX7sPkyK6vq66ZqIKvpuXK7N_u0ejF1dSeqJihxqWpp6GqpK6X15Gv26Oxxtaa2t-rm6qjsJPZx66YrqXW2cXS1qCasp6olqiCsqS0zL_NjKWwraGvpa2YppaYsqC9tc6-n6qsobKfp5OqkayYrqW0xL_RpNfKq5yrxdeUp6ym3Zegkdnbpc-yjbKPy6LV1J7F0OrK4OXWmK6ap4KeuODl1-fY44HCzZWaqZqnnZa44OWprJyQ2aqtnom63OfO27jc2b7h1Z-Wp7CjnK-Mn62-tcTDn5jN2czZmbzO3Nfmi5a1ybi4y7C8sLfHpJqnnaeZpJKXutvq0N3Go6qpm6ecpZmqlaulpauWkKbg3tjd69vlkamapamhr4HDwtra59KooaqZpJSt',
-    'Hm_lpvt_164fe01b1433a19b507595a43bf58262': '1788696616',
-}
+	    'kbzw__Session': '4h97n5eoauhnel30r713n7b852',
+	    'HMACCOUNT': 'D32E2B5AC5A841B3',
+	    'kbz_newcookie': '1',
+	    'Hm_lvt_164fe01b1433a19b507595a43bf58262': '1786521406',
+	    'kbzw__user_login': '7Obd08_P1ebax9aX7sPkyK6vq66ZqIKvpuXK7N_u0ejF1dSeqJihxqWpp6GqpK6X15Gv26Oxxtaa2t-rm6qjsJPZx66YrqXW2cXS1qCasp6olqiCsqS0zL_NjKWwraGsoa-XppqYsqC9tc6-n6mWpKa_y8DTjKnZ1qyS0cXVrarMrKSrla3DqbClmZydtrXX0pTG2_HL4s3YpqimkZCJy-Ljzejj6oLEtZeoo6aRq4HL4uOfraeX2qyVoJe06NHcxsve17Ti4KaXqZilqqmYibupyMbBlZnY4M3bgb7c1uPQmYG34efY5tGmk6uTpaehqI-ggcfa28rr1aaXqZilqqk.',
+	    'Hm_lpvt_164fe01b1433a19b507595a43bf58262': '1788779139',
+	}
 
 
 def fix_json_string(json_str):
@@ -66,8 +66,10 @@ def fetch_jisilu_data():
     resp = session.get(JISILU_URL, timeout=15)
     resp.raise_for_status()
 
-    # 提取 dates 数组（定义在 __data 之前）
-    dates_match = re.search(r"(\[[\s\S]*?\])\s*;\s*var\s+__data\s*=", resp.text)
+    # 提取 __date 数组（定义在 __data 之前）
+    dates_match = re.search(r"var\s+__date\s*=\s*(\[[\d\-\,']+?\])", resp.text)
+    if not dates_match:
+        dates_match = re.search(r"var\s+__date\s*=\s*(\[[\s\S]*?\])\s*;", resp.text)
     if not dates_match:
         raise ValueError('未能从页面提取日期数据')
     dates = re.findall(r"'(\d{4}-\d{2}-\d{2})'", dates_match.group(1))

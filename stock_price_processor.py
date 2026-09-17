@@ -140,10 +140,12 @@ class StockPirceProcessor:
         for data in datas:
             end_price[data['symbol']] = data['close']
         absent_stocks = []
+        absent_codes = {}
         for stock_code in stock_list:
             symbol = self.get_stock_symbol(stock_code)
             if symbol not in start_price or symbol not in end_price:
                 absent_stocks.append(symbol)
+                absent_codes[symbol] = stock_code
                 continue
             delta = (end_price[symbol] - start_price[symbol]) / start_price[symbol] * 100
             result[stock_code] = delta
@@ -174,7 +176,7 @@ class StockPirceProcessor:
                 nodata_count += 1
                 continue
             delta = (end_price[symbol] - start_price[symbol]) / start_price[symbol] * 100
-            result[symbol.split('.')[1]] = delta
+            result[absent_codes[symbol]] = delta
         if nodata_count > 50:
             print(f"共有 {nodata_count} 只股票在 {start_date}~{end_date} 时间段内没有数据。")
         #print(f"共有 {no_start_price_count} 只股票在 {start_date} 没有数据。")

@@ -2,6 +2,8 @@
 from __future__ import print_function, absolute_import
 import os
 import json
+import time
+import random
 
 import pandas as pd
 from gm.api import *
@@ -649,6 +651,8 @@ def doinit(context):
         #get_all_a(context)
         p = FetchStockBaseInfo()
         p.process_all_stocks(force_update=False)
+    elif flag==22222:
+        download_all_stock_balance(rpt_type=6,start_date="2010-01-01",end_date="2026-06-30")
     
 
 
@@ -1430,7 +1434,7 @@ def calculate_market_profit(time_orders, group_range=None, flag=None, stock_list
         final_rets = []
         for i in range(0, len(rets)):
 
-            zhishu_str = "同期沪深300涨幅{:.2f}%, 中证500涨幅{:.2f}%, 中证1000涨幅{:.2f}%".format(zhishu_rets[i]["SHSE.000300"], zhishu_rets[i]["SHSE.000905"], zhishu_rets[i].get("SHSE.000852",0))
+            zhishu_str = "同期沪深300涨幅{:.2f}%, 中证500涨幅{:.2f}%, 中证1000涨幅{:.2f}%".format(zhishu_rets[i].get("SHSE.000300",0), zhishu_rets[i].get("SHSE.000905",0), zhishu_rets[i].get("SHSE.000852",0))
             time_str = time_order[i][0]+"~"+time_order[i][1]+"=="+time_order[i][2]
             time_str2 = time_str+"_list"
             print("\n\n")
@@ -1954,6 +1958,92 @@ def download_all_a_stock_kline(stock_list=all_a_stocks):
     processor.download_stock_kline_data(stock_list, start_date="2014-01-02")    
     
 
+
+# 资产负债表字段(46个,去重后),按20个/次上限拆块调用
+balance_fields = [
+    "mny_cptl", "trd_fin_ast", "note_acct_rcv", "acct_rcv_fin", "oth_rcv",
+    "ttl_oth_rcv", "invt", "contr_ast", "ncur_ast_one_y", "oth_cur_ast",
+    "ttl_cur_ast", "lt_rcv", "lt_eqy_inv", "oth_eqy_inv", "fix_ast",
+    "const_prog", "cptl_bio_ast", "rig_ast", "intg_ast", "gw",
+    "lt_ppay_exp", "dfr_tax_ast", "oth_ncur_ast", "ttl_ncur_ast", "oth_ast",
+    "ttl_ast", "sht_ln", "adv_acct", "contr_liab", "note_acct_pay",
+    "emp_comp_pay", "tax_pay", "ttl_oth_pay", "ncur_liab_one_y", "oth_cur_liab",
+    "ttl_cur_liab", "lt_ln", "lt_pay", "leas_liab", "dfr_tax_liab",
+    "bnd_pay", "ttl_ncur_liab", "ttl_liab", "ret_prof", "ttl_eqy_pcom",
+    "min_sheqy",
+]
+
+def download_all_stock_balance(start_date=None, end_date=None, rpt_type=None,
+                               stock_list=all_a_stocks):
+    """从掘金接口下载所有A股资产负债表,增量更新到 stocks/finance/zzfzb/{code[:2]}/{code}.json
+    start_date/end_date: 报告日期范围,None表示全部
+    rpt_type: 报表类型,None表示不限(1-一季报 6-中报 9-三季报 12-年报)
+    增量标准: 本地已存在某(rpt_date, rpt_type)则不再更新
+    """
+    finance_dir = root_dir + "finance/zzfzb/"
+    processor = stock_price_processor.StockPirceProcessor()
+    total = len(stock_list)
+    for idx, code in enumerate(stock_list):
+        # 每50个股票间隔200-300ms,避免触发流控
+        if idx > 0 and idx % 50 == 0:
+            time.sleep(random.uniform(0.2, 0.3))
+        code = str(code).zfill(6)
+        symbol = processor.get_stock_symbol(code)
+        f = os.path.join(finance_dir, code[:2], code + ".json")
+        # 读取本地已有记录,得到已存在的(rpt_date, rpt_type)集合
+        local_records = []
+        if os.path.exists(f):
+            with open(f, "r", encoding="utf-8") as file:
+                local_records = json.load(file)
+        existing_keys = set()
+        for rec in local_records:
+            existing_keys.add((rec["rpt_date"], rec["rpt_type"]))
+        # 字段按20个/次上限分块,逐块调用时序接口,按(rpt_date, rpt_type)合并各块字段
+        field_chunks = [balance_fields[i:i + 20] for i in range(0, len(balance_fields), 20)]
+        merged = {}
+        ok = True
+        for chunk in field_chunks:
+            try:
+                ret = stk_get_fundamentals_balance(
+                    symbol, ",".join(chunk), rpt_type=rpt_type, data_type=202,
+                    start_date=start_date, end_date=end_date, df=False)
+            except Exception as e:
+                ok = False
+                print("下载失败:", code, e)
+                break
+            if ret:
+                for rec in ret:
+                    rpt_date = str(rec["rpt_date"])
+                    rpt_type_v = int(rec["rpt_type"])
+                    key = (rpt_date, rpt_type_v)
+                    item = merged.get(key)
+                    if item is None:
+                        item = {
+                            "rpt_date": rpt_date,
+                            "rpt_type": rpt_type_v,
+                            "data_type": int(rec.get("data_type", 202)),
+                            "pub_date": str(rec.get("pub_date") or ""),
+                        }
+                        merged[key] = item
+                    for field_name in chunk:
+                        val = rec.get(field_name)
+                        if val is None or (isinstance(val, float) and np.isnan(val)):
+                            item[field_name] = None
+                        else:
+                            item[field_name] = float(val)
+        if not ok:
+            continue
+        # 只追加本地不存在的记录
+        new_records = [merged[k] for k in merged if k not in existing_keys]
+        if not new_records:
+            continue
+        local_records.extend(new_records)
+        os.makedirs(os.path.join(finance_dir, code[:2]), exist_ok=True)
+        with open(f, "w", encoding="utf-8") as file:
+            json.dump(local_records, file, ensure_ascii=False, indent=2)
+        if (idx + 1) % 100 == 0:
+            print("已处理:", idx + 1, "/", total, "新增:", len(new_records))
+    print("资产负债表下载完成")
 
 def load_local_all():
     f = root_dir + all_file

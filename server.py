@@ -10,6 +10,7 @@ import json
 import os
 import subprocess
 import sys
+import bisect
 
 # 公告处理器（延迟导入）
 stock_announce_processor = None
@@ -70,6 +71,498 @@ def get_stock_name(stock_code):
         return stock_base_cache[stock_code]
     return stock_code
 
+
+# ==================== 财务公式查询 ====================
+# 资产负债表字段与中文名映射(46个,与 domain.py balance_fields 一致)
+BALANCE_FIELDS = [
+    ("mny_cptl", "货币资金"),
+    ("trd_fin_ast", "交易性金融资产"),
+    ("note_acct_rcv", "应收票据及应收账款"),
+    ("acct_rcv_fin", "应收款项融资"),
+    ("oth_rcv", "其他应收款"),
+    ("ttl_oth_rcv", "其他应收款合计"),
+    ("invt", "存货"),
+    ("contr_ast", "合同资产"),
+    ("ncur_ast_one_y", "一年内到期的非流动资产"),
+    ("oth_cur_ast", "其他流动资产"),
+    ("ttl_cur_ast", "流动资产合计"),
+    ("lt_rcv", "长期应收款"),
+    ("lt_eqy_inv", "长期股权投资"),
+    ("oth_eqy_inv", "其他权益工具投资"),
+    ("fix_ast", "固定资产"),
+    ("const_prog", "在建工程"),
+    ("cptl_bio_ast", "生产性生物资产"),
+    ("rig_ast", "使用权资产"),
+    ("intg_ast", "无形资产"),
+    ("gw", "商誉"),
+    ("lt_ppay_exp", "长期待摊费用"),
+    ("dfr_tax_ast", "递延所得税资产"),
+    ("oth_ncur_ast", "其他非流动资产"),
+    ("ttl_ncur_ast", "非流动资产合计"),
+    ("oth_ast", "其他资产"),
+    ("ttl_ast", "资产总计"),
+    ("sht_ln", "短期借款"),
+    ("adv_acct", "预收款项"),
+    ("contr_liab", "合同负债"),
+    ("note_acct_pay", "应付票据及应付账款"),
+    ("emp_comp_pay", "应付职工薪酬"),
+    ("tax_pay", "应交税费"),
+    ("ttl_oth_pay", "其他应付款合计"),
+    ("ncur_liab_one_y", "一年内到期的非流动负债"),
+    ("oth_cur_liab", "其他流动负债"),
+    ("ttl_cur_liab", "流动负债合计"),
+    ("lt_ln", "长期借款"),
+    ("lt_pay", "长期应付款"),
+    ("leas_liab", "租赁负债"),
+    ("dfr_tax_liab", "递延所得税负债"),
+    ("bnd_pay", "应付债券"),
+    ("ttl_ncur_liab", "非流动负债合计"),
+    ("ttl_liab", "负债合计"),
+    ("ret_prof", "未分配利润"),
+    ("ttl_eqy_pcom", "归母股东权益合计"),
+    ("min_sheqy", "少数股东权益"),
+]
+BALANCE_FIELD_CN = dict(BALANCE_FIELDS)
+FINANCE_DIR = "stocks/finance/zzfzb"
+_finance_cache = {}
+_finance_cache_loaded = False
+
+# 行情字段与中文名映射(来自 stocks/kline 日线数据)
+KLINE_FIELDS = [
+    ("date", "日期"),
+    ("close", "收盘价"),
+    ("high", "最高价"),
+    ("tot_mv", "总市值"),
+    ("pe_ttm_cut", "市盈率(TTM)"),
+    ("dy_lfy", "股息率"),
+]
+KLINE_FIELD_CN = dict(KLINE_FIELDS)
+_kline_cache = {}
+_kline_all_codes_cache = None
+
+
+def load_all_balance_data():
+    """惰性加载全部资产负债表数据到内存,首次查询时加载"""
+    global _finance_cache_loaded
+    if _finance_cache_loaded:
+        return
+    if os.path.exists(FINANCE_DIR):
+        for prefix in os.listdir(FINANCE_DIR):
+            prefix_dir = os.path.join(FINANCE_DIR, prefix)
+            if not os.path.isdir(prefix_dir):
+                continue
+            for fn in os.listdir(prefix_dir):
+                if not fn.endswith(".json"):
+                    continue
+                code = fn[:-5]
+                try:
+                    with open(os.path.join(prefix_dir, fn), "r", encoding="utf-8") as f:
+                        _finance_cache[code] = json.load(f)
+                except Exception:
+                    pass
+    _finance_cache_loaded = True
+    print(f"已加载资产负债表数据，共 {len(_finance_cache)} 只股票")
+
+
+FINANCE_SCHEMES_FILE = "stocks/finance_schemes.json"
+
+
+def load_finance_schemes():
+    """读取已保存的方案"""
+    if os.path.exists(FINANCE_SCHEMES_FILE):
+        try:
+            with open(FINANCE_SCHEMES_FILE, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception:
+            pass
+    return {}
+
+
+def save_finance_schemes(schemes):
+    """写入方案文件"""
+    with open(FINANCE_SCHEMES_FILE, "w", encoding="utf-8") as f:
+        json.dump(schemes, f, ensure_ascii=False, indent=2)
+
+
+def _kline_all_codes():
+    """扫描 kline 目录得到全部股票代码"""
+    global _kline_all_codes_cache
+    if _kline_all_codes_cache is None:
+        codes = set()
+        base = "stocks/kline"
+        if os.path.exists(base):
+            for prefix in os.listdir(base):
+                d = os.path.join(base, prefix)
+                if os.path.isdir(d):
+                    for fn in os.listdir(d):
+                        if fn.endswith(".parquet"):
+                            codes.add(fn[:-8])
+        _kline_all_codes_cache = codes
+    return _kline_all_codes_cache
+
+
+def _load_kline_code(code):
+    """加载单只股票kline数据到内存缓存,返回 (dates升序列表, {字段:数值数组}) 或 None"""
+    if code in _kline_cache:
+        return _kline_cache[code]
+    f = os.path.join("stocks/kline", code[:2], code + ".parquet")
+    if not os.path.exists(f):
+        _kline_cache[code] = None
+        return None
+    try:
+        import pandas as pd
+        df = pd.read_parquet(f)
+        dates = df["date"].astype(str).tolist()
+        arr = {}
+        for col in ("close", "high", "tot_mv", "pe_ttm_cut", "dy_lfy"):
+            arr[col] = df[col].to_numpy(dtype="float64")
+        _kline_cache[code] = (dates, arr)
+    except Exception:
+        _kline_cache[code] = None
+    return _kline_cache[code]
+
+
+def _kline_index(dates, period):
+    """返回行情日期索引: latest=最后一条; 具体日期=<=该日期最近一条; 无匹配返回None"""
+    if not dates:
+        return None
+    if period and period != "latest":
+        i = bisect.bisect_right(dates, period) - 1
+        return i if i >= 0 else None
+    return len(dates) - 1
+
+
+def _safe_num(v):
+    """把值转成数值, 缺失/NaN 按 0 处理"""
+    try:
+        v = float(v)
+    except (TypeError, ValueError):
+        return 0
+    return v if v == v else 0
+
+
+class _ExprError(Exception):
+    pass
+
+
+def _tokenize_formula(expr):
+    """公式词法分析,返回 token 列表,每个 token 为 ("op"/"num"/"field", 值)"""
+    tokens = []
+    i, n = 0, len(expr)
+    while i < n:
+        ch = expr[i]
+        if ch in " \t\r\n":
+            i += 1
+            continue
+        two = expr[i:i + 2]
+        if two in (">=", "<=", "==", "!=", "&&", "||"):
+            tokens.append(("op", two))
+            i += 2
+            continue
+        if ch in "+-*/()><":
+            tokens.append(("op", ch))
+            i += 1
+            continue
+        if ch.isdigit() or ch == ".":
+            j = i
+            while j < n and (expr[j].isdigit() or expr[j] == "."):
+                j += 1
+            if j < n and expr[j] in "eE":
+                j += 1
+                if j < n and expr[j] in "+-":
+                    j += 1
+                while j < n and expr[j].isdigit():
+                    j += 1
+            try:
+                tokens.append(("num", float(expr[i:j])))
+            except ValueError:
+                raise _ExprError(f"无效的数字: {expr[i:j]}")
+            i = j
+            continue
+        if ch.isalpha() or ch == "_":
+            j = i
+            while j < n and (expr[j].isalnum() or expr[j] == "_"):
+                j += 1
+            tokens.append(("field", expr[i:j]))
+            i = j
+            continue
+        raise _ExprError(f"无法识别的字符: {ch}")
+    return tokens
+
+
+class _FormulaParser:
+    """递归下降解析器,AST 节点: ('num',v) ('field',name) ('neg',child)
+    ('bin',op,l,r) ('cmp',op,l,r) ('logic',op,l,r)"""
+
+    def __init__(self, tokens):
+        self.tokens = tokens
+        self.pos = 0
+
+    def peek(self):
+        if self.pos < len(self.tokens):
+            return self.tokens[self.pos]
+        return None
+
+    def expect_op(self, ops):
+        tok = self.peek()
+        if tok and tok[0] == "op" and tok[1] in ops:
+            self.pos += 1
+            return tok[1]
+        return None
+
+    def parse(self):
+        node = self.parse_logic_or()
+        if self.peek() is not None:
+            raise _ExprError("公式存在多余内容")
+        return node
+
+    def parse_logic_or(self):
+        left = self.parse_logic_and()
+        while self.expect_op(["||"]):
+            left = ("logic", "||", left, self.parse_logic_and())
+        return left
+
+    def parse_logic_and(self):
+        left = self.parse_comparison()
+        while self.expect_op(["&&"]):
+            left = ("logic", "&&", left, self.parse_comparison())
+        return left
+
+    def parse_comparison(self):
+        left = self.parse_additive()
+        op = self.expect_op([">=", "<=", ">", "<", "==", "!="])
+        if op:
+            return ("cmp", op, left, self.parse_additive())
+        return left
+
+    def parse_additive(self):
+        left = self.parse_term()
+        while True:
+            op = self.expect_op(["+", "-"])
+            if not op:
+                break
+            left = ("bin", op, left, self.parse_term())
+        return left
+
+    def parse_term(self):
+        left = self.parse_factor()
+        while True:
+            op = self.expect_op(["*", "/"])
+            if not op:
+                break
+            left = ("bin", op, left, self.parse_factor())
+        return left
+
+    def parse_factor(self):
+        tok = self.peek()
+        if tok is None:
+            raise _ExprError("公式不完整")
+        if tok[0] == "num":
+            self.pos += 1
+            return ("num", tok[1])
+        if tok[0] == "field":
+            self.pos += 1
+            return ("field", tok[1])
+        if tok[0] == "op" and tok[1] == "-":
+            self.pos += 1
+            return ("neg", self.parse_factor())
+        if tok[0] == "op" and tok[1] == "(":
+            self.pos += 1
+            node = self.parse_logic_or()
+            if not self.expect_op([")"]):
+                raise _ExprError("缺少右括号 )")
+            return node
+        raise _ExprError(f"意外的符号: {tok[1]}")
+
+
+def _collect_fields(node, out):
+    """收集公式中引用的所有字段名"""
+    t = node[0]
+    if t == "field":
+        out.add(node[1])
+    elif t == "neg":
+        _collect_fields(node[1], out)
+    elif t in ("bin", "cmp", "logic"):
+        _collect_fields(node[2], out)
+        _collect_fields(node[3], out)
+
+
+def _eval_node(node, values):
+    """计算 AST,values 为 {字段:数值},缺失字段已按 0 处理"""
+    t = node[0]
+    if t == "num":
+        return node[1]
+    if t == "field":
+        return values[node[1]]
+    if t == "neg":
+        return -_eval_node(node[1], values)
+    if t == "bin":
+        op, left, right = node[1], node[2], node[3]
+        a, b = _eval_node(left, values), _eval_node(right, values)
+        if op == "+":
+            return a + b
+        if op == "-":
+            return a - b
+        if op == "*":
+            return a * b
+        if b == 0:
+            raise ZeroDivisionError()
+        return a / b
+    if t == "cmp":
+        op, left, right = node[1], node[2], node[3]
+        a, b = _eval_node(left, values), _eval_node(right, values)
+        if op == ">":
+            return a > b
+        if op == "<":
+            return a < b
+        if op == ">=":
+            return a >= b
+        if op == "<=":
+            return a <= b
+        if op == "==":
+            return a == b
+        return a != b
+    if t == "logic":
+        op, left, right = node[1], node[2], node[3]
+        a, b = _eval_node(left, values), _eval_node(right, values)
+        if op == "&&":
+            return bool(a) and bool(b)
+        return bool(a) or bool(b)
+    return None
+
+
+def _formula_to_text(node):
+    """把 AST 转成中文解析文本"""
+    t = node[0]
+    if t == "num":
+        v = node[1]
+        return str(int(v)) if v == int(v) else str(v)
+    if t == "field":
+        return BALANCE_FIELD_CN.get(node[1], node[1])
+    if t == "neg":
+        return "(-" + _formula_to_text(node[1]) + ")"
+    op, left, right = node[1], node[2], node[3]
+    return f"({_formula_to_text(left)} {op} {_formula_to_text(right)})"
+
+
+def _pick_record(records, period):
+    """按报告期选取记录: latest=最新一期; 指定日期=严格匹配该报告期"""
+    if period and period != "latest":
+        matches = [r for r in records if (r.get("rpt_date") or "") == period]
+        if not matches:
+            return None
+        return max(matches, key=lambda r: r.get("pub_date") or "")
+    return max(records, key=lambda r: (r.get("rpt_date") or "", r.get("pub_date") or ""))
+
+
+def finance_periods():
+    """返回数据中出现过的报告期,从新到旧,取最近40期(约10年)"""
+    load_all_balance_data()
+    periods = set()
+    for records in _finance_cache.values():
+        for rec in records:
+            d = rec.get("rpt_date")
+            if d:
+                periods.add(d)
+    return {"periods": sorted(periods, reverse=True)[:40]}
+
+
+def finance_fields():
+    """返回按一级分类组织的字段列表(财务/行情)"""
+    return {"categories": [
+        {"cat": "财务", "fields": [{"field": f, "cn": cn} for f, cn in BALANCE_FIELDS]},
+        {"cat": "行情", "fields": [{"field": f, "cn": cn} for f, cn in KLINE_FIELDS]},
+    ]}
+
+
+def finance_query(formula, period=None):
+    """解析公式并遍历财务/行情数据计算,返回结果字典"""
+    try:
+        root = _FormulaParser(_tokenize_formula(formula)).parse()
+    except _ExprError as e:
+        return {"error": str(e)}
+    fields_used = set()
+    _collect_fields(root, fields_used)
+    finance_used = [f for f in fields_used if f in BALANCE_FIELD_CN]
+    kline_used = [f for f in fields_used if f in KLINE_FIELD_CN]
+    unknown = [f for f in fields_used if f not in BALANCE_FIELD_CN and f not in KLINE_FIELD_CN]
+    if unknown:
+        return {"error": "未知字段: " + ", ".join(unknown)}
+    if finance_used:
+        load_all_balance_data()
+    if kline_used:
+        codes = _kline_all_codes() if not finance_used else (set(_finance_cache.keys()) & _kline_all_codes())
+    else:
+        codes = set(_finance_cache.keys())
+    is_bool = root[0] in ("cmp", "logic")
+    cmp_parts = None
+    if root[0] == "cmp":
+        cmp_parts = {"op": root[1], "left_node": root[2], "right_node": root[3]}
+    rows = []
+    total = 0
+    for code in sorted(codes):
+        rec = None
+        if finance_used:
+            records = _finance_cache.get(code)
+            if not records:
+                continue
+            rec = _pick_record(records, period)
+            if rec is None:
+                continue
+            if all(rec.get(f) is None for f in finance_used):
+                continue
+        krec = None
+        kline_date = ""
+        if kline_used:
+            kl = _load_kline_code(code)
+            if kl is None:
+                continue
+            dates, arr = kl
+            idx = _kline_index(dates, period)
+            if idx is None:
+                continue
+            kline_date = dates[idx]
+            krec = {f: _safe_num(arr[f][idx]) for f in kline_used}
+        values = {}
+        if finance_used:
+            for f in finance_used:
+                v = rec.get(f)
+                values[f] = v if v is not None else 0
+        if kline_used:
+            for f in kline_used:
+                values[f] = krec[f]
+        left = right = None
+        try:
+            if cmp_parts:
+                left = _eval_node(cmp_parts["left_node"], values)
+                right = _eval_node(cmp_parts["right_node"], values)
+            result = _eval_node(root, values)
+        except ZeroDivisionError:
+            continue
+        if is_bool and not result:
+            continue
+        total += 1
+        row = {
+            "code": code,
+            "name": get_stock_name(code),
+            "period": (rec.get("rpt_date") if rec else "") or kline_date,
+            "value": result,
+        }
+        if cmp_parts:
+            row["left"] = left
+            row["right"] = right
+            row["op"] = cmp_parts["op"]
+        rows.append(row)
+    if not is_bool:
+        rows.sort(key=lambda r: r["value"], reverse=True)
+    return {
+        "parsed": _formula_to_text(root),
+        "is_bool": is_bool,
+        "count": len(rows),
+        "total": total,
+        "rows": rows,
+    }
+
 def init_announce_processor():
     global stock_announce_processor
     if stock_announce_processor is None:
@@ -114,6 +607,14 @@ class RealtimeProxyHandler(SimpleHTTPRequestHandler):
             self.handle_get_stock_labels()
         elif parsed.path == "/update-canzhai":
             self.handle_update_canzhai()
+        elif parsed.path == "/finance-fields":
+            self.handle_finance_fields()
+        elif parsed.path == "/finance-periods":
+            self.handle_finance_periods()
+        elif parsed.path == "/finance-query":
+            self.handle_finance_query(parsed.query)
+        elif parsed.path == "/finance-schemes":
+            self.handle_get_finance_schemes()
         else:
             super().do_GET()
     
@@ -129,6 +630,66 @@ class RealtimeProxyHandler(SimpleHTTPRequestHandler):
             self.send_response(404)
             self.end_headers()
     
+    def do_POST(self):
+        parsed = urlparse(self.path)
+        if parsed.path == "/finance-schemes":
+            self.handle_post_finance_schemes()
+        else:
+            self.send_response(404)
+            self.end_headers()
+
+    def handle_get_finance_schemes(self):
+        """处理获取已保存方案请求"""
+        try:
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(json.dumps({"schemes": load_finance_schemes()}, ensure_ascii=False).encode("utf-8"))
+        except Exception as exc:
+            print(f"获取方案失败: {exc}", flush=True)
+            traceback.print_exc()
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(json.dumps({"error": str(exc)}).encode("utf-8"))
+
+    def handle_post_finance_schemes(self):
+        """处理保存/删除方案请求"""
+        try:
+            content_length = int(self.headers.get("Content-Length", 0))
+            body = self.rfile.read(content_length).decode("utf-8")
+            data = json.loads(body)
+            schemes = load_finance_schemes()
+            action = data.get("action")
+            if action == "save" and data.get("name"):
+                schemes[data["name"]] = data.get("formula", "")
+                save_finance_schemes(schemes)
+            elif action == "delete" and data.get("name"):
+                schemes.pop(data["name"], None)
+                save_finance_schemes(schemes)
+            else:
+                self.send_response(400)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.send_header("Access-Control-Allow-Origin", "*")
+                self.end_headers()
+                self.wfile.write(json.dumps({"error": "参数错误"}).encode("utf-8"))
+                return
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": True, "schemes": schemes}, ensure_ascii=False).encode("utf-8"))
+        except Exception as exc:
+            print(f"保存方案失败: {exc}", flush=True)
+            traceback.print_exc()
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(json.dumps({"error": str(exc)}).encode("utf-8"))
+
     def handle_get_stock_labels(self):
         """处理获取股票标签数据请求"""
         try:
@@ -376,6 +937,68 @@ class RealtimeProxyHandler(SimpleHTTPRequestHandler):
             self.end_headers()
             self.wfile.write(json.dumps({"success": False, "output": str(exc)}).encode("utf-8"))
 
+    def handle_finance_fields(self):
+        """处理获取财务字段列表请求"""
+        try:
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(json.dumps(finance_fields(), ensure_ascii=False).encode("utf-8"))
+        except Exception as exc:
+            print(f"获取财务字段失败: {exc}", flush=True)
+            traceback.print_exc()
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(json.dumps({"error": str(exc)}).encode("utf-8"))
+
+    def handle_finance_periods(self):
+        """处理获取报告期列表请求"""
+        try:
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(json.dumps(finance_periods(), ensure_ascii=False).encode("utf-8"))
+        except Exception as exc:
+            print(f"获取报告期失败: {exc}", flush=True)
+            traceback.print_exc()
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(json.dumps({"error": str(exc)}).encode("utf-8"))
+
+    def handle_finance_query(self, query_string):
+        """处理财务公式查询请求"""
+        params = parse_qs(query_string)
+        formula = params.get("formula", [None])[0]
+        period = params.get("period", [None])[0]
+        if not formula:
+            self.send_response(400)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(json.dumps({"error": "缺少公式参数"}).encode("utf-8"))
+            return
+        try:
+            result = finance_query(formula, period)
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(json.dumps(result, ensure_ascii=False).encode("utf-8"))
+        except Exception as exc:
+            print(f"财务公式查询失败: {exc}", flush=True)
+            traceback.print_exc()
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(json.dumps({"error": str(exc)}).encode("utf-8"))
+
     def log_message(self, format, *args):
         return
 
@@ -390,4 +1013,5 @@ if __name__ == "__main__":
     print(f"Serving at http://localhost:{port}")
     print("Use http://localhost:8000/web/index.html to open the UI")
     print("Use http://localhost:8000/web/label.html to open the Label UI")
+    print("Use http://localhost:8000/web/finance_query.html to open the Finance Query UI")
     server.serve_forever()

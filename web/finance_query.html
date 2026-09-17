@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>财务公式查询</title>
+<style>
+  :root {
+    --brand: #4B3FE3;
+    --brand-soft: rgba(75, 63, 227, 0.18);
+    --bg: #0f1115;
+    --surface: #171a21;
+    --surface-muted: #1d2130;
+    --border: #2a2f3d;
+    --text: #e6e8ee;
+    --text-muted: #8a90a0;
+    --danger: #e5484d;
+    --success: #46a758;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Microsoft YaHei", "PingFang SC", -apple-system, sans-serif;
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 20px;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  header h1 { font-size: 18px; font-weight: 600; }
+  header h1::before {
+    content: "";
+    display: inline-block;
+    width: 8px; height: 18px;
+    border-radius: 3px;
+    background: var(--brand);
+    margin-right: 10px;
+    vertical-align: -2px;
+  }
+  .controls { margin-left: auto; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .controls label { color: var(--text-muted); }
+  .ctrl-sep { width: 1px; height: 18px; background: var(--border); }
+  .modal-mask {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-mask.open { display: flex; }
+  .modal-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 18px;
+    width: 320px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  }
+  .modal-title { font-weight: 600; margin-bottom: 12px; }
+  .modal-box input {
+    width: 100%;
+    box-sizing: border-box;
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 10px;
+    font-size: 13px;
+    outline: none;
+  }
+  .modal-box input:focus { border-color: var(--brand); }
+  .modal-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 14px; }
+  select, input[type="date"] {
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 13px;
+    outline: none;
+  }
+  select:focus, input[type="date"]:focus { border-color: var(--brand); }
+  button {
+    background: var(--brand);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 7px 22px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: opacity .12s;
+  }
+  button:hover { opacity: .88; }
+  button:disabled { opacity: .5; cursor: not-allowed; }
+  main {
+    flex: 1;
+    display: flex;
+    min-height: 0;
+  }
+  aside {
+    width: 260px;
+    flex-shrink: 0;
+    border-right: 1px solid var(--border);
+    overflow-y: auto;
+    padding: 8px;
+  }
+  aside .aside-title {
+    padding: 6px 8px 10px;
+    color: var(--text-muted);
+    font-size: 12px;
+  }
+  .group-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 8px 6px;
+    cursor: pointer;
+    color: var(--text);
+    font-weight: 600;
+    font-size: 13px;
+    user-select: none;
+    border-radius: 6px;
+  }
+  .group-header:hover { background: var(--surface-muted); }
+  .group-header .g-arrow { color: var(--brand); font-size: 11px; }
+  .group-header .g-count { margin-left: auto; color: var(--text-muted); font-size: 11px; font-weight: 400; }
+  .group-body.collapsed { display: none; }
+  .field-item {
+    padding: 7px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    line-height: 1.4;
+  }
+  .field-item:hover { background: var(--brand-soft); }
+  .field-item .f-en { font-family: Consolas, monospace; color: var(--text); font-size: 12px; }
+  .field-item .f-cn { color: var(--text-muted); font-size: 12px; text-align: right; }
+  .right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 0;
+  }
+  .formula-box {
+    margin: 16px 20px 0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    flex-shrink: 0;
+  }
+  .formula-box .fb-label {
+    padding: 10px 14px 0;
+    color: var(--text-muted);
+    font-size: 12px;
+  }
+  #formulaEditor {
+    padding: 10px 14px 16px;
+    min-height: 120px;
+    outline: none;
+    line-height: 2;
+    overflow-y: auto;
+  }
+  #formulaEditor:empty::before {
+    content: attr(data-placeholder);
+    color: var(--text-muted);
+    pointer-events: none;
+  }
+  .chip {
+    display: inline-block;
+    background: var(--brand-soft);
+    border: 1px solid var(--brand);
+    color: #c9c4ff;
+    border-radius: 4px;
+    padding: 1px 8px;
+    margin: 1px 2px;
+    font-size: 13px;
+    cursor: grab;
+    user-select: none;
+  }
+  .chip:hover { background: rgba(75, 63, 227, 0.32); }
+  .chip.dragging { opacity: 0.45; }
+  #resultPanel {
+    flex: 1;
+    margin: 16px 20px 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    overflow: hidden;
+  }
+  .result-head {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    flex-shrink: 0;
+  }
+  .result-head .parsed { color: var(--text); font-size: 13px; }
+  .result-head .parsed b { color: #c9c4ff; font-weight: 500; }
+  .result-head .stats { color: var(--text-muted); font-size: 12px; margin-left: auto; flex-shrink: 0; }
+  #errorBox {
+    padding: 10px 14px;
+    color: var(--danger);
+    border-bottom: 1px solid var(--border);
+    display: none;
+    flex-shrink: 0;
+  }
+  .table-wrap { flex: 1; overflow: auto; min-height: 0; }
+  table { width: 100%; border-collapse: collapse; }
+  thead th {
+    position: sticky;
+    top: 0;
+    background: var(--surface-muted);
+    color: var(--text-muted);
+    font-weight: 500;
+    font-size: 12px;
+    text-align: left;
+    padding: 9px 14px;
+    border-bottom: 1px solid var(--border);
+    z-index: 1;
+  }
+  tbody td {
+    padding: 8px 14px;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+    white-space: nowrap;
+  }
+  tbody tr:hover { background: var(--brand-soft); }
+  td.num { text-align: right; font-family: Consolas, monospace; color: #c9c4ff; }
+  td.bool-yes { color: var(--success); }
+  td.bool-no { color: var(--danger); }
+  .empty-tip {
+    padding: 40px;
+    text-align: center;
+    color: var(--text-muted);
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+</style>
+</head>
+<body>
+  <header>
+    <h1>财务公式查询</h1>
+    <div class="controls">
+      <label for="periodSel">报告期</label>
+      <select id="periodSel">
+        <option value="latest">最新一期</option>
+      </select>
+      <button id="queryBtn">查询</button>
+      <span class="ctrl-sep"></span>
+      <select id="schemeSel">
+        <option value="">选择方案</option>
+      </select>
+      <button id="saveSchemeBtn" title="保存当前公式为方案">保存方案</button>
+      <button id="delSchemeBtn" title="删除选中的方案">删除方案</button>
+    </div>
+  </header>
+  <main>
+    <aside>
+      <div class="aside-title">财务项 / 行情项（双击插入公式）</div>
+      <div id="fieldList"></div>
+    </aside>
+    <section class="right">
+      <div class="formula-box">
+        <div class="fb-label">公式</div>
+        <div id="formulaEditor" contenteditable="true"
+             data-placeholder="双击左侧财务项构建公式，支持 + - * / ( ) 以及 &gt; &lt; &gt;= &lt;= == != &amp;&amp; ||"></div>
+      </div>
+      <div id="resultPanel">
+        <div class="result-head">
+          <span class="parsed" id="parsedLine"></span>
+          <span class="stats" id="statsLine"></span>
+        </div>
+        <div id="errorBox"></div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>代码</th><th>名称</th><th>报告期</th><th>结果</th></tr>
+            </thead>
+            <tbody id="resultBody"></tbody>
+          </table>
+          <div class="empty-tip" id="emptyTip">在左侧双击财务项、编写公式后点击「查询」</div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <div id="schemeModal" class="modal-mask">
+    <div class="modal-box">
+      <div class="modal-title">保存方案</div>
+      <input id="schemeNameInput" type="text" placeholder="请输入方案名称" maxlength="40">
+      <div class="modal-actions">
+        <button id="schemeCancelBtn">取消</button>
+        <button id="schemeOkBtn" class="primary">确定</button>
+      </div>
+    </div>
+  </div>
+<script>
+(function () {
+  const fieldList = document.getElementById('fieldList');
+  const editor = document.getElementById('formulaEditor');
+  const queryBtn = document.getElementById('queryBtn');
+  const periodSel = document.getElementById('periodSel');
+  const schemeSel = document.getElementById('schemeSel');
+  const saveSchemeBtn = document.getElementById('saveSchemeBtn');
+  const delSchemeBtn = document.getElementById('delSchemeBtn');
+  const parsedLine = document.getElementById('parsedLine');
+  const statsLine = document.getElementById('statsLine');
+  const errorBox = document.getElementById('errorBox');
+  const resultBody = document.getElementById('resultBody');
+  const emptyTip = document.getElementById('emptyTip');
+
+  // 报告期下拉：从新到旧列出最近十年的季度报告期
+  fetch('/finance-periods')
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      if (!data.periods) return;
+      data.periods.forEach(function (p) {
+        const opt = document.createElement('option');
+        opt.value = p;
+        opt.textContent = p;
+        periodSel.appendChild(opt);
+      });
+    })
+    .catch(function () {});
+
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+
+  function insertChip(field, cn) {
+    editor.focus();
+    // 统一插入到公式框末尾
+    const range = document.createRange();
+    range.selectNodeContents(editor);
+    range.collapse(false);
+    const chip = document.createElement('span');
+    chip.className = 'chip';
+    chip.dataset.field = field;
+    chip.textContent = cn;
+    chip.contentEditable = 'false';
+    chip.title = '点击移除：' + field;
+    range.insertNode(chip);
+    const space = document.createTextNode(' ');
+    range.setStartAfter(chip);
+    range.collapse(true);
+    range.insertNode(space);
+    range.setStartAfter(space);
+    range.collapse(true);
+    const sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+  }
+
+  // 自定义拖拽：按住字段拖动调整位置；单击（未拖动）则移除该字段
+  let dragChip = null;
+  let dragStartX = 0, dragStartY = 0;
+  let isDragging = false;
+
+  editor.addEventListener('mousedown', function (e) {
+    const chip = e.target.closest('.chip');
+    if (!chip) return;
+    e.preventDefault(); // 阻止文本选择，保证按住可拖动
+    dragChip = chip;
+    dragStartX = e.clientX;
+    dragStartY = e.clientY;
+    isDragging = false;
+  });
+
+  document.addEventListener('mousemove', function (e) {
+    if (!dragChip) return;
+    if (!isDragging && Math.abs(e.clientX - dragStartX) + Math.abs(e.clientY - dragStartY) > 5) {
+      isDragging = true;
+      dragChip.classList.add('dragging');
+    }
+    if (isDragging) {
+      e.preventDefault();
+    }
+  });
+
+  document.addEventListener('mouseup', function (e) {
+    if (!dragChip) return;
+    const chip = dragChip;
+    if (!isDragging) {
+      chip.remove();
+    } else {
+      chip.classList.remove('dragging');
+      const el = document.elementFromPoint(e.clientX, e.clientY);
+      const targetChip = el && el.closest ? el.closest('.chip') : null;
+      if (targetChip && targetChip !== chip) {
+        const rect = targetChip.getBoundingClientRect();
+        if (e.clientX >= rect.left + rect.width / 2) {
+          targetChip.after(chip);
+        } else {
+          targetChip.before(chip);
+        }
+      } else {
+        let range = null;
+        if (document.caretRangeFromPoint) {
+          range = document.caretRangeFromPoint(e.clientX, e.clientY);
+        }
+        if (!range) {
+          range = document.createRange();
+          range.selectNodeContents(editor);
+          range.collapse(false);
+        }
+        // 落点在某个 chip 内部时退化为插到末尾，避免把 chip 拆进另一个 chip
+        const insideChip = range.startContainer && range.startContainer.parentElement &&
+                           range.startContainer.parentElement.closest('.chip');
+        if (insideChip) {
+          const r = document.createRange();
+          r.selectNodeContents(editor);
+          r.collapse(false);
+          r.insertNode(chip);
+        } else {
+          range.insertNode(chip);
+        }
+      }
+      editor.focus();
+    }
+    dragChip = null;
+    isDragging = false;
+  });
+
+  // 二级树：一级为分类（财务/行情），二级为字段，点击一级可展开/折叠
+  const FIELD_CN = {};
+  fetch('/finance-fields')
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      if (!data.categories) return;
+      data.categories.forEach(function (cat) {
+        const header = document.createElement('div');
+        header.className = 'group-header';
+        header.innerHTML = '<span class="g-arrow">▾</span><span class="g-name">' + esc(cat.cat) + '</span><span class="g-count">' + cat.fields.length + '</span>';
+        const body = document.createElement('div');
+        body.className = 'group-body';
+        cat.fields.forEach(function (f) {
+          FIELD_CN[f.field] = f.cn;
+          const item = document.createElement('div');
+          item.className = 'field-item';
+          item.innerHTML = '<span class="f-en">' + esc(f.field) + '</span><span class="f-cn">' + esc(f.cn) + '</span>';
+          item.addEventListener('dblclick', function () { insertChip(f.field, f.cn); });
+          body.appendChild(item);
+        });
+        header.addEventListener('click', function () {
+          const collapsed = body.classList.toggle('collapsed');
+          header.querySelector('.g-arrow').textContent = collapsed ? '▸' : '▾';
+        });
+        fieldList.appendChild(header);
+        fieldList.appendChild(body);
+      });
+    })
+    .catch(function () {
+      fieldList.innerHTML = '<div class="empty-tip">字段列表加载失败</div>';
+    });
+
+  function extractFormula() {
+    const parts = [];
+    editor.childNodes.forEach(function (node) {
+      if (node.nodeType === Node.TEXT_NODE) {
+        parts.push(node.textContent);
+      } else if (node.nodeType === Node.ELEMENT_NODE && node.dataset && node.dataset.field) {
+        parts.push(node.dataset.field);
+      }
+    });
+    return parts.join('').replace(/\s+/g, ' ').trim();
+  }
+
+  function showError(msg) {
+    errorBox.textContent = msg;
+    errorBox.style.display = 'block';
+  }
+
+  // 数值展示：保留足够小数位方便验证
+  function fmtNum(v) {
+    if (typeof v !== 'number') return esc(String(v));
+    if (!isFinite(v)) return esc(String(v));
+    return v.toLocaleString('zh-CN', { maximumFractionDigits: 6 });
+  }
+
+  function render(data) {
+    errorBox.style.display = 'none';
+    parsedLine.innerHTML = '解析：<b>' + esc(data.parsed) + '</b>';
+    if (data.error) { showError(data.error); return; }
+    if (data.is_bool) {
+      statsLine.textContent = '满足 ' + data.count + ' / ' + data.total + ' 只';
+    } else {
+      statsLine.textContent = '共 ' + data.count + ' 只（按结果降序）';
+    }
+    resultBody.innerHTML = '';
+    emptyTip.style.display = data.rows.length ? 'none' : 'block';
+    if (data.rows.length) {
+      const frag = document.createDocumentFragment();
+      data.rows.forEach(function (row) {
+        const tr = document.createElement('tr');
+        let valCell;
+        if (data.is_bool) {
+          if (row.left !== undefined && row.right !== undefined) {
+            valCell = '<td class="num">' + fmtNum(row.left) + ' ' + esc(row.op) + ' ' + fmtNum(row.right) +
+              ' → <b class="' + (row.value ? 'bool-yes' : 'bool-no') + '">' + (row.value ? '是' : '否') + '</b></td>';
+          } else {
+            valCell = '<td class="' + (row.value ? 'bool-yes' : 'bool-no') + '">' + (row.value ? '是' : '否') + '</td>';
+          }
+        } else {
+          valCell = '<td class="num">' + fmtNum(row.value) + '</td>';
+        }
+        tr.innerHTML = '<td>' + esc(row.code) + '</td><td>' + esc(row.name) + '</td><td>' + esc(row.period) + '</td>' + valCell;
+        frag.appendChild(tr);
+      });
+      resultBody.appendChild(frag);
+    }
+  }
+
+  // ===== 方案保存（存服务器 stocks/finance_schemes.json）=====
+  function fetchSchemes() {
+    return fetch('/finance-schemes')
+      .then(function (r) { return r.json(); })
+      .then(function (data) { return data.schemes || {}; });
+  }
+  function postScheme(payload) {
+    return fetch('/finance-schemes', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(function (r) { return r.json(); });
+  }
+  function refreshSchemeSel(cb) {
+    fetchSchemes().then(function (schemes) {
+      schemeSel.innerHTML = '<option value="">选择方案</option>';
+      Object.keys(schemes).forEach(function (name) {
+        const opt = document.createElement('option');
+        opt.value = name;
+        opt.textContent = name;
+        schemeSel.appendChild(opt);
+      });
+      if (cb) cb(schemes);
+    }).catch(function () {});
+  }
+  // 用字段名+中文名重建公式框内容
+  function setFormula(formula) {
+    editor.innerHTML = '';
+    const frag = document.createDocumentFragment();
+    const re = /[A-Za-z_]+/g;
+    let last = 0, m;
+    while ((m = re.exec(formula)) !== null) {
+      const token = m[0];
+      if (FIELD_CN[token]) {
+        if (m.index > last) frag.appendChild(document.createTextNode(formula.slice(last, m.index)));
+        const chip = document.createElement('span');
+        chip.className = 'chip';
+        chip.dataset.field = token;
+        chip.textContent = FIELD_CN[token];
+        chip.contentEditable = 'false';
+        chip.title = '点击移除：' + token;
+        chip.addEventListener('click', function () { chip.remove(); });
+        frag.appendChild(chip);
+        last = m.index + token.length;
+      }
+    }
+    if (last < formula.length) frag.appendChild(document.createTextNode(formula.slice(last)));
+    editor.appendChild(frag);
+    editor.focus();
+  }
+  const schemeModal = document.getElementById('schemeModal');
+  const schemeNameInput = document.getElementById('schemeNameInput');
+  const schemeOkBtn = document.getElementById('schemeOkBtn');
+  const schemeCancelBtn = document.getElementById('schemeCancelBtn');
+  let pendingFormula = '';
+
+  function openSchemeModal() {
+    pendingFormula = extractFormula();
+    if (!pendingFormula) { showError('请先编写公式再保存'); return; }
+    schemeNameInput.value = '';
+    schemeModal.classList.add('open');
+    schemeNameInput.focus();
+  }
+  function closeSchemeModal() {
+    schemeModal.classList.remove('open');
+    pendingFormula = '';
+  }
+  saveSchemeBtn.addEventListener('click', openSchemeModal);
+  schemeCancelBtn.addEventListener('click', closeSchemeModal);
+  schemeModal.addEventListener('click', function (e) {
+    if (e.target === schemeModal) closeSchemeModal();
+  });
+  schemeOkBtn.addEventListener('click', function () {
+    const name = schemeNameInput.value.trim();
+    if (!name) { schemeNameInput.focus(); return; }
+    const formula = pendingFormula;
+    postScheme({ action: 'save', name: name, formula: formula })
+      .then(function () {
+        closeSchemeModal();
+        refreshSchemeSel(function (s) { if (s[name]) schemeSel.value = name; });
+      })
+      .catch(function (e) { showError('保存失败：' + e.message); });
+  });
+  schemeNameInput.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') schemeOkBtn.click();
+  });
+  delSchemeBtn.addEventListener('click', function () {
+    const name = schemeSel.value;
+    if (!name) return;
+    postScheme({ action: 'delete', name: name })
+      .then(function () { refreshSchemeSel(); })
+      .catch(function (e) { showError('删除失败：' + e.message); });
+  });
+  schemeSel.addEventListener('change', function () {
+    const name = this.value;
+    if (!name) return;
+    fetchSchemes().then(function (s) {
+      if (s[name]) setFormula(s[name]);
+    }).catch(function () {});
+  });
+  refreshSchemeSel();
+
+  queryBtn.addEventListener('click', function () {
+    const formula = extractFormula();
+    if (!formula) { showError('请先编写公式'); return; }
+    const period = periodSel.value;
+    queryBtn.disabled = true;
+    queryBtn.textContent = '查询中...';
+    const url = '/finance-query?formula=' + encodeURIComponent(formula) + '&period=' + encodeURIComponent(period);
+    fetch(url)
+      .then(function (r) { return r.json(); })
+      .then(function (data) { render(data); })
+      .catch(function (e) { showError('请求失败：' + e.message); })
+      .finally(function () {
+        queryBtn.disabled = false;
+        queryBtn.textContent = '查询';
+      });
+  });
+})();
+</script>
+</body>
+</html>

@@ -455,6 +455,7 @@ def fetch_all_convert_bonds(save_path: str = None) -> str:
         
         # 每处理10条输出一次进度
         if (i + 1) % 10 == 0:
+            delay = random.uniform(0.3, 0.7)
             print(f"已处理 {i + 1}/{len(bonds)} 条可转债详情")
 
     output_dir = save_path or os.path.join(os.path.dirname(__file__), "kzz", "all.json")

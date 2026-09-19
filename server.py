@@ -18,6 +18,8 @@ stock_announce_processor = None
 # 全局变量，用于缓存股票标签数据和股票基础数据
 stock_labels_cache = {}
 stock_base_cache = {}
+stock_industry_cache = {}
+stock_delisted_set = set()
 DATA_FILE = "stocks/stock_label.json"
 BASE_FILE = "stocks/all_base.json"
 
@@ -38,13 +40,15 @@ def load_stock_labels():
 
 def load_stock_base():
     """加载股票基础数据到内存"""
-    global stock_base_cache
+    global stock_base_cache, stock_industry_cache, stock_delisted_set
     if os.path.exists(BASE_FILE):
         try:
             # 尝试使用UTF-8编码读取
             with open(BASE_FILE, "r", encoding="utf-8") as f:
                 base_data = json.load(f)
             stock_base_cache = {item["stock_code"]: item["stock_name"] for item in base_data}
+            stock_industry_cache = {item["stock_code"]: (item.get("industry_level1") or "") for item in base_data}
+            stock_delisted_set = {item["stock_code"] for item in base_data if item.get("delisted_date") and item.get("delisted_date") != "2038-01-01"}
             print(f"已加载股票基础数据，共 {len(stock_base_cache)} 只股票")
         except UnicodeDecodeError:
             # 如果UTF-8失败，尝试GBK编码（中文Windows常见编码）
@@ -52,15 +56,23 @@ def load_stock_base():
                 with open(BASE_FILE, "r", encoding="gbk") as f:
                     base_data = json.load(f)
                 stock_base_cache = {item["stock_code"]: item["stock_name"] for item in base_data}
+                stock_industry_cache = {item["stock_code"]: (item.get("industry_level1") or "") for item in base_data}
+                stock_delisted_set = {item["stock_code"] for item in base_data if item.get("delisted_date") and item.get("delisted_date") != "2038-01-01"}
                 print(f"已加载股票基础数据(GBK)，共 {len(stock_base_cache)} 只股票")
             except Exception as e:
                 print(f"加载股票基础数据失败(GBK): {e}")
                 stock_base_cache = {}
+                stock_industry_cache = {}
+                stock_delisted_set = set()
         except Exception as e:
             print(f"加载股票基础数据失败: {e}")
             stock_base_cache = {}
+            stock_industry_cache = {}
+            stock_delisted_set = set()
     else:
         stock_base_cache = {}
+        stock_industry_cache = {}
+        stock_delisted_set = set()
         print("股票基础数据文件不存在")
 
 def get_stock_name(stock_code):
@@ -475,12 +487,21 @@ def finance_fields():
     ]}
 
 
-def finance_query(formula, period=None):
+def finance_industries():
+    """返回一级行业去重列表"""
+    load_stock_base()
+    return {"industries": sorted({v for v in stock_industry_cache.values() if v})}
+
+
+def finance_query(formula, period=None, exclude_industry=None):
     """解析公式并遍历财务/行情数据计算,返回结果字典"""
     try:
         root = _FormulaParser(_tokenize_formula(formula)).parse()
     except _ExprError as e:
         return {"error": str(e)}
+    excluded = set()
+    if exclude_industry:
+        excluded = {x for x in exclude_industry.split(",") if x}
     fields_used = set()
     _collect_fields(root, fields_used)
     finance_used = [f for f in fields_used if f in BALANCE_FIELD_CN]
@@ -501,6 +522,14 @@ def finance_query(formula, period=None):
     rows = []
     total = 0
     for code in sorted(codes):
+        # 固定排除 900 开头的沪市 B 股
+        if code.startswith("900"):
+            continue
+        # 排除已退市股票
+        if code in stock_delisted_set:
+            continue
+        if excluded and stock_industry_cache.get(code) in excluded:
+            continue
         rec = None
         if finance_used:
             records = _finance_cache.get(code)
@@ -523,6 +552,17 @@ def finance_query(formula, period=None):
                 continue
             kline_date = dates[idx]
             krec = {f: _safe_num(arr[f][idx]) for f in kline_used}
+        # 市值列：优先复用已取的行情数据，否则补充读取 kline 的 tot_mv
+        market_cap = None
+        if krec is not None and "tot_mv" in kline_used:
+            market_cap = krec["tot_mv"]
+        else:
+            kl = _load_kline_code(code)
+            if kl is not None:
+                dates, arr = kl
+                idx = _kline_index(dates, period)
+                if idx is not None:
+                    market_cap = _safe_num(arr["tot_mv"][idx])
         values = {}
         if finance_used:
             for f in finance_used:
@@ -547,6 +587,7 @@ def finance_query(formula, period=None):
             "name": get_stock_name(code),
             "period": (rec.get("rpt_date") if rec else "") or kline_date,
             "value": result,
+            "market_cap": round(market_cap / 1e8, 2) if market_cap else None,
         }
         if cmp_parts:
             row["left"] = left
@@ -609,6 +650,8 @@ class RealtimeProxyHandler(SimpleHTTPRequestHandler):
             self.handle_update_canzhai()
         elif parsed.path == "/finance-fields":
             self.handle_finance_fields()
+        elif parsed.path == "/finance-industries":
+            self.handle_finance_industries()
         elif parsed.path == "/finance-periods":
             self.handle_finance_periods()
         elif parsed.path == "/finance-query":
@@ -954,6 +997,23 @@ class RealtimeProxyHandler(SimpleHTTPRequestHandler):
             self.end_headers()
             self.wfile.write(json.dumps({"error": str(exc)}).encode("utf-8"))
 
+    def handle_finance_industries(self):
+        """处理获取一级行业列表请求"""
+        try:
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(json.dumps(finance_industries(), ensure_ascii=False).encode("utf-8"))
+        except Exception as exc:
+            print(f"获取行业列表失败: {exc}", flush=True)
+            traceback.print_exc()
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(json.dumps({"error": str(exc)}).encode("utf-8"))
+
     def handle_finance_periods(self):
         """处理获取报告期列表请求"""
         try:
@@ -976,6 +1036,7 @@ class RealtimeProxyHandler(SimpleHTTPRequestHandler):
         params = parse_qs(query_string)
         formula = params.get("formula", [None])[0]
         period = params.get("period", [None])[0]
+        exclude_industry = params.get("exclude_industry", [None])[0]
         if not formula:
             self.send_response(400)
             self.send_header("Content-Type", "application/json; charset=utf-8")
@@ -984,7 +1045,7 @@ class RealtimeProxyHandler(SimpleHTTPRequestHandler):
             self.wfile.write(json.dumps({"error": "缺少公式参数"}).encode("utf-8"))
             return
         try:
-            result = finance_query(formula, period)
+            result = finance_query(formula, period, exclude_industry)
             self.send_response(200)
             self.send_header("Content-Type", "application/json; charset=utf-8")
             self.send_header("Access-Control-Allow-Origin", "*")

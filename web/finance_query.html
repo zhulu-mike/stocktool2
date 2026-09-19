@@ -49,6 +49,43 @@
   .controls { margin-left: auto; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
   .controls label { color: var(--text-muted); }
   .ctrl-sep { width: 1px; height: 18px; background: var(--border); }
+  .ind-wrap { position: relative; }
+  .ind-panel {
+    display: none;
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    width: 250px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    z-index: 60;
+    overflow: hidden;
+  }
+  .ind-panel.open { display: block; }
+  .ind-panel-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  .ind-panel-head button { font-size: 12px; padding: 2px 8px; }
+  #indList { max-height: 260px; overflow-y: auto; padding: 4px; }
+  .ind-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 8px;
+    font-size: 13px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  .ind-item:hover { background: var(--surface-muted); }
+  .ind-item input { accent-color: var(--brand); }
   .modal-mask {
     display: none;
     position: fixed;
@@ -224,6 +261,8 @@
   }
   .table-wrap { flex: 1; overflow: auto; min-height: 0; }
   table { width: 100%; border-collapse: collapse; }
+  #capTh { cursor: pointer; user-select: none; white-space: nowrap; }
+  #capTh:hover { color: var(--text); }
   thead th {
     position: sticky;
     top: 0;
@@ -266,6 +305,17 @@
       </select>
       <button id="queryBtn">查询</button>
       <span class="ctrl-sep"></span>
+      <div class="ind-wrap">
+        <button id="excludeIndBtn" type="button">排除行业</button>
+        <div id="excludeIndPanel" class="ind-panel">
+          <div class="ind-panel-head">
+            <span id="indCount">未选择行业</span>
+            <button id="indClearBtn" type="button">清除全部</button>
+          </div>
+          <div id="indList"></div>
+        </div>
+      </div>
+      <span class="ctrl-sep"></span>
       <select id="schemeSel">
         <option value="">选择方案</option>
       </select>
@@ -293,7 +343,7 @@
         <div class="table-wrap">
           <table>
             <thead>
-              <tr><th>代码</th><th>名称</th><th>报告期</th><th>结果</th></tr>
+              <tr><th>代码</th><th>名称</th><th>报告期</th><th id="capTh">市值(亿)</th><th>结果</th></tr>
             </thead>
             <tbody id="resultBody"></tbody>
           </table>
@@ -321,10 +371,19 @@
   const schemeSel = document.getElementById('schemeSel');
   const saveSchemeBtn = document.getElementById('saveSchemeBtn');
   const delSchemeBtn = document.getElementById('delSchemeBtn');
+  const excludeIndBtn = document.getElementById('excludeIndBtn');
+  const excludeIndPanel = document.getElementById('excludeIndPanel');
+  const indList = document.getElementById('indList');
+  const indCount = document.getElementById('indCount');
+  const indClearBtn = document.getElementById('indClearBtn');
+  const indWrap = document.querySelector('.ind-wrap');
   const parsedLine = document.getElementById('parsedLine');
   const statsLine = document.getElementById('statsLine');
   const errorBox = document.getElementById('errorBox');
   const resultBody = document.getElementById('resultBody');
+  const capTh = document.getElementById('capTh');
+  let lastData = null;
+  let capSort = 0; // 0=后端顺序, 1=市值降序, 2=市值升序
   const emptyTip = document.getElementById('emptyTip');
 
   // 报告期下拉：从新到旧列出最近十年的季度报告期
@@ -498,6 +557,7 @@
   }
 
   function render(data) {
+    lastData = data;
     errorBox.style.display = 'none';
     parsedLine.innerHTML = '解析：<b>' + esc(data.parsed) + '</b>';
     if (data.error) { showError(data.error); return; }
@@ -523,12 +583,26 @@
         } else {
           valCell = '<td class="num">' + fmtNum(row.value) + '</td>';
         }
-        tr.innerHTML = '<td>' + esc(row.code) + '</td><td>' + esc(row.name) + '</td><td>' + esc(row.period) + '</td>' + valCell;
+        tr.innerHTML = '<td>' + esc(row.code) + '</td><td>' + esc(row.name) + '</td><td>' + esc(row.period) + '</td>' +
+          '<td class="num">' + (row.market_cap != null && isFinite(row.market_cap) ? fmtNum(row.market_cap) : '-') + '</td>' + valCell;
         frag.appendChild(tr);
       });
       resultBody.appendChild(frag);
     }
   }
+
+  // 点击市值表头排序：原序 → 降序 → 升序 → 原序
+  capTh.addEventListener('click', function () {
+    if (!lastData) return;
+    capSort = (capSort + 1) % 3;
+    if (capSort === 1) {
+      lastData.rows.sort(function (a, b) { return (b.market_cap ?? -Infinity) - (a.market_cap ?? -Infinity); });
+    } else if (capSort === 2) {
+      lastData.rows.sort(function (a, b) { return (a.market_cap ?? -Infinity) - (b.market_cap ?? -Infinity); });
+    }
+    capTh.textContent = '市值(亿)' + (capSort === 1 ? ' ↓' : capSort === 2 ? ' ↑' : '');
+    render(lastData);
+  });
 
   // ===== 方案保存（存服务器 stocks/finance_schemes.json）=====
   function fetchSchemes() {
@@ -632,13 +706,68 @@
   });
   refreshSchemeSel();
 
+  // ===== 排除行业（多选面板）=====
+  let selectedInds = {};
+  let indNames = [];
+
+  function updateIndBtn() {
+    const n = Object.keys(selectedInds).length;
+    excludeIndBtn.textContent = n ? '排除行业(' + n + ')' : '排除行业';
+    indCount.textContent = n ? '已选 ' + n + ' 个行业' : '未选择行业';
+  }
+  function renderIndList() {
+    indList.innerHTML = '';
+    indNames.forEach(function (name) {
+      const label = document.createElement('label');
+      label.className = 'ind-item';
+      const cb = document.createElement('input');
+      cb.type = 'checkbox';
+      cb.checked = !!selectedInds[name];
+      cb.addEventListener('change', function () {
+        if (cb.checked) selectedInds[name] = true;
+        else delete selectedInds[name];
+        updateIndBtn();
+      });
+      label.appendChild(cb);
+      label.appendChild(document.createTextNode(name));
+      indList.appendChild(label);
+    });
+    updateIndBtn();
+  }
+  function closeIndPanel() { excludeIndPanel.classList.remove('open'); }
+
+  // 加载一级行业列表，用于排除行业
+  fetch('/finance-industries')
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      indNames = data.industries || [];
+      renderIndList();
+    })
+    .catch(function () {});
+
+  excludeIndBtn.addEventListener('click', function (e) {
+    e.stopPropagation();
+    excludeIndPanel.classList.toggle('open');
+  });
+  indClearBtn.addEventListener('click', function () {
+    selectedInds = {};
+    renderIndList();
+  });
+  document.addEventListener('mousedown', function (e) {
+    if (!indWrap.contains(e.target)) closeIndPanel();
+  });
+
   queryBtn.addEventListener('click', function () {
+    capSort = 0;
+    capTh.textContent = '市值(亿)';
     const formula = extractFormula();
     if (!formula) { showError('请先编写公式'); return; }
     const period = periodSel.value;
+    const excludeIndustry = Object.keys(selectedInds).join(',');
     queryBtn.disabled = true;
     queryBtn.textContent = '查询中...';
-    const url = '/finance-query?formula=' + encodeURIComponent(formula) + '&period=' + encodeURIComponent(period);
+    const url = '/finance-query?formula=' + encodeURIComponent(formula) + '&period=' + encodeURIComponent(period) +
+      '&exclude_industry=' + encodeURIComponent(excludeIndustry);
     fetch(url)
       .then(function (r) { return r.json(); })
       .then(function (data) { render(data); })

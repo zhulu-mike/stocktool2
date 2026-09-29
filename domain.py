@@ -643,6 +643,9 @@ def doinit(context):
     elif flag==1000006:
         cal_wpg_mk()
         pass
+    elif flag==1000007:
+        diff_dfcf_wpg()
+        pass
     elif flag==55555:
         calculate_my_profit('202609')
     elif flag==666:
@@ -652,12 +655,13 @@ def doinit(context):
         p = FetchStockBaseInfo()
         p.process_all_stocks(force_update=False)
     elif flag==22222:
-        download_all_stock_balance(rpt_type=6,start_date="2010-01-01",end_date="2026-06-30")
+        download_all_stock_balance(rpt_type=12,start_date="2010-01-01",end_date="2026-06-30")
     
 
 
 
 def ontimer_3(context):
+    global all_a_stocks
     now = datetime.datetime.now().time()
     today_str = datetime.date.today().strftime('%Y%m%d')
     daily_lock_file = 'daily_lock.json'
@@ -711,6 +715,7 @@ def ontimer_3(context):
             calculate_attention()
             calculate_market_profit_by_day(start_date="2024-09-23")
             calculate_market_profit_by_day(start_date="2025-12-31")
+            download_all_a_stock_kline(stock_list=all_a_stocks)
             # 更新 wpg_mk 的日期
             lock_data['wpg_mk'] = today_str
             # 写入 JSON 格式
@@ -730,7 +735,6 @@ def ontimer_3(context):
         
         if need_announce:
             print(f"[{now}] 超过22:00，执行 UpdateAllStockAnnounce()...")
-            global all_a_stocks
             context.stock_announce_processor.try_load_all_announcements()
             context.stock_announce_processor.UpdateAllStockAnnounce(all_a_stocks, True)
             # 更新 announce 的日期
@@ -853,6 +857,68 @@ def searchWPG():
     avg1 = avg2
     avg2 = processor.calculate_wpg("2025-12-31")
     print("=======2025年微盘股β收益=", f"{avg2/avg1*100-100:.2f}%")
+
+def fetch_dfcf_wpg(output_path="stocks/dfcf_wpg.json"):
+    # 东方财富微盘股板块(bk1158)成员，逐页抓取并提取股票代码
+    wpg_url = "https://pushlogin.eastmoney.com/api/qt/clist/get?np=1&fltt=1&invt=2&cb=&fs=b%3Abk1158%2Bf%3A!50&fields=f12%2Cf13%2Cf14&fid=f3&pn=$PAGE_NUM$&pz=20&po=1&dect=1&ut=fa5fd1943c7b386f172d6893dbfba10b&_=1790669459608"
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "Referer": "https://quote.eastmoney.com/",
+    }
+    session = requests.Session()
+    session.headers.update(headers)
+
+    codes = []
+    seen = set()
+    page_num = 1
+    while True:
+        url = wpg_url.replace("$PAGE_NUM$", str(page_num))
+        try:
+            response = session.get(url, timeout=15)
+            if response.status_code != 200:
+                print(f"第{page_num}页请求失败, 状态码: {response.status_code}")
+                break
+            data = json.loads(response.text)
+        except Exception as e:
+            print(f"第{page_num}页解析失败: {e}")
+            break
+
+        diff = (data.get("data") or {}).get("diff")
+        if not diff:
+            break
+        for item in diff:
+            code = item.get("f12")
+            if code and code not in seen:
+                seen.add(code)
+                codes.append(code)
+        print(f"第{page_num}页获取 {len(diff)} 只, 累计 {len(codes)} 只")
+        if len(diff) < 20:
+            break
+        page_num += 1
+        time.sleep(random.uniform(0.2, 0.3))
+
+    with open(output_path, "w", encoding="utf-8") as f:
+        json.dump(codes, f, ensure_ascii=False, indent=4)
+    print(f"微盘股板块成员共 {len(codes)} 只, 已保存到 {output_path}")
+    return codes
+
+def diff_dfcf_wpg(output_path="stocks/dfcf_wpg.json"):
+    # 先读取旧的微盘股成员，再抓取最新的，比较两次的差集
+    old_codes = []
+    if os.path.exists(output_path):
+        with open(output_path, "r", encoding="utf-8") as f:
+            old_codes = json.load(f)
+    old_set = set(old_codes)
+
+    new_codes = fetch_dfcf_wpg(output_path)
+    new_set = set(new_codes)
+
+    out_codes = sorted(old_set - new_set)
+    in_codes = sorted(new_set - old_set)
+
+    print(f"轮出 {len(out_codes)} 只: {out_codes}")
+    print(f"轮进 {len(in_codes)} 只: {in_codes}")
+    return out_codes, in_codes
 
 def calculate_attention():
     # 读取attention.json

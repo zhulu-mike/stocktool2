@@ -628,12 +628,14 @@ def doinit(context):
         ]
         calculate_market_profit(time_orders, flag=flag)
     elif flag==1001:
+        calculate_guoqing_profit(2010, 2026)
+    elif flag==1002:
         time_orders = [
             [
                 ["2019-01-03", "2021-12-10", "2020牛市全段"],
             ],
             [
-                ["2024-09-23", "2026-06-30", "2025牛市全段"],
+                ["2024-09-23", today_str, "2025牛市全段"],
             ],
         ]
         calculate_market_profit(time_orders, flag=flag)
@@ -864,6 +866,7 @@ def fetch_dfcf_wpg(output_path="stocks/dfcf_wpg.json"):
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
         "Referer": "https://quote.eastmoney.com/",
+        "Cookie": "AUTH_FUND.EASTMONEY.COM_GSJZ=AUTH*TTJJ*TOKEN; st_nvi=SkIqvwBz3l82QtzxZjshG12fa; EMFUND1=null; EMFUND2=null; EMFUND3=null; EMFUND4=null; EMFUND5=null; EMFUND0=null; EMFUND6=09-05%2010%3A06%3A48@%23%24%u5EFA%u4FE1%u9886%u822A%u91CF%u5316%u9009%u80A1%u80A1%u7968%u578B%u53D1%u8D77A@%23%24027223; EMFUND7=09-05%2010%3A07%3A25@%23%24%u5929%u5F18%u4E0A%u8BC1%u79D1%u521B%u677F%u82AF%u7247%u6307%u6570A@%23%24027734; EMFUND8=09-05%2010%3A07%3A48@%23%24%u946B%u5143%u946B%u9009%u6052%u6CF0%u7A33%u5065%u914D%u7F6E3%u4E2A%u6708%u6301%u6709%u671F%u6DF7%u5408%28FOF%29A@%23%24026740; EMFUND9=09-05 10:10:46@#$%u521B%u4E1A%u677F%u7B97%u529BETF%u56FD%u6CF0@%23%24158055; st_si=65659534849093; nid18=0e17cb22ecf6960f4858bfd8cbdced17; nid18_create_time=1789655133276; gviem=Mco9O8nIa0z1DJP24uN-W14e0; gviem_create_time=1789655133276; has_jump_to_web=1; fullscreengg2=1; quote_lt=1; ws_login_gg=1; p_origin=https%3A%2F%2Fpassport2.eastmoney.com; st_asi=delete; mtp=1; ct=2ArbKfISCJe8GwU6mWlDDi_VK2DFH52_73iYr8TK67Oe_G_gMj8Z0CaO6wycrPFK9M_oeRUUA-I9THsr_7sZfNJ0xvFJ8RSyFvrxeY68BiYFu4RQ4yIELQxN88H5wwFnF5T7xX-d5TknXiosESRWySsgJoHYQWdBszGgyGq9aAU; ut=FobyicMgeV5FJnFT189SwF-NvM3s1TRt4j3RlON--x-8Avtz51jR3VK_ozfoP0dw1hbEbPMZk-wSq-xam5ns11b0OW-n0sEuna0dFui3j3sgpKcRUGH3dgMCesPoJvfJJn0dOZuoi3etv-WT4N2DCBwFKh3zM94mHaRXepZGjQKTbcqMhr86DaaLi2xWXRble26QASyVLx_nNDm4XC4d-xSxb0eGOu3uiAT9CnoX0diURuMPY1pIyi_RzkTg-7h86_r6EJJZ8_3Hjv8s7CvI0PcQAPmD8uO0CUyR7HQqTEUm6qKILeTeoEO3m3nuQzYtjsuFr9CX_e-_AuxJUju9BgJtyBkZRRUy; pi=3046094285466864%3Bm3046094285466864%3Briverriverriver%3BIikdl0p8X1yotHMB9cONfY1ICzkXcg8rqtS2McoqFdir7INjcviAr%2FcMy7Gc8Sw5Qj9S2DVNxxOKjNBCV%2BSuE2yAxjc%2BvApTyYgH3A8MKPNDxobWfXk6e7OcD9hsaWYxgLJxG7PoUJNS8oxzXAsQvdXcfHrGGAI1n5QvLOVwZLyclFiq%2B%2B1NPFeU0arU%2FbRj4AFtvV9B%3BK4hL5jCIDvsiqRRn6RnK0NPjSU6%2F5PRNBmqV%2FBu6uQydrrW%2Bf24uj1Eh%2FC7IZHLJcU2KXH4PL73pM6fgb2YzaP2R4uc2mmU%2FyKWJWneP8Rjf3Jrf0FNnhGkITAZwa%2Fvii363d7fTEpXqZXmKcMp3kfkY5GtvIg%3D%3D; uidal=3046094285466864riverriverriver; sid=2505195; vtpst=|; wsc_checkuser_ok=1; qgqp_b_id=9d1493e3cd6b27e7e9a2ad7b74967b8b; ws_tc_gg=1; st_pvi=60390339319309; st_sp=2025-08-25%2022%3A04%3A09; st_inirUrl=https%3A%2F%2Fwww.baidu.com%2Flink; st_sn=23; st_psi=2026093009152444-113200301321-2690245333",
     }
     session = requests.Session()
     session.headers.update(headers)
@@ -881,7 +884,7 @@ def fetch_dfcf_wpg(output_path="stocks/dfcf_wpg.json"):
             data = json.loads(response.text)
         except Exception as e:
             print(f"第{page_num}页解析失败: {e}")
-            break
+            return
 
         diff = (data.get("data") or {}).get("diff")
         if not diff:
@@ -1876,6 +1879,100 @@ def calculate_price_profit(start_date, end_date):
         start_date_list[code] = start_date
         end_date_list[code] = end_date
     avg_profit = processor.calculate_price_profit(stock_list, start_date_list, end_date_list, stock_names=stock_names)
+
+#统计沪深300、中证500、中证1000每年节假日前后买入卖出的收益和胜率
+def calculate_guoqing_profit(start_year, end_year):
+    """
+    统计沪深300、中证500、中证1000在每年5月1日(劳动节)、10月1日(国庆节)、春节(农历新年)前最后一个交易日收盘价买入，
+    到节后第一个交易日开盘价、收盘价分别卖出的收益和胜率。
+    start_year: int 开始年份
+    end_year: int 结束年份
+    """
+    indices = {"SHSE.000300": "沪深300", "SHSE.000905": "中证500", "SHSE.000852": "中证1000"}
+    holidays = [(5, 1, "5月1日"), (10, 1, "10月1日")]
+
+    def print_summary(name, holiday_name, year_details, open_rets, close_rets):
+        if not year_details:
+            print(f"{name}: 无有效数据")
+            return
+        print(f"\n========== {name} ({start_year}~{end_year}) {holiday_name}前后买入卖出统计 ==========")
+        for year, buy, sell, ret_open, ret_close in year_details:
+            print(f"{year}年: 买入日{buy['eob'].strftime('%Y-%m-%d')}收盘价{buy['close']:.2f} -> 卖出日{sell['eob'].strftime('%Y-%m-%d')} "
+                  f"开盘价{sell['open']:.2f}({ret_open:+.2f}%) 收盘价{sell['close']:.2f}({ret_close:+.2f}%)")
+        win_open = sum(1 for r in open_rets if r > 0)
+        win_close = sum(1 for r in close_rets if r > 0)
+        avg_open = sum(open_rets) / len(open_rets)
+        avg_close = sum(close_rets) / len(close_rets)
+        print(f"开盘卖出: 平均收益{avg_open:+.2f}%, 胜率{win_open*100/len(open_rets):.1f}% ({win_open}/{len(open_rets)}年盈利)")
+        print(f"收盘卖出: 平均收益{avg_close:+.2f}%, 胜率{win_close*100/len(close_rets):.1f}% ({win_close}/{len(close_rets)}年盈利)")
+
+    #固定日期节假日
+    def calc_holiday(month, day, holiday_name):
+        for symbol, name in indices.items():
+            year_details = []
+            open_rets = []
+            close_rets = []
+            for year in range(start_year, end_year + 1):
+                holiday = datetime.date(year, month, day)
+                start_date = (holiday - datetime.timedelta(days=15)).strftime('%Y-%m-%d')
+                end_date = (holiday + datetime.timedelta(days=15)).strftime('%Y-%m-%d')
+                datas = history(symbol=symbol, frequency='1d', start_time=start_date, end_time=end_date,
+                                fields='symbol, eob, open, close', adjust=ADJUST_POST, df=False)
+                if not datas:
+                    print(f"{name} {year}年{holiday_name}前/后15天内无数据")
+                    continue
+                datas = sorted(datas, key=lambda x: x['eob'])
+                before = [d for d in datas if d['eob'].date() < holiday]
+                after = [d for d in datas if d['eob'].date() >= holiday]
+                if not before or not after:
+                    print(f"{name} {year}年{holiday_name}前/后无交易日")
+                    continue
+                buy = before[-1]  #节前最后一个交易日
+                sell = after[0]   #节后第一个交易日
+                ret_open = (sell['open'] - buy['close']) / buy['close'] * 100
+                ret_close = (sell['close'] - buy['close']) / buy['close'] * 100
+                open_rets.append(ret_open)
+                close_rets.append(ret_close)
+                year_details.append((year, buy, sell, ret_open, ret_close))
+            print_summary(name, holiday_name, year_details, open_rets, close_rets)
+
+    #春节日期每年不同，通过1月15日~2月底窗口内最长停市间隔判断节前最后交易日和节后首个交易日
+    def calc_chunjie():
+        for symbol, name in indices.items():
+            year_details = []
+            open_rets = []
+            close_rets = []
+            for year in range(start_year, end_year + 1):
+                start_date = f"{year}-01-15"
+                end_date = f"{year}-02-28"
+                datas = history(symbol=symbol, frequency='1d', start_time=start_date, end_time=end_date,
+                                fields='symbol, eob, open, close', adjust=ADJUST_POST, df=False)
+                if not datas:
+                    print(f"{name} {year}年春节窗口内无数据")
+                    continue
+                datas = sorted(datas, key=lambda x: x['eob'])
+                max_gap = 0
+                best_i = -1
+                for i in range(1, len(datas)):
+                    gap = (datas[i]['eob'].date() - datas[i-1]['eob'].date()).days
+                    if gap > max_gap:
+                        max_gap = gap
+                        best_i = i
+                if best_i == -1 or max_gap < 5:
+                    print(f"{name} {year}年春节窗口内未找到停市间隔")
+                    continue
+                buy = datas[best_i - 1]  #节前最后一个交易日
+                sell = datas[best_i]     #节后第一个交易日
+                ret_open = (sell['open'] - buy['close']) / buy['close'] * 100
+                ret_close = (sell['close'] - buy['close']) / buy['close'] * 100
+                open_rets.append(ret_open)
+                close_rets.append(ret_close)
+                year_details.append((year, buy, sell, ret_open, ret_close))
+            print_summary(name, "春节", year_details, open_rets, close_rets)
+
+    for month, day, holiday_name in holidays:
+        calc_holiday(month, day, holiday_name)
+    calc_chunjie()
 
 def searchAnnounce(context):
     processor = stock_announce_processor.StockAnnounceProcessor(all_stocks_announce)

@@ -123,6 +123,14 @@ class StockPirceProcessor:
         end_date: str, "YYYY-MM-DD"
         返回一个字典，键为股票代码，值为涨跌幅百分比。
         """
+        #先用沪深300查询start_date~end_date区间内的实际交易日，取第一个和最后一个交易日为真正可用时间，
+        #避免传入的起始/结束日期是节假日时查询无数据，提高效率
+        h300_datas = history(symbol='SHSE.000300', frequency='1d', start_time=start_date, end_time=end_date,
+                             fields='eob', adjust=ADJUST_POST, df=False)
+        if h300_datas:
+            eob_dates = sorted(d['eob'].strftime('%Y-%m-%d') for d in h300_datas)
+            start_date = eob_dates[0]
+            end_date = eob_dates[-1]
         result = {}
         symbols = []
         for stock_code in stock_list:

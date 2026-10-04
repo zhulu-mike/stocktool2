@@ -45,13 +45,20 @@ class ConvertBondDetailFetcher:
         request = urllib.request.Request(url, headers=headers)
         
         # 设置较短的超时时间，避免长时间等待
-        for retry in range(3):
+        for retry in range(4):
             try:
                 with urllib.request.urlopen(request, timeout=15) as response:
                     raw = response.read()
                 return raw.decode("utf-8", errors="ignore")
+            except urllib.error.HTTPError as e:
+                # 触发限流(403/429)时等待更长时间再重试
+                if e.code in (403, 429) and retry < 3:
+                    print("触发限流", self.bond_code)
+                    time.sleep(random.uniform(10, 20))
+                    continue
+                raise
             except Exception as e:
-                if retry < 2:
+                if retry < 3:
                     time.sleep(random.uniform(1, 2))
                     continue
                 raise
@@ -444,6 +451,7 @@ def fetch_all_convert_bonds(save_path: str = None) -> str:
         time.sleep(delay)
 
     print(f"正在获取 {len(bonds)} 条可转债的详细信息...")
+    
     for i, bond_record in enumerate(bonds):
         detail = {}
         try:
@@ -455,9 +463,9 @@ def fetch_all_convert_bonds(save_path: str = None) -> str:
         
         # 每处理10条输出一次进度
         if (i + 1) % 10 == 0:
-            delay = random.uniform(0.3, 0.7)
+            time.sleep(random.uniform(0.4, 0.8))
             print(f"已处理 {i + 1}/{len(bonds)} 条可转债详情")
-
+    
     output_dir = save_path or os.path.join(os.path.dirname(__file__), "kzz", "all.json")
     output_folder = os.path.dirname(output_dir)
     os.makedirs(output_folder, exist_ok=True)

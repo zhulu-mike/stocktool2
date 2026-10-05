@@ -468,9 +468,9 @@
             resultStats.style.display = 'block';
             
             const rows = results.map(item => {
-                // 构建东方财富公告详情链接
+                // 通过本地服务端代理获取东财公告PDF（带磁盘缓存），绕过防盗链拦截
                 const artCode = item.art_code || '';
-                const announceUrl = artCode ? `https://pdf.dfcfw.com/pdf/H2_${artCode}_1.pdf` : '#';
+                const announceUrl = artCode ? `/announce-pdf?artCode=${encodeURIComponent(artCode)}` : '#';
                 const target = artCode ? '_blank' : '_self';
                 
                 return `

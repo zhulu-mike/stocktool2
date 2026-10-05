@@ -11,6 +11,7 @@ import os
 import subprocess
 import sys
 import bisect
+import re
 
 # 公告处理器（延迟导入）
 stock_announce_processor = None
@@ -644,6 +645,8 @@ class RealtimeProxyHandler(SimpleHTTPRequestHandler):
             self.handle_realtime_proxy(parsed.query)
         elif parsed.path == "/search-announce":
             self.handle_search_announce(parsed.query)
+        elif parsed.path == "/announce-pdf":
+            self.handle_announce_pdf(parsed.query)
         elif parsed.path == "/stocks/stock_label.json":
             self.handle_get_stock_labels()
         elif parsed.path == "/update-canzhai":
@@ -830,6 +833,59 @@ class RealtimeProxyHandler(SimpleHTTPRequestHandler):
             self.send_header("Access-Control-Allow-Origin", "*")
             self.end_headers()
             self.wfile.write(json.dumps({"error": str(exc)}).encode("utf-8"))
+
+    def handle_announce_pdf(self, query_string):
+        """通过服务端代理获取东财公告PDF：带本地磁盘缓存，未命中时触发JSL反爬挑战并计算cookie后重新请求"""
+        params = parse_qs(query_string)
+        art_code = params.get("artCode", [None])[0]
+        if not art_code:
+            self.send_response(400)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(json.dumps({"error": "缺少artCode参数"}).encode("utf-8"))
+            return
+        cache_path = os.path.join("stocks", "announce_pdf", f"{art_code}.pdf")
+        if os.path.exists(cache_path):
+            print(f"公告PDF命中缓存: {art_code}", flush=True)
+            with open(cache_path, "rb") as f:
+                data = f.read()
+        else:
+            pdf_url = f"https://pdf.dfcfw.com/pdf/H2_{art_code}_1.pdf"
+            headers = {
+                "Referer": "https://data.eastmoney.com/",
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+                "Accept": "application/pdf,*/*",
+            }
+            try:
+                with urlopen(Request(pdf_url, headers=headers), timeout=30) as resp:
+                    data = resp.read()
+                #JSL挑战页为script内容，解析其中的常量计算cookie后带cookie重新请求
+                if data.startswith(b"<script") and b"EO_Bot_Ssid" in data:
+                    js = data.decode("utf-8", errors="ignore")
+                    t_sum = sum(int(x) for x in re.findall(r":(\d+)", js))
+                    m = re.search(r"\(t,(\d+)\)", js)
+                    ssid = m.group(1) if m else ""
+                    cookie = f"EO_Bot_Ssid={ssid}; __tst_status={t_sum},EO_Bot_Ssid={ssid}#"
+                    with urlopen(Request(pdf_url, headers=dict(headers, Cookie=cookie)), timeout=30) as resp:
+                        data = resp.read()
+                    print(f"公告PDF挑战页为script内容: {art_code}", flush=True)
+            except Exception as exc:
+                print(f"下载公告PDF失败: {exc}", flush=True)
+                self.send_response(502)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.send_header("Access-Control-Allow-Origin", "*")
+                self.end_headers()
+                self.wfile.write(json.dumps({"error": str(exc)}).encode("utf-8"))
+                return
+            os.makedirs(os.path.dirname(cache_path), exist_ok=True)
+            with open(cache_path, "wb") as f:
+                f.write(data)
+        self.send_response(200)
+        self.send_header("Content-Type", "application/pdf")
+        self.send_header("Content-Length", str(len(data)))
+        self.end_headers()
+        self.wfile.write(data)
 
     def handle_realtime_proxy(self, query_string):
         params = parse_qs(query_string)

@@ -431,10 +431,10 @@ class StockPirceProcessor:
             data = datas[i]
             mv = data['tot_mv']
             mv = mv / 100000000  #转换为亿元
-            print(f"股票代码: {data['symbol']}-{end_date}, 市值: {mv:.2f} 亿元")
+            #print(f"股票代码: {data['symbol']}-{end_date}, 市值: {mv:.2f} 亿元")
             total_mv += mv
         avg_mv = total_mv / len(stock_list)
-        print(f"平均市值: {avg_mv:.2f} 亿元")
+        #print(f"平均市值: {avg_mv:.2f} 亿元")
         return avg_mv
     
     def calculate_wpg(self, date):

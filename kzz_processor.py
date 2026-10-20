@@ -73,7 +73,7 @@ class ConvertBondDetailFetcher:
             "lowering_trigger_price": self._extract_text_by_id(html_text, "threshold_value"),
             "last_trade_date": self._extract_label_value(html_text, "最后交易日"),
             "last_convert_date": self._extract_label_value(html_text, "最后转股日"),
-            "year_left": self._extract_text_by_id(html_text, "year_term"),
+            "year_left": self._extract_year_left(html_text),
             "sell_start_date": self._extract_label_value(html_text, "回售起算日"),
             "maturity_dt": self._extract_label_value(html_text, "到期日"),
             "maturity_price": self._extract_label_value(html_text, "到期赎回价"),
@@ -91,6 +91,20 @@ class ConvertBondDetailFetcher:
             return ""
         value = match.group(1)
         return self._normalize_text(value)
+
+    def _extract_year_left(self, html_text: str) -> str:
+        value = self._extract_text_by_id(html_text, "year_term")
+        if not value:
+            return ""
+        # 剩余时间以"天"显示时，换算成年（保留3位小数）
+        days_match = re.fullmatch(r"(\d+(?:\.\d+)?)\s*天", value)
+        if days_match:
+            return f"{float(days_match.group(1)) / 365:.3f}"
+        # 以"年"显示时去掉单位
+        year_match = re.fullmatch(r"(\d+(?:\.\d+)?)\s*年", value)
+        if year_match:
+            return year_match.group(1)
+        return value
 
     def _extract_force_redeem_price(self, html_text: str) -> str:
         pattern = r'id="force_redeem_price"[^>]*>(.*?)<sup'

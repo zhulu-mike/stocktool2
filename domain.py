@@ -287,6 +287,8 @@ def doinit(context):
         ]
         group_range = [-50, -40, -30, -20, 0, 5, 10, 15, 20, 25, 30, 50, 100, 200, 100000]
         calculate_market_profit(time_orders, group_range, flag)
+    elif flag==14:
+        stat_mv_distribution()
     elif flag==20:
         time_orders = [
             ["2024-09-23", "2024-10-08", "第一波"],
@@ -649,7 +651,7 @@ def doinit(context):
         diff_dfcf_wpg()
         pass
     elif flag==55555:
-        calculate_my_profit('202609')
+        calculate_my_profit('202610')
     elif flag==666:
         calculate_attention()
     elif flag==777:
@@ -859,6 +861,65 @@ def searchWPG():
     avg1 = avg2
     avg2 = processor.calculate_wpg("2025-12-31")
     print("=======2025年微盘股β收益=", f"{avg2/avg1*100-100:.2f}%")
+
+def stat_mv_distribution():
+    #统计最新交易日的全市场市值分布(单位:亿元)，数据来源本地kline目录
+    base_dir = "stocks/kline"
+    if not os.path.exists(base_dir):
+        print("kline 目录不存在:", base_dir)
+        return
+    #排除名字里带ST的股票
+    st_codes = set()
+    with open('stocks/all_base.json', 'r', encoding='utf-8') as file:
+        for item in json.load(file):
+            if "ST" in item.get("stock_name", ""):
+                st_codes.add(item["stock_code"])
+    records = []  #(code, 最后日期, 最后市值)
+    for prefix in sorted(os.listdir(base_dir)):
+        d = os.path.join(base_dir, prefix)
+        if not os.path.isdir(d):
+            continue
+        for fn in os.listdir(d):
+            if not fn.endswith(".parquet"):
+                continue
+            code = fn[:-8]
+            if code.startswith("9"):
+                continue  #排除9开头的代码(B股/北交所)
+            if code in st_codes:
+                continue  #排除名字带ST的股票
+            try:
+                df = pd.read_parquet(os.path.join(d, fn), columns=["date", "tot_mv"])
+            except Exception:
+                continue
+            if df.empty:
+                continue
+            df = df.sort_values("date")
+            last = df.iloc[-1]
+            if pd.isna(last["tot_mv"]):
+                continue
+            records.append((code, str(last["date"])[:10], last["tot_mv"]))
+    if not records:
+        print("无可用kline数据")
+        return
+    latest_date = max(r[1] for r in records)
+    #只统计最新交易日有数据的股票(停牌/退市无当日数据自然剔除)
+    day_mvs = [r[2] for r in records if r[1] == latest_date]
+    labels = ["0-20", "20-25", "25-30", "30-35", "35-40", "40-45", "45-50",
+              "50-100", "100-200", "200-500", "500-1000", "1000以上"]
+    bounds = [0, 20, 25, 30, 35, 40, 45, 50, 100, 200, 500, 1000]
+    counts = [0] * len(labels)
+    for mv in day_mvs:
+        mv_yi = mv / 100000000  #转换为亿元
+        idx = int(np.searchsorted(bounds, mv_yi, side='right')) - 1
+        if idx < 0:
+            idx = 0
+        counts[idx] += 1
+    print(f"最新交易日: {latest_date}, 统计股票数: {len(day_mvs)}")
+    print("分组        股票数量    累计数量")
+    cum = 0
+    for label, cnt in zip(labels, counts):
+        cum += cnt
+        print(f"{label:<12}{cnt:<12}{cum}")
 
 def fetch_dfcf_wpg(output_path="stocks/dfcf_wpg.json"):
     # 东方财富微盘股板块(bk1158)成员，逐页抓取并提取股票代码
@@ -1130,63 +1191,7 @@ def etfFill():
             print("ETF 涨幅已写入 Excel")
         else:
             print(f"未找到日期 {today} 对应的行")
-        bonds = fetch_all_convert_bonds()
-        # ========== 新增的可转债数据写入逻辑 ==========
-        sheet_name = '全部可转债'
-        # 如果sheet已存在，先删除
-        if sheet_name in wb.sheetnames:
-            del wb[sheet_name]
         
-        # 重新创建sheet
-        sheet = wb.create_sheet(sheet_name)
-        
-        # 写入表头
-        headers = ['债券名称','债券代码', '股票代码', '股票名称', '转股价', '强赎价', '到期价', '下修价', 
-                '转股溢价率', '剩余年限', '强赎状态', '最后交易日', '最后转股日', '剩余规模(亿)', '到期日',
-                '转债最新价', '转债涨跌幅', '正股最新价', '正股涨跌幅']
-        sheet.append(headers)
-        
-        # 辅助函数：处理价格和涨跌幅的格式化
-        def format_value(value, divisor=1):
-            """格式化值，返回数字类型"""
-            if value is None or value == '':
-                return ''
-            try:
-                # 如果是带百分号的字符串，先去掉百分号
-                if isinstance(value, str):
-                    value = value.replace('%', '')
-                num = float(value)
-                if divisor != 1:
-                    num = num / divisor
-                return num
-            except (ValueError, TypeError):
-                return value
-        
-        # 写入数据
-        for bond in bonds:
-            row_data = [
-                bond.get('bond_name', ''),
-                bond.get('bond_id', ''),
-                bond.get('stock_id', ''),
-                bond.get('stock_name', ''),
-                format_value(bond.get('convert_price'), 1),
-                format_value(bond.get('force_redeem_price'), 1),
-                format_value(bond.get('maturity_price'), 1),
-                format_value(bond.get('lowering_trigger_price'), 1),
-                format_value(bond.get('premium_rate'), 1),
-                format_value(bond.get('year_left'), 1),
-                bond.get('force_redeem_status', ''),
-                bond.get('last_trade_date', ''),
-                bond.get('last_convert_date', ''),
-                format_value(bond.get('left_market_value', ''), 1),
-                format_value(bond.get('maturity_dt', '').replace('-', ''), 1),
-                format_value(bond.get('bond_price'), 1),
-                format_value(bond.get('bond_change'), 1),
-                format_value(bond.get('stock_price'), 1),
-                format_value(bond.get('stock_change'), 1),
-            ]
-            sheet.append(row_data)
-        print(f"可转债数据已写入 Excel，共 {len(bonds)} 条记录")
     # ========== 新增：读取 daily_data.json 并写入收益日记 sheet ==========
     daily_data_file = 'daily_data.json'
     if os.path.exists(daily_data_file):
@@ -1266,7 +1271,64 @@ def etfFill():
             print("未找到 '收益日记' sheet")
     else:
         print(f"未找到 {daily_data_file} 文件")
+    wb.save(file_path)
+    bonds = fetch_all_convert_bonds()
+    # ========== 新增的可转债数据写入逻辑 ==========
+    sheet_name = '全部可转债'
+    # 如果sheet已存在，先删除
+    if sheet_name in wb.sheetnames:
+        del wb[sheet_name]
     
+    # 重新创建sheet
+    sheet = wb.create_sheet(sheet_name)
+    
+    # 写入表头
+    headers = ['债券名称','债券代码', '股票代码', '股票名称', '转股价', '强赎价', '到期价', '下修价', 
+            '转股溢价率', '剩余年限', '强赎状态', '最后交易日', '最后转股日', '剩余规模(亿)', '到期日',
+            '转债最新价', '转债涨跌幅', '正股最新价', '正股涨跌幅']
+    sheet.append(headers)
+    
+    # 辅助函数：处理价格和涨跌幅的格式化
+    def format_value(value, divisor=1):
+        """格式化值，返回数字类型"""
+        if value is None or value == '':
+            return ''
+        try:
+            # 如果是带百分号的字符串，先去掉百分号
+            if isinstance(value, str):
+                value = value.replace('%', '')
+            num = float(value)
+            if divisor != 1:
+                num = num / divisor
+            return num
+        except (ValueError, TypeError):
+            return value
+    
+    # 写入数据
+    for bond in bonds:
+        row_data = [
+            bond.get('bond_name', ''),
+            bond.get('bond_id', ''),
+            bond.get('stock_id', ''),
+            bond.get('stock_name', ''),
+            format_value(bond.get('convert_price'), 1),
+            format_value(bond.get('force_redeem_price'), 1),
+            format_value(bond.get('maturity_price'), 1),
+            format_value(bond.get('lowering_trigger_price'), 1),
+            format_value(bond.get('premium_rate'), 1),
+            format_value(bond.get('year_left'), 1),
+            bond.get('force_redeem_status', ''),
+            bond.get('last_trade_date', ''),
+            bond.get('last_convert_date', ''),
+            format_value(bond.get('left_market_value', ''), 1),
+            format_value(bond.get('maturity_dt', '').replace('-', ''), 1),
+            format_value(bond.get('bond_price'), 1),
+            format_value(bond.get('bond_change'), 1),
+            format_value(bond.get('stock_price'), 1),
+            format_value(bond.get('stock_change'), 1),
+        ]
+        sheet.append(row_data)
+    print(f"可转债数据已写入 Excel，共 {len(bonds)} 条记录")
     # 保存并关闭
     wb.save(file_path)
     wb.close()
@@ -1486,6 +1548,12 @@ def calculate_market_profit(time_orders, group_range=None, flag=None, stock_list
                     break
             groups[group].append(code)
         group_agg = [len(g) for g in groups]
+        # 通过沪深300数据确认time_order[0]的最后一个有效交易日
+        hs300_datas = history(symbol="SHSE.000300", frequency='1d', start_time=time_order[0][0], end_time=time_order[0][1], fields='symbol, eob', adjust=ADJUST_POST, df=False)
+        hs300_days = sorted([d['eob'].strftime('%Y-%m-%d') for d in hs300_datas])
+        last_trade_day = hs300_days[-1] if hs300_days else time_order[0][1]
+        # 计算每个分组在最后一个有效交易日的平均市值(亿元)
+        group_mv_agg = [processor.calculate_stock_mv2(g, last_trade_day) if len(g) > 0 else 0 for g in groups]
         group_agg_result.append({"st": time_order[0][0], "et": time_order[0][1], "group_agg": group_agg})
         group_by_str = time_order[0][0]+"-"+time_order[0][1]
         out_path = "out/"

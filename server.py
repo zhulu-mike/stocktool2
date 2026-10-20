@@ -878,9 +878,9 @@ class RealtimeProxyHandler(SimpleHTTPRequestHandler):
                 self.end_headers()
                 self.wfile.write(json.dumps({"error": str(exc)}).encode("utf-8"))
                 return
-            os.makedirs(os.path.dirname(cache_path), exist_ok=True)
-            with open(cache_path, "wb") as f:
-                f.write(data)
+            #os.makedirs(os.path.dirname(cache_path), exist_ok=True)
+            #with open(cache_path, "wb") as f:
+            #    f.write(data)
         self.send_response(200)
         self.send_header("Content-Type", "application/pdf")
         self.send_header("Content-Length", str(len(data)))

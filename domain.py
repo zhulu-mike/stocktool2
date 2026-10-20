@@ -1272,6 +1272,8 @@ def etfFill():
     else:
         print(f"未找到 {daily_data_file} 文件")
     wb.save(file_path)
+    wb.close()
+    wb = load_workbook(file_path)
     bonds = fetch_all_convert_bonds()
     # ========== 新增的可转债数据写入逻辑 ==========
     sheet_name = '全部可转债'

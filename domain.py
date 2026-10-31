@@ -328,7 +328,7 @@ def doinit(context):
                 ["2026-07-31", today_str, "科技反弹"],
             ],
             [
-                ["2026-01-05", "2026-06-10", "牛市后段"]
+                ["2024-09-23", today_str, "牛市全段"]
             ],
             [
                 ["2026-03-23", "2026-06-10", "牛市后段"]
@@ -660,6 +660,8 @@ def doinit(context):
         p.process_all_stocks(force_update=False)
     elif flag==22222:
         download_all_stock_balance(rpt_type=12,start_date="2010-01-01",end_date="2026-06-30")
+    elif flag==888:
+        fetch_dfcf_rzrq()
     
 
 
@@ -965,6 +967,56 @@ def fetch_dfcf_wpg(output_path="stocks/dfcf_wpg.json"):
         json.dump(codes, f, ensure_ascii=False, indent=4)
     print(f"微盘股板块成员共 {len(codes)} 只, 已保存到 {output_path}")
     return codes
+
+def fetch_dfcf_rzrq(output_path="stocks/dfcf_rzrq.json"):
+    # 东方财富融资融券历史数据(RPTA_RZRQ_LSHJ)，逐页抓取全部记录
+    rzrq_url = "https://datacenter-web.eastmoney.com/api/data/v1/get?callback=&reportName=RPTA_RZRQ_LSHJ&columns=ALL&source=WEB&sortColumns=dim_date&sortTypes=-1&pageNumber=$PAGE_NUM$&pageSize=500&filter=&p=$PAGE_NUM$&pageNo=$PAGE_NUM$&pageNum=$PAGE_NUM$&_=1793460174009"
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "Referer": "https://data.eastmoney.com/rzrq/",
+        "Cookie": "AUTH_FUND.EASTMONEY.COM_GSJZ=AUTH*TTJJ*TOKEN; st_nvi=SkIqvwBz3l82QtzxZjshG12fa; EMFUND1=null; EMFUND2=null; EMFUND3=null; EMFUND4=null; EMFUND5=null; EMFUND0=null; EMFUND6=09-05%2010%3A06%3A48@%23%24%u5EFA%u4FE1%u9886%u822A%u91CF%u5316%u9009%u80A1%u80A1%u7968%u578B%u53D1%u8D77A@%23%24027223; EMFUND7=09-05%2010%3A07%3A25@%23%24%u5929%u5F18%u4E0A%u8BC1%u79D1%u521B%u677F%u82AF%u7247%u6307%u6570A@%23%24027734; EMFUND8=09-05%2010%3A07%3A48@%23%24%u946B%u5143%u946B%u9009%u6052%u6CF0%u7A33%u5065%u914D%u7F6E3%u4E2A%u6708%u6301%u6709%u671F%u6DF7%u5408%28FOF%29A@%23%24026740; EMFUND9=09-05 10:10:46@#$%u521B%u4E1A%u677F%u7B97%u529BETF%u56FD%u6CF0@%23%24158055; st_si=65659534849093; nid18=0e17cb22ecf6960f4858bfd8cbdced17; nid18_create_time=1789655133276; gviem=Mco9O8nIa0z1DJP24uN-W14e0; gviem_create_time=1789655133276; has_jump_to_web=1; fullscreengg2=1; quote_lt=1; ws_login_gg=1; p_origin=https%3A%2F%2Fpassport2.eastmoney.com; st_asi=delete; mtp=1; ct=2ArbKfISCJe8GwU6mWlDDi_VK2DFH52_73iYr8TK67Oe_G_gMj8Z0CaO6wycrPFK9M_oeRUUA-I9THsr_7sZfNJ0xvFJ8RSyFvrxeY68BiYFu4RQ4yIELQxN88H5wwFnF5T7xX-d5TknXiosESRWySsgJoHYQWdBszGgyGq9aAU; ut=FobyicMgeV5FJnFT189SwF-NvM3s1TRt4j3RlON--x-8Avtz51jR3VK_ozfoP0dw1hbEbPMZk-wSq-xam5ns11b0OW-n0sEuna0dFui3j3sgpKcRUGH3dgMCesPoJvfJJn0dOZuoi3etv-WT4N2DCBwFKh3zM94mHaRXepZGjQKTbcqMhr86DaaLi2xWXRble26QASyVLx_nNDm4XC4d-xSxb0eGOu3uiAT9CnoX0diURuMPY1pIyi_RzkTg-7h86_r6EJJZ8_3Hjv8s7CvI0PcQAPmD8uO0CUyR7HQqTEUm6qKILeTeoEO3m3nuQzYtjsuFr9CX_e-_AuxJUju9BgJtyBkZRRUy; pi=3046094285466864%3Bm3046094285466864%3Briverriverriver%3BIikdl0p8X1yotHMB9cONfY1ICzkXcg8rqtS2McoqFdir7INjcviAr%2FcMy7Gc8Sw5Qj9S2DVNxxOKjNBCV%2BSuE2yAxjc%2BvApTyYgH3A8MKPNDxobWfXk6e7OcD9hsaWYxgLJxG7PoUJNS8oxzXAsQvdXcfHrGGAI1n5QvLOVwZLyclFiq%2B%2B1NPFeU0arU%2FbRj4AFtvV9B%3BK4hL5jCIDvsiqRRn6RnK0NPjSU6%2F5PRNBmqV%2FBu6uQydrrW%2Bf24uj1Eh%2FC7IZHLJcU2KXH4PL73pM6fgb2YzaP2R4uc2mmU%2FyKWJWneP8Rjf3Jrf0FNnhGkITAZwa%2Fvii363d7fTEpXqZXmKcMp3kfkY5GtvIg%3D%3D; uidal=3046094285466864riverriverriver; sid=2505195; vtpst=|; wsc_checkuser_ok=1; qgqp_b_id=9d1493e3cd6b27e7e9a2ad7b74967b8b; ws_tc_gg=1; st_pvi=60390339319309; st_sp=2025-08-25%2022%3A04%3A09; st_inirUrl=https%3A%2F%2Fwww.baidu.com%2Flink; st_sn=23; st_psi=2026093009152444-113200301321-2690245333",
+    }
+    session = requests.Session()
+    session.headers.update(headers)
+
+    records = []
+    page_num = 1
+    total_pages = 1
+    while True:
+        url = rzrq_url.replace("$PAGE_NUM$", str(page_num))
+        try:
+            response = session.get(url, timeout=15)
+            if response.status_code != 200:
+                print(f"第{page_num}页请求失败, 状态码: {response.status_code}")
+                break
+            data = json.loads(response.text)
+        except Exception as e:
+            print(f"第{page_num}页解析失败: {e}")
+            break
+
+        result = data.get("result") or {}
+        page_data = result.get("data") or []
+        if page_num == 1:
+            total_pages = result.get("pages") or 1
+            print(f"融资融券历史数据共 {result.get('count')} 条, {total_pages} 页")
+        if not page_data:
+            break
+        records.extend(page_data)
+        print(f"第{page_num}/{total_pages}页获取 {len(page_data)} 条, 累计 {len(records)} 条")
+        if page_num >= total_pages:
+            break
+        page_num += 1
+        time.sleep(random.uniform(0.4, 0.8))
+
+    if not records:
+        print("未获取到融资融券数据")
+        return []
+
+    records.sort(key=lambda r: r.get("DIM_DATE") or "")
+    with open(output_path, "w", encoding="utf-8") as f:
+        json.dump(records, f, ensure_ascii=False, indent=4)
+    print(f"融资融券历史数据共 {len(records)} 条, 已保存到 {output_path}")
+    return records
 
 def diff_dfcf_wpg(output_path="stocks/dfcf_wpg.json"):
     # 先读取旧的微盘股成员，再抓取最新的，比较两次的差集

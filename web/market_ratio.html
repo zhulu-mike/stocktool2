@@ -82,7 +82,10 @@
           }
         });
         
-        jsonFiles.sort();
+        // 数据源按日期从大到小排序（最新在前）
+        jsonFiles.sort(function(a, b) {
+          return b.localeCompare(a);
+        });
         
         dataSourceSelect.innerHTML = '';
         jsonFiles.forEach(file => {
